@@ -6,7 +6,7 @@ apply plugin: 'kotlin-kapt'
 android {
   compileSdkVersion 28
   defaultConfig {
-    applicationId "mersan.space.movlan"
+    applicationId "space.ersan.movlan"
     minSdkVersion 21
     targetSdkVersion 28
     versionCode 1
@@ -18,17 +18,27 @@ android {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+    debug {
+      applicationIdSuffix = '.debug'
+      versionNameSuffix = '-debug'
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+kotlin {
+  experimental {
+    coroutines "enable"
   }
 }
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-  ////
-
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
   implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.25.0"
-  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.27.0-eap13"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.23.4"
 
   implementation 'androidx.appcompat:appcompat:1.0.0'
   implementation 'com.google.android.material:material:1.0.0'
@@ -36,6 +46,8 @@ dependencies {
   implementation 'androidx.cardview:cardview:1.0.0'
   implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
   implementation 'androidx.core:core-ktx:1.0.0'
+  implementation 'androidx.room:room-runtime:2.1.0-alpha01'
+  kapt 'androidx.room:room-compiler:2.1.0-alpha01'
 
   implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
   implementation 'io.reactivex.rxjava2:rxjava:2.1.14'
@@ -45,33 +57,13 @@ dependencies {
   implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
   implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
   implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
-  implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+  implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
 
   implementation 'com.github.bumptech.glide:glide:4.6.1'
-  kapt 'com.github.bumptech.glide:compiler:4.7.1'
+//  kapt 'androidx.annotation:annotation:1.0.0'
+//  kapt 'com.github.bumptech.glide:compiler:4.7.1'
 
   implementation 'com.google.dagger:dagger:2.16'
   kapt 'com.google.dagger:dagger-compiler:2.16'
 
-  implementation 'com.ryanjeffreybrooks:indefinitepagerindicator:1.0.8'
-
-  testImplementation 'junit:junit:4.12'
-  androidTestImplementation 'androidx.test:runner:1.1.0-beta01'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta01'
-
-  implementation 'nz.bradcampbell:paperparcel:2.0.6'
-  implementation 'nz.bradcampbell:paperparcel-kotlin:2.0.6'
-  kapt 'nz.bradcampbell:paperparcel-compiler:2.0.6'
-
-  // Testing //
-//  testImplementation "com.nhaarman:mockito-kotlin-kt1.1:1.5.0"
-//  implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-//  testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
-//  testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-//  testImplementation 'com.squareup.okio:okio:1.14.1'
-
-
-  testImplementation 'junit:junit:4.12'
-  androidTestImplementation 'androidx.test:runner:1.1.0-beta01'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-beta01'
 }

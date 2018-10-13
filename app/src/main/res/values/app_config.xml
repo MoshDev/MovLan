@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="movie_db_api_base_url">https://api.themoviedb.org/3/</string>
+  <string name="movie_db_api_key">5d66a45677199ff38b6070adc8141e75</string>
+  <string name="movie_db_thumbnail_url">https://image.tmdb.org/t/p/w300</string>
+  <string name="movie_db_poster_url">http://image.tmdb.org/t/p/w300</string>
+
+</resources>
