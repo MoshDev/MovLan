@@ -3,12 +3,11 @@ package space.ersan.movlan.home
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import space.ersan.movlan.data.model.Genre
 import space.ersan.movlan.data.model.GenreList
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.model.MovieList
-import space.ersan.movlan.data.source.Maybe
 import space.ersan.movlan.data.source.MoviesRepository
+import space.ersan.movlan.utils.Maybe
 import java.util.concurrent.atomic.AtomicInteger
 
 class HomeViewModel(application: Application, private val moviesRepository: MoviesRepository) : AndroidViewModel(

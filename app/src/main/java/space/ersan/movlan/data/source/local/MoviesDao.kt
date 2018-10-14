@@ -1,5 +1,6 @@
 package space.ersan.movlan.data.source.local
 
+import androidx.paging.DataSource
 import androidx.room.*
 import com.google.gson.Gson
 import space.ersan.movlan.data.model.Genre
@@ -20,45 +21,11 @@ abstract class MoviesDb : RoomDatabase() {
 @Dao
 interface MoviesDao {
 
-  @Query("SELECT * FROM movie")
-  fun getAll(): List<Movie>
+  @Query("SELECT * FROM movie WHERE page=:page ORDER BY indexInListing ASC")
+  fun getMoviesByPage(page: Int): DataSource.Factory<Int, Movie>
 
-  @Update(onConflict = OnConflictStrategy.REPLACE)
-  fun update(movie: Movie)
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  fun insert(movies: List<Movie>)
 
 }
 
-class GenreTypeConverter {
-
-  private val gson = Gson()
-
-  @TypeConverter
-  fun toList(value: String?): List<Genre>? = value?.let {
-    gson.fromJson(value, Array<Genre>::class.java)
-        .toMutableList()
-  }
-
-  @TypeConverter
-  fun toString(value: List<Genre>?): String? = value?.let { gson.toJson(value.toTypedArray()) }
-}
-
-
-class DateTypeConverter {
-
-  @TypeConverter
-  fun toDate(value: Long?): Date? = value?.let { Date(it) }
-
-  @TypeConverter
-  fun toLong(value: Date?): Long? = value?.time
-}
-
-class IntArrayTypeConverter {
-
-  private val gson = Gson()
-
-  @TypeConverter
-  fun toArray(value: String?): IntArray? = value?.let { gson.fromJson(value, IntArray::class.java) }
-
-  @TypeConverter
-  fun toString(value: IntArray?): String? = value.let { gson.toJson(value) }
-}
