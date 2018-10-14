@@ -1,5 +1,6 @@
 package space.ersan.movlan.data.source.remote
 
+import space.ersan.movlan.data.model.GenreList
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.model.MovieList
 import space.ersan.movlan.data.source.Maybe
@@ -19,6 +20,10 @@ class MoviesRemoteDataSource(private val api: MovieDbApi) : MoviesDataSource {
     Maybe.Error(err)
   }
 
-}
+  override suspend fun getGenres(): Maybe<GenreList> = try {
+    Maybe.Some(api.getGenres().await())
+  } catch (err: Exception) {
+    Maybe.Error(err)
+  }
 
-private fun Int?.isZero()  = this?.let { equals(0) }?:false
+}

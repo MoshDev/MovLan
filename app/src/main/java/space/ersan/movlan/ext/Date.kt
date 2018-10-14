@@ -16,5 +16,12 @@ object MovieDateParser {
   }
 }
 
+
+private val MOVIE_YEAR_DATE_FORMAT by lazy {
+  SimpleDateFormat("yyyy", Locale.US)
+}
+
 fun Date.toDeviceDate(context: Context): String =
     android.text.format.DateFormat.getMediumDateFormat(context).format(this)
+
+fun Date.toYear(): String = MOVIE_YEAR_DATE_FORMAT.format(this)

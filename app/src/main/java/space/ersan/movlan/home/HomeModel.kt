@@ -1,16 +1,21 @@
 package space.ersan.movlan.home
 
-import space.ersan.movlan.data.model.MovieList
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import space.ersan.movlan.data.model.Movie
 
-class HomeModel(private val viewModel: HomeViewModel) {
+class HomeModel(private val lifecycleOwner: LifecycleOwner, private val viewModel: HomeViewModel) {
 
-  fun getMovies(callback: (MovieList) -> Unit): Unit {
-
-//    moviesRepository.getPopularMovies(1, callback)
-
-    println("Mosh ${viewModel.createTime}")
-
+  fun observeLoadingStatus(clb: (Boolean) -> Unit) {
+    viewModel.isLoading.observe(lifecycleOwner, Observer(clb))
   }
 
+  fun observeMovies(clb: (List<Movie>) -> Unit) {
+    viewModel.movies.observe(lifecycleOwner, Observer(clb))
+  }
+
+  fun loadNextPage() {
+    viewModel.loadNextPage()
+  }
 
 }

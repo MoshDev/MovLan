@@ -5,6 +5,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
+@Suppress("ArrayInDataClass")
 @Entity(tableName = "movie")
 data class Movie(
     @SerializedName("adult") val adult: Boolean?,
@@ -27,11 +28,6 @@ data class Movie(
     @SerializedName("title") val title: String?,
     @SerializedName("video") val video: Boolean?,
     @SerializedName("vote_average") val voteAverage: Double?,
-    @SerializedName("vote_count") val voteCount: Int?
-) {
-
-  data class Genre(
-      @SerializedName("id") val id: Int?,
-      @SerializedName("name") val name: String?
-  )
-}
+    @SerializedName("vote_count") val voteCount: Int?,
+    @SerializedName("genre_ids") val genreIds : IntArray?
+)

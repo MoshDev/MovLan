@@ -2,6 +2,7 @@ package space.ersan.movlan.data.source.remote
 
 import kotlinx.coroutines.experimental.Deferred
 import retrofit2.http.*
+import space.ersan.movlan.data.model.GenreList
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.model.MovieList
 
@@ -12,5 +13,8 @@ interface MovieDbApi {
 
   @GET("movie/{movie_id}")
   fun getMovieDetails(@Query("movie_id") movieId: Int): Deferred<Movie>
+
+  @GET("genre/movie/list")
+  fun getGenres(): Deferred<GenreList>
 
 }

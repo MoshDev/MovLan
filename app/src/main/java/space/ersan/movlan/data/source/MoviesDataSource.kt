@@ -1,5 +1,6 @@
 package space.ersan.movlan.data.source
 
+import space.ersan.movlan.data.model.GenreList
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.model.MovieList
 
@@ -8,6 +9,8 @@ interface MoviesDataSource {
   suspend fun getPopularMovies(page: Int = 1): Maybe<MovieList>
 
   suspend fun getMovieDetails(movieId: Int): Maybe<Movie>
+
+  suspend fun getGenres(): Maybe<GenreList>
 
 }
 

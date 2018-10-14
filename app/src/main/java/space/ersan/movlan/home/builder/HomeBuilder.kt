@@ -35,7 +35,7 @@ class HomeModule(private val homeActivity: HomeActivity) {
 
   @Provides
   @HomeScope
-  fun provideHomeModel(viewModel: HomeViewModel) = HomeModel(viewModel)
+  fun provideHomeModel(viewModel: HomeViewModel) = HomeModel(homeActivity, viewModel)
 
   @Provides
   @HomeScope
