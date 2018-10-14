@@ -17,7 +17,7 @@ class HomeActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     Movlan.injector.inject(this)
     setContentView(homeView)
-    homePresenter.onCreate(savedInstanceState)
+    homePresenter.onCreate()
   }
 
 }
