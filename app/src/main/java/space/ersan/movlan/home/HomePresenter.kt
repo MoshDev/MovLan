@@ -5,7 +5,7 @@ import android.os.Bundle
 class HomePresenter(private val homeView: HomeView, private val homeModel: HomeModel) {
 
   fun onCreate(savedInstanceState: Bundle?) {
-
+    homeModel.getMovies(homeView::setMovies)
   }
 
 }

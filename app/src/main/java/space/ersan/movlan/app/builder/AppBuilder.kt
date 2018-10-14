@@ -1,23 +1,26 @@
 package space.ersan.movlan.app.builder
 
-import android.app.Application
 import dagger.Component
-import space.ersan.movlan.app.MovlanApp
-import space.ersan.movlan.data.model.AppConfig
+import space.ersan.movlan.app.MovlanViewModelFactory
+import space.ersan.movlan.data.source.MoviesRepository
+import space.ersan.movlan.image.ImageLoader
 import javax.inject.Scope
 
 @Scope
 annotation class AppScope
 
 @AppScope
-@Component(modules = [AppModule::class, AppConfigModule::class, GsonModule::class, ImageLoaderModule::class, RetrofitModule::class, MoviesDataSourceModule::class, AppCoroutineModule::class, DatabaseModule::class])
+@Component(modules = [
+  AppModule::class, AppConfigModule::class, GsonModule::class,
+  ImageLoaderModule::class, RetrofitModule::class, MoviesDataSourceModule::class,
+  AppCoroutineModule::class, DatabaseModule::class, ViewModelFactoryModule::class
+])
 interface AppComponent {
 
-  fun exposeAppConfig(): AppConfig
+  fun exposeMoviesRepository(): MoviesRepository
 
-  fun exposeMovlanApp(): MovlanApp
+  fun exposeThumbnailImageLoader(): ImageLoader.Thumbnail
 
-  fun exposeApplication(): Application
-
+  fun exposeViewModelFactory(): MovlanViewModelFactory
 
 }

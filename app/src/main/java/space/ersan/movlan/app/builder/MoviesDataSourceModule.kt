@@ -14,19 +14,18 @@ class MoviesDataSourceModule {
 
   @AppScope
   @Provides
-  fun localDataSource(cor: AppCoroutineDispatchers, moviesDao: MoviesDao) =
-      MoviesLocalDataSource(cor, moviesDao)
+  fun localDataSource(moviesDao: MoviesDao) = MoviesLocalDataSource(moviesDao)
 
 
   @AppScope
   @Provides
-  fun remoteDataSource(cor: AppCoroutineDispatchers, api: MovieDbApi) =
-      MoviesRemoteDataSource(cor, api)
+  fun remoteDataSource(api: MovieDbApi) = MoviesRemoteDataSource(api)
 
 
   @AppScope
   @Provides
-  fun moviesRepository(localDataSource: MoviesLocalDataSource, remoteDataSource: MoviesRemoteDataSource) =
-      MoviesRepository(localDataSource, remoteDataSource)
+  fun moviesRepository(cor: AppCoroutineDispatchers, localDataSource: MoviesLocalDataSource,
+                       remoteDataSource: MoviesRemoteDataSource) =
+      MoviesRepository(cor, localDataSource, remoteDataSource)
 
 }

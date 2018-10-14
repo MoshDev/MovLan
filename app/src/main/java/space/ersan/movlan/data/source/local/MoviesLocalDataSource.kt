@@ -1,15 +1,14 @@
 package space.ersan.movlan.data.source.local
 
-import space.ersan.movlan.data.source.MovieDetailsResult
+import space.ersan.movlan.data.model.Movie
+import space.ersan.movlan.data.model.MovieList
+import space.ersan.movlan.data.source.Maybe
 import space.ersan.movlan.data.source.MoviesDataSource
-import space.ersan.movlan.data.source.MoviesResult
-import space.ersan.movlan.utils.AppCoroutineDispatchers
 
-class MoviesLocalDataSource(private val cor: AppCoroutineDispatchers, moviesDao: MoviesDao) : MoviesDataSource {
+class MoviesLocalDataSource(moviesDao: MoviesDao) : MoviesDataSource {
 
-  override fun getPopularMovies(page: Int, callback: (MoviesResult) -> Unit) {
-  }
+  override suspend fun getPopularMovies(page: Int): Maybe<MovieList> = Maybe.None()
 
-  override fun getMovieDetails(movieId: Int, callback: (MovieDetailsResult) -> Unit) {
-  }
+  override suspend fun getMovieDetails(movieId: Int): Maybe<Movie> = Maybe.None()
+
 }

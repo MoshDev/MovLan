@@ -1,13 +1,14 @@
 package space.ersan.movlan.home.builder
 
+import androidx.lifecycle.ViewModelProviders
 import space.ersan.movlan.app.builder.AppComponent
-import space.ersan.movlan.home.HomeActivity
-import space.ersan.movlan.home.HomeModel
-import space.ersan.movlan.home.HomePresenter
-import space.ersan.movlan.home.HomeView
 import dagger.Component
 import dagger.Module
 import dagger.Provides
+import space.ersan.movlan.app.MovlanViewModelFactory
+import space.ersan.movlan.data.source.MoviesRepository
+import space.ersan.movlan.home.*
+import space.ersan.movlan.image.ImageLoader
 import javax.inject.Scope
 
 
@@ -28,13 +29,18 @@ class HomeModule(private val homeActivity: HomeActivity) {
 
   @Provides
   @HomeScope
-  fun provideHomeView(): HomeView {
-    return HomeView(homeActivity)
+  fun provideHomeView(thumbnailLoader: ImageLoader.Thumbnail): HomeView {
+    return HomeView(homeActivity, thumbnailLoader)
   }
 
   @Provides
   @HomeScope
-  fun provideHomeModel() = HomeModel(homeActivity)
+  fun provideHomeModel(viewModel: HomeViewModel) = HomeModel(viewModel)
+
+  @Provides
+  @HomeScope
+  fun provideHomeViewModel(factory: MovlanViewModelFactory) = ViewModelProviders.of(homeActivity,
+      factory).get(HomeViewModel::class.java)
 
 }
 

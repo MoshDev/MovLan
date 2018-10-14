@@ -5,18 +5,14 @@ import space.ersan.movlan.data.model.MovieList
 
 interface MoviesDataSource {
 
-  fun getPopularMovies(page: Int = 1, callback: (MoviesResult) -> Unit)
+  suspend fun getPopularMovies(page: Int = 1): Maybe<MovieList>
 
-  fun getMovieDetails(movieId: Int, callback: (MovieDetailsResult) -> Unit)
+  suspend fun getMovieDetails(movieId: Int): Maybe<Movie>
 
 }
 
-sealed class MoviesResult {
-  class Success(val result: MovieList) : MoviesResult()
-  class Error(val error: Exception) : MoviesResult()
-}
-
-sealed class MovieDetailsResult {
-  class Success(val result: Movie) : MovieDetailsResult()
-  class Error(val error: Exception) : MovieDetailsResult()
+sealed class Maybe<T> {
+  class Some<T>(val value: T) : Maybe<T>()
+  class Error<T>(val error: Exception) : Maybe<T>()
+  class None<T> : Maybe<T>()
 }

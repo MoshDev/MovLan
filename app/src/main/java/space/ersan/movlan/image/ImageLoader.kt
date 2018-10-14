@@ -7,8 +7,11 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import space.ersan.movlan.R
+import space.ersan.movlan.data.model.Movie
 
-sealed class ImageLoader(private val requestManager: RequestManager, private val imagesBaseUrl: String) {
+sealed class ImageLoader(private val requestManager: RequestManager,
+                         private val imagesBaseUrl: String,
+                         private val pathResolver: (Movie) -> String?) {
 
   private companion object {
     private val defaultRequestOptions = RequestOptions()
@@ -17,12 +20,16 @@ sealed class ImageLoader(private val requestManager: RequestManager, private val
   }
 
   class Thumbnail(application: Application) : ImageLoader(Glide.with(application)
-      .applyDefaultRequestOptions(defaultRequestOptions), application.getString(R.string.movie_db_thumbnail_url))
+      .applyDefaultRequestOptions(defaultRequestOptions),
+      application.getString(R.string.movie_db_thumbnail_url), { it.posterPath })
 
   class Poster(application: Application) : ImageLoader(Glide.with(application)
-      .applyDefaultRequestOptions(defaultRequestOptions), application.getString(R.string.movie_db_thumbnail_url))
+      .applyDefaultRequestOptions(defaultRequestOptions),
+      application.getString(R.string.movie_db_thumbnail_url), { it.posterPath })
 
-  fun loadImage(imageView: ImageView, url: String?) {
-    requestManager.load("$imagesBaseUrl$url").transition(DrawableTransitionOptions.withCrossFade()).into(imageView)
+  fun loadImage(imageView: ImageView, movie: Movie) {
+    requestManager.load("$imagesBaseUrl${pathResolver(movie)}")
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .into(imageView)
   }
 }

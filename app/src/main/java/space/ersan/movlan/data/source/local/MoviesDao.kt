@@ -3,9 +3,10 @@ package space.ersan.movlan.data.source.local
 import androidx.room.*
 import com.google.gson.Gson
 import space.ersan.movlan.data.model.Movie
+import java.util.*
 
 @Database(entities = [(Movie::class)], version = 1, exportSchema = false)
-@TypeConverters(GenreTypeConverter::class)
+@TypeConverters(GenreTypeConverter::class, DateTypeConverter::class)
 abstract class MoviesDb : RoomDatabase() {
 
   companion object {
@@ -38,4 +39,14 @@ class GenreTypeConverter {
 
   @TypeConverter
   fun toString(value: List<Movie.Genre>?): String? = value?.let { gson.toJson(value.toTypedArray()) }
+}
+
+
+class DateTypeConverter {
+
+  @TypeConverter
+  fun toDate(value: Long?): Date? = value?.let { Date(it) }
+
+  @TypeConverter
+  fun toLong(value: Date?): Long? = value?.time
 }

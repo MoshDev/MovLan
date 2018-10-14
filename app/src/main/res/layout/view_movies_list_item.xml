@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="200dp"
+  android:layout_marginStart="16dp"
+  android:layout_marginTop="4dp"
+  android:layout_marginEnd="16dp"
+  android:layout_marginBottom="8dp"
+  android:clickable="true"
+  android:clipChildren="false"
+  android:clipToPadding="false"
+  android:focusable="true"
+  android:foreground="?selectableItemBackground"
+  android:orientation="horizontal">
+
+  <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="130dp"
+    android:layout_height="196dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="8dp">
+
+    <ImageView
+      android:id="@+id/thumbnailImageView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:scaleType="centerCrop"
+      android:src="@drawable/sample1" />
+
+  </com.google.android.material.card.MaterialCardView>
+
+
+  <LinearLayout
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:background="#3F00">
+
+    <TextView
+      android:id="@+id/titleTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="The Movie Title Goes Here"
+      android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+
+    <com.google.android.material.chip.Chip
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:checkable="false"
+      android:clickable="false"
+      android:text="Hello"
+      android:textSize="8sp"
+      app:checkedIconVisible="false" />
+
+    <TextView
+      android:id="@+id/yearTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      tools:text="2019" />
+
+  </LinearLayout>
+
+
+</LinearLayout>

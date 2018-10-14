@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import javax.inject.Inject
 
-abstract class BaseFragment<V : BaseView, P : BasePresenter> : Fragment(), Navigator, LifeCycleAware {
+abstract class BaseFragment<V : BaseView, P : BasePresenter> : Fragment() {
 
   @Inject
   lateinit var view: V
@@ -32,17 +32,6 @@ abstract class BaseFragment<V : BaseView, P : BasePresenter> : Fragment(), Navig
     presenter.onDestroy()
   }
 
-  override fun showFragment(fragment: Fragment, tag: String?, addToBackStack: Boolean) {
-
-  }
-
-  override fun popUp() {
-    childFragmentManager.popBackStack()
-  }
-
-  override fun onVisibilityChangeRequest(visible: Boolean) {
-  }
-
   override fun onPause() {
     super.onPause()
     presenter.onPause()
@@ -52,9 +41,4 @@ abstract class BaseFragment<V : BaseView, P : BasePresenter> : Fragment(), Navig
     super.onStart()
     presenter.onStart()
   }
-}
-
-interface Navigator {
-  fun showFragment(fragment: Fragment, tag: String? = null, addToBackStack: Boolean = true)
-  fun popUp()
 }

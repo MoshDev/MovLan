@@ -3,6 +3,7 @@ package space.ersan.movlan.data.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 @Entity(tableName = "movie")
 data class Movie(
@@ -18,7 +19,7 @@ data class Movie(
     @SerializedName("overview") val overview: String?,
     @SerializedName("popularity") val popularity: Double?,
     @SerializedName("poster_path") val posterPath: String?,
-    @SerializedName("release_date") val releaseDate: String?,
+    @SerializedName("release_date") val releaseDate: Date?,
     @SerializedName("revenue") val revenue: Int?,
     @SerializedName("runtime") val runtime: Int?,
     @SerializedName("status") val status: String?,
