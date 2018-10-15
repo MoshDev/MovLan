@@ -8,7 +8,7 @@ import space.ersan.movlan.data.model.Genre
 import space.ersan.movlan.data.model.Movie
 import java.util.*
 
-@Database(entities = [(Movie::class)], version = 1, exportSchema = false)
+@Database(entities = [Movie::class, Genre::class], version = 1, exportSchema = false)
 @TypeConverters(GenreTypeConverter::class, DateTypeConverter::class, IntArrayTypeConverter::class)
 abstract class MoviesDb : RoomDatabase() {
 
@@ -26,13 +26,22 @@ interface MoviesDao {
   fun getMovies(): DataSource.Factory<Int, Movie>
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  fun insert(movies: List<Movie>)
+  fun insertMovies(movies: List<Movie>)
 
   @Query("DELETE FROM movie")
-  fun deleteAll()
+  fun deleteAllMovies()
 
   @Query("DELETE FROM movie WHERE page<> :pageToKeep")
-  fun deleteAllExcept(pageToKeep: Int)
+  fun deleteAllMoviesExcept(pageToKeep: Int)
+
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  fun insertGenres(genres: List<Genre>)
+
+  @Query("SELECT * FROM genre")
+  fun getGenres() : List<Genre>
+
+  @Query("DELETE FROM genre")
+  fun deleteAllGenres()
 
 }
 

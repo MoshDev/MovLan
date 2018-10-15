@@ -10,7 +10,7 @@ import java.util.*
 data class Movie(
     @SerializedName("adult") val adult: Boolean?,
     @SerializedName("backdrop_path") val backdropPath: String?,
-    @SerializedName("genres") val genres: List<Genre?>?,
+    @SerializedName("genres") var genres: List<Genre>?,
     @SerializedName("homepage") val homepage: String?,
     @PrimaryKey @SerializedName("id") val id: Int,
     @SerializedName("imdb_id") val imdbId: String?,
@@ -27,6 +27,6 @@ data class Movie(
     @SerializedName("vote_average") val voteAverage: Double?,
     @SerializedName("vote_count") val voteCount: Int?,
     @SerializedName("genre_ids") val genreIds: IntArray?,
-    var page: Int = 1,
-    var indexInListing: Int = -1
+    val page: Int = 1,
+    val indexInListing: Int = 0
 )

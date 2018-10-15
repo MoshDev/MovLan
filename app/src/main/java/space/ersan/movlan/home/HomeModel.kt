@@ -4,11 +4,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import space.ersan.movlan.data.model.Movie
+import space.ersan.movlan.utils.NetworkStatus
 
 class HomeModel(private val lifecycleOwner: LifecycleOwner, private val viewModel: HomeViewModel) {
 
-  fun observeLoadingStatus(clb: (Boolean) -> Unit) {
-    viewModel.isLoading.observe(lifecycleOwner, Observer(clb))
+  fun observeNetworkStatus(clb: (NetworkStatus) -> Unit) {
+    viewModel.networkStatus.observe(lifecycleOwner, Observer(clb))
   }
 
   fun observeMovies(clb: (PagedList<Movie>) -> Unit) {

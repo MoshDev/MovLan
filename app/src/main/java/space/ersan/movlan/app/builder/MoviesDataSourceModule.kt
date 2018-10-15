@@ -9,6 +9,7 @@ import space.ersan.movlan.data.source.local.MoviesLocalDataSource
 import space.ersan.movlan.data.source.remote.MoviesRemoteDataSource
 import space.ersan.movlan.data.source.remote.MovieDbApi
 import space.ersan.movlan.utils.AppCoroutineDispatchers
+import space.ersan.movlan.utils.LiveNetworkStatus
 
 @Module
 class MoviesDataSourceModule {
@@ -26,16 +27,26 @@ class MoviesDataSourceModule {
   @AppScope
   @Provides
   fun moviesRepository(cor: AppCoroutineDispatchers, localDataSource: MoviesLocalDataSource,
-                       remoteDataSource: MoviesRemoteDataSource, moviesDbBoundaryCallback: MoviesDbBoundaryCallback) =
-      MoviesRepository(cor, localDataSource, remoteDataSource, moviesDbBoundaryCallback)
+                       remoteDataSource: MoviesRemoteDataSource, moviesDbBoundaryCallback: MoviesDbBoundaryCallback, networkStatus: LiveNetworkStatus) =
+      MoviesRepository(cor,
+          localDataSource,
+          remoteDataSource,
+          moviesDbBoundaryCallback,
+          networkStatus)
 
   @AppScope
   @Provides
   fun moviesDbBoundaryCallback(cor: AppCoroutineDispatchers, localDataSource: MoviesLocalDataSource,
-                               remoteDataSource: MoviesRemoteDataSource) = MoviesDbBoundaryCallback(
-      cor,
-      remoteDataSource,
-      localDataSource)
+                               remoteDataSource: MoviesRemoteDataSource, networkStatus: LiveNetworkStatus) =
+      MoviesDbBoundaryCallback(cor,
+          remoteDataSource,
+          localDataSource, networkStatus)
+
+  @AppScope
+  @Provides
+  fun movieDataSourceNetworkStatus(): LiveNetworkStatus {
+    return LiveNetworkStatus()
+  }
 
 
 }

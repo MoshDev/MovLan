@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.MediatorLiveData
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import space.ersan.movlan.R
@@ -71,9 +72,8 @@ class MoviesListItemViewHolder(private val thumbnailLoader: ImageLoader.Thumbnai
     releaseYearTextView.text = item.releaseDate?.toYear() ?: ""
     ratingTextView.text = item.voteAverage?.toString() ?: ":| "
     genresTextView.text = item.genres?.joinToString(" | ") { genre ->
-      genre?.name ?: ""
+      genre.name ?: ""
     }
-    genresTextView.text = "${item.indexInListing} "
   }
 
 }
