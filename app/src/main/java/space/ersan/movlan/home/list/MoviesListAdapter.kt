@@ -13,7 +13,7 @@ import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.ext.toYear
 import space.ersan.movlan.image.ImageLoader
 
-class MoviesListAdapter(private val thumbnailLoader: ImageLoader.Thumbnail) : PagedListAdapter<Movie, MoviesListItemViewHolder>(
+class MoviesListAdapter(private val posterLoader: ImageLoader.Poster) : PagedListAdapter<Movie, MoviesListItemViewHolder>(
     DIFF_CALLBACK) {
 
   override fun onBindViewHolder(holder: MoviesListItemViewHolder, position: Int) {
@@ -35,7 +35,7 @@ class MoviesListAdapter(private val thumbnailLoader: ImageLoader.Thumbnail) : Pa
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesListItemViewHolder {
     val inflater = LayoutInflater.from(parent.context)
-    return MoviesListItemViewHolder(thumbnailLoader,
+    return MoviesListItemViewHolder(posterLoader,
         inflater.inflate(R.layout.view_movies_list_item, parent, false),
         innerCallback)
   }
@@ -56,7 +56,7 @@ class MoviesListAdapter(private val thumbnailLoader: ImageLoader.Thumbnail) : Pa
   }
 }
 
-class MoviesListItemViewHolder(private val thumbnailLoader: ImageLoader.Thumbnail,
+class MoviesListItemViewHolder(private val posterLoader: ImageLoader.Poster,
                                view: View, private val callback: (Movie) -> Unit)
   : RecyclerView.ViewHolder(view) {
 
@@ -68,7 +68,7 @@ class MoviesListItemViewHolder(private val thumbnailLoader: ImageLoader.Thumbnai
 
   fun onBind(item: Movie) {
     itemView.setOnClickListener { callback(item) }
-    thumbnailLoader.loadImage(thumbnailImageView, item)
+    posterLoader.loadImage(thumbnailImageView, item)
     titleTextView.text = item.title
     releaseYearTextView.text = item.releaseDate?.toYear() ?: ""
     ratingTextView.text = item.voteAverage?.toString() ?: ":| "

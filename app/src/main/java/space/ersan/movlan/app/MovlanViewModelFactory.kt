@@ -13,10 +13,15 @@ class MovlanViewModelFactory(private val application: Application, private val m
 
   override fun <T : ViewModel> create(modelClass: Class<T>): T = with(modelClass) {
     when {
-      isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(application,
-          moviesRepository,
-          networkStatus)
-      isAssignableFrom(MovieDetailsViewModel::class.java) -> MovieDetailsViewModel(application)
+      isAssignableFrom(HomeViewModel::class.java) -> {
+        HomeViewModel(application,
+            moviesRepository,
+            networkStatus)
+      }
+      isAssignableFrom(MovieDetailsViewModel::class.java) -> {
+        MovieDetailsViewModel(application,
+            moviesRepository)
+      }
       else -> throw IllegalArgumentException("Cannot find ViewModel class for ${modelClass.name}")
     }
   } as T

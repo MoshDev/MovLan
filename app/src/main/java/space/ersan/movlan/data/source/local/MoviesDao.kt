@@ -38,10 +38,12 @@ interface MoviesDao {
   fun insertGenres(genres: List<Genre>)
 
   @Query("SELECT * FROM genre")
-  fun getGenres() : List<Genre>
+  fun getGenres(): List<Genre>
 
   @Query("DELETE FROM genre")
   fun deleteAllGenres()
 
+  @Query("SELECT * From movie WHERE id== :movieId LIMIT 1")
+  fun getMovie(movieId: Int): Movie?
 }
 

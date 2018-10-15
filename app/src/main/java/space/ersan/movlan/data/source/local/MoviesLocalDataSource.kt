@@ -24,5 +24,6 @@ class MoviesLocalDataSource(private val moviesDao: MoviesDao) {
   fun getGenres() = moviesDao.getGenres()
   fun insertAllGenres(genres: List<Genre>) = moviesDao.insertGenres(genres)
   fun deleteAllGenres() = moviesDao.deleteAllGenres()
+  fun getMovie(movieId: Int)  = moviesDao.getMovie(movieId)
 
 }

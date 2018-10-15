@@ -19,7 +19,9 @@ interface AppComponent {
 
   fun exposeMoviesRepository(): MoviesRepository
 
-  fun exposeThumbnailImageLoader(): ImageLoader.Thumbnail
+  fun exposePosterImageLoader(): ImageLoader.Poster
+
+  fun exposeBackdropImageLoader(): ImageLoader.Backdrop
 
   fun exposeViewModelFactory(): MovlanViewModelFactory
 

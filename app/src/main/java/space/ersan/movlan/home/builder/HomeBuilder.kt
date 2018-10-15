@@ -6,7 +6,6 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import space.ersan.movlan.app.MovlanViewModelFactory
-import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.home.*
 import space.ersan.movlan.image.ImageLoader
 import javax.inject.Scope
@@ -28,8 +27,8 @@ class HomeModule(private val homeActivity: HomeActivity) {
 
   @Provides
   @HomeScope
-  fun provideHomeView(thumbnailLoader: ImageLoader.Thumbnail): HomeView {
-    return HomeView(homeActivity, thumbnailLoader)
+  fun provideHomeView(posterLoader: ImageLoader.Poster): HomeView {
+    return HomeView(homeActivity, posterLoader)
   }
 
   @Provides

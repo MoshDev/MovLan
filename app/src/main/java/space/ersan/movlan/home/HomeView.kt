@@ -17,10 +17,10 @@ import space.ersan.movlan.image.ImageLoader
 import space.ersan.movlan.utils.NetworkStatus
 
 @SuppressLint("ViewConstructor")
-class HomeView(context: Context, thumbnailLoader: ImageLoader.Thumbnail)
+class HomeView(context: Context, posterLoader: ImageLoader.Poster)
   : BaseView(context) {
 
-  private val adapter: MoviesListAdapter = MoviesListAdapter(thumbnailLoader)
+  private val adapter: MoviesListAdapter = MoviesListAdapter(posterLoader)
   private val layoutManger = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
   private val recyclerView: RecyclerView
   private val swipeToRefresh: SwipeRefreshLayout

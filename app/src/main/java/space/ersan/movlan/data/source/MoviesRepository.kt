@@ -25,8 +25,13 @@ class MoviesRepository(private val cor: AppCoroutineDispatchers,
         .toLiveData(pageSize = 20, initialLoadKey = 1, boundaryCallback = moviesDbBoundaryCallback)
   }
 
-  fun getMovieDetails(movieId: Int, callback: (Movie) -> Unit) {
-    TODO()
+  fun getMovieDetails(movieId: Int, callback: (Movie?) -> Unit) {
+    launch(cor.IO) {
+      val result = localDataSource.getMovie(movieId)
+      withContext(cor.UI) {
+        callback(result)
+      }
+    }
   }
 
   fun invalidate() {

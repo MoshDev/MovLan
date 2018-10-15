@@ -19,13 +19,13 @@ sealed class ImageLoader(private val requestManager: RequestManager,
         .error(R.drawable.ic_image_error)
   }
 
-  class Thumbnail(application: Application) : ImageLoader(Glide.with(application)
-      .applyDefaultRequestOptions(defaultRequestOptions),
-      application.getString(R.string.movie_db_thumbnail_url), { it.posterPath })
-
   class Poster(application: Application) : ImageLoader(Glide.with(application)
       .applyDefaultRequestOptions(defaultRequestOptions),
-      application.getString(R.string.movie_db_thumbnail_url), { it.posterPath })
+      application.getString(R.string.movie_db_poster_url), { it.posterPath })
+
+  class Backdrop(application: Application) : ImageLoader(Glide.with(application)
+      .applyDefaultRequestOptions(defaultRequestOptions),
+      application.getString(R.string.movie_db_poster_url), { it.posterPath })
 
   fun loadImage(imageView: ImageView, movie: Movie) {
     requestManager.load("$imagesBaseUrl${pathResolver(movie)}")
