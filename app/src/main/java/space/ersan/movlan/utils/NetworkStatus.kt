@@ -15,7 +15,6 @@ class LiveNetworkStatus : LiveData<NetworkStatus>() {
   }
 
   public override fun postValue(value: NetworkStatus?) {
-    NullPointerException("value :$value").printStackTrace()
     if (this.value != null && value != null) {
       if (this.value!!::class == value::class) {
         return

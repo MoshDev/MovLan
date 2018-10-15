@@ -2,6 +2,9 @@ package space.ersan.movlan.app.builder
 
 import space.ersan.movlan.app.MovlanApp
 import space.ersan.movlan.data.model.AppConfig
+import space.ersan.movlan.details.MovieDetailsActivity
+import space.ersan.movlan.details.builder.DaggerMovieDetailsComponent
+import space.ersan.movlan.details.builder.MovieDetailsModule
 import space.ersan.movlan.home.HomeActivity
 import space.ersan.movlan.home.builder.DaggerHomeComponent
 import space.ersan.movlan.home.builder.HomeModule
@@ -21,5 +24,11 @@ class Injector(movlanApp: MovlanApp, config: AppConfig) {
       .homeModule(HomeModule(homeActivity))
       .build()
       .inject(homeActivity)
+
+  fun inject(detailsActivity: MovieDetailsActivity, movieId: Int) = DaggerMovieDetailsComponent.builder()
+      .appComponent(appComponent)
+      .movieDetailsModule(MovieDetailsModule(detailsActivity, movieId))
+      .build()
+      .inject(detailsActivity)
 
 }

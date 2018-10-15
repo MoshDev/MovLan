@@ -5,14 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.MediatorLiveData
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import space.ersan.movlan.R
-import space.ersan.movlan.common.view.BaseAdapter
-import space.ersan.movlan.common.view.BaseViewHolder
 import space.ersan.movlan.data.model.Movie
-import space.ersan.movlan.ext.toDeviceDate
 import space.ersan.movlan.ext.toYear
 import space.ersan.movlan.image.ImageLoader
 
@@ -26,7 +23,10 @@ class MoviesListAdapter(private val thumbnailLoader: ImageLoader.Thumbnail) : Pa
     }
   }
 
+  var clicksCallback: ((Movie) -> Unit)? = null
+
   private val innerCallback: (Movie) -> Unit = {
+    clicksCallback?.invoke(it)
   }
 
   public override fun getItem(position: Int): Movie? {
@@ -56,9 +56,9 @@ class MoviesListAdapter(private val thumbnailLoader: ImageLoader.Thumbnail) : Pa
   }
 }
 
-class MoviesListItemViewHolder(private val thumbnailLoader: ImageLoader.Thumbnail, view: View, callback: ((Movie) -> Unit)?) : BaseViewHolder<Movie>(
-    view,
-    callback) {
+class MoviesListItemViewHolder(private val thumbnailLoader: ImageLoader.Thumbnail,
+                               view: View, private val callback: (Movie) -> Unit)
+  : RecyclerView.ViewHolder(view) {
 
   private val thumbnailImageView: ImageView = itemView.findViewById(R.id.thumbnailImageView)
   private val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
@@ -66,7 +66,8 @@ class MoviesListItemViewHolder(private val thumbnailLoader: ImageLoader.Thumbnai
   private val ratingTextView: TextView = itemView.findViewById(R.id.movieRatingTextView)
   private val genresTextView: TextView = itemView.findViewById(R.id.genresTextView)
 
-  override fun onBind(item: Movie) {
+  fun onBind(item: Movie) {
+    itemView.setOnClickListener { callback(item) }
     thumbnailLoader.loadImage(thumbnailImageView, item)
     titleTextView.text = item.title
     releaseYearTextView.text = item.releaseDate?.toYear() ?: ""

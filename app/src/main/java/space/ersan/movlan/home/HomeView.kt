@@ -3,9 +3,6 @@ package space.ersan.movlan.home
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.ProgressBar
-import androidx.core.view.isVisible
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
@@ -13,21 +10,21 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import space.ersan.movlan.R
+import space.ersan.movlan.common.mvp.BaseView
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.home.list.MoviesListAdapter
 import space.ersan.movlan.image.ImageLoader
 import space.ersan.movlan.utils.NetworkStatus
 
 @SuppressLint("ViewConstructor")
-class HomeView(context: Context, thumbnailLoader: ImageLoader.Thumbnail) : FrameLayout(
-    context) {
+class HomeView(context: Context, thumbnailLoader: ImageLoader.Thumbnail)
+  : BaseView(context) {
 
   private val adapter: MoviesListAdapter = MoviesListAdapter(thumbnailLoader)
   private val layoutManger = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
   private val recyclerView: RecyclerView
   private val swipeToRefresh: SwipeRefreshLayout
   private val progressBar: ContentLoadingProgressBar
-
   private var shownSnackbar: Snackbar? = null
 
   init {
@@ -45,6 +42,7 @@ class HomeView(context: Context, thumbnailLoader: ImageLoader.Thumbnail) : Frame
   }
 
   fun observeMovieListClicks(clb: (Movie) -> Unit) {
+    adapter.clicksCallback = clb
   }
 
   fun observeSwipeToRefresh(clb: () -> Unit) {
@@ -64,7 +62,9 @@ class HomeView(context: Context, thumbnailLoader: ImageLoader.Thumbnail) : Frame
 
   private fun showErrorSnackBar(networkStatus: NetworkStatus.Error) {
     showLoadingBar(false)
-    val snackbar = Snackbar.make(this, R.string.network_error_home_movies_list, Snackbar.LENGTH_INDEFINITE)
+    val snackbar = Snackbar.make(this,
+        R.string.network_error_home_movies_list,
+        Snackbar.LENGTH_INDEFINITE)
         .setAction(R.string.retry) {
           networkStatus.retry?.invoke()
         }

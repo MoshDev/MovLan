@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import space.ersan.movlan.data.source.MoviesRepository
+import space.ersan.movlan.details.MovieDetailsViewModel
 import space.ersan.movlan.home.HomeViewModel
 import space.ersan.movlan.utils.LiveNetworkStatus
 
@@ -15,6 +16,7 @@ class MovlanViewModelFactory(private val application: Application, private val m
       isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(application,
           moviesRepository,
           networkStatus)
+      isAssignableFrom(MovieDetailsViewModel::class.java) -> MovieDetailsViewModel(application)
       else -> throw IllegalArgumentException("Cannot find ViewModel class for ${modelClass.name}")
     }
   } as T

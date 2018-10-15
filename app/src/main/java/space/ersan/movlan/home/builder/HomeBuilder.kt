@@ -11,7 +11,6 @@ import space.ersan.movlan.home.*
 import space.ersan.movlan.image.ImageLoader
 import javax.inject.Scope
 
-
 @Component(dependencies = [AppComponent::class], modules = [HomeModule::class])
 @HomeScope
 interface HomeComponent {

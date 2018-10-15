@@ -11,6 +11,7 @@ class HomePresenter(private val lifecycleOwner: LifecycleOwner, private val view
     view.observeSwipeToRefresh(viewModel::refreshData)
 
     view.observeMovieListClicks {
+      viewModel.showMovieDetails(it.id)
       println("Mosh $it")
     }
 
