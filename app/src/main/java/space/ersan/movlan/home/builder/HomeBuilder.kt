@@ -23,8 +23,8 @@ class HomeModule(private val homeActivity: HomeActivity) {
 
   @Provides
   @HomeScope
-  fun provideHomePresenter(homeView: HomeView, homeModel: HomeModel): HomePresenter {
-    return HomePresenter(homeView, homeModel)
+  fun provideHomePresenter(homeView: HomeView, viewModel: HomeViewModel): HomePresenter {
+    return HomePresenter(homeActivity, homeView, viewModel)
   }
 
   @Provides
@@ -32,10 +32,6 @@ class HomeModule(private val homeActivity: HomeActivity) {
   fun provideHomeView(thumbnailLoader: ImageLoader.Thumbnail): HomeView {
     return HomeView(homeActivity, thumbnailLoader)
   }
-
-  @Provides
-  @HomeScope
-  fun provideHomeModel(viewModel: HomeViewModel) = HomeModel(homeActivity, viewModel)
 
   @Provides
   @HomeScope

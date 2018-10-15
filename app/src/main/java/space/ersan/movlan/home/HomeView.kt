@@ -47,15 +47,14 @@ class HomeView(context: Context, thumbnailLoader: ImageLoader.Thumbnail) : Frame
   fun observeMovieListClicks(clb: (Movie) -> Unit) {
   }
 
-  fun observeSwipeToRefresh(clb: () -> Boolean) {
+  fun observeSwipeToRefresh(clb: () -> Unit) {
     swipeToRefresh.setOnRefreshListener {
-      val stopLoading = clb()
-      swipeToRefresh.isRefreshing = stopLoading
+      clb()
+      swipeToRefresh.isRefreshing = false
     }
   }
 
   fun setNetworkStatus(networkStatus: NetworkStatus) {
-    println("Mosh NetworkStatus : $networkStatus")
     when (networkStatus) {
       is NetworkStatus.Loading -> showLoadingBar(true)
       is NetworkStatus.Loaded -> showLoadingBar(false)
@@ -65,14 +64,23 @@ class HomeView(context: Context, thumbnailLoader: ImageLoader.Thumbnail) : Frame
 
   private fun showErrorSnackBar(networkStatus: NetworkStatus.Error) {
     showLoadingBar(false)
-    Snackbar.make(this, R.string.network_error_home_movies_list, Snackbar.LENGTH_INDEFINITE)
+    val snackbar = Snackbar.make(this, R.string.network_error_home_movies_list, Snackbar.LENGTH_INDEFINITE)
         .setAction(R.string.retry) {
           networkStatus.retry?.invoke()
         }
-        .show()
+    snackbar.show()
+    shownSnackbar = snackbar
+  }
+
+  private fun hidePreviousSnackbar() {
+    if (shownSnackbar != null && shownSnackbar?.isShown!!) {
+      shownSnackbar?.dismiss()
+      shownSnackbar = null
+    }
   }
 
   private fun showLoadingBar(visible: Boolean) {
+    hidePreviousSnackbar()
     if (visible) {
       progressBar.show()
     } else {

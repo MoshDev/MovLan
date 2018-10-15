@@ -1,26 +1,19 @@
 package space.ersan.movlan.home
 
-import space.ersan.movlan.utils.NetworkStatus
+import androidx.lifecycle.LifecycleOwner
 
-class HomePresenter(private val view: HomeView, private val model: HomeModel) {
+class HomePresenter(private val lifecycleOwner: LifecycleOwner, private val view: HomeView, private val viewModel: HomeViewModel) {
 
   fun onCreate() {
 
-    model.observeMovies {
-      view.setMovies(it)
-    }
-
-    model.observeNetworkStatus(view::setNetworkStatus)
+    viewModel.observeMovies(lifecycleOwner, view::setMovies)
+    viewModel.observeNetworkStatus(lifecycleOwner, view::setNetworkStatus)
+    view.observeSwipeToRefresh(viewModel::refreshData)
 
     view.observeMovieListClicks {
       println("Mosh $it")
     }
 
-    view.observeSwipeToRefresh {
-      model.viewModel()
-          .refreshData()
-       false
-    }
   }
 
 }
