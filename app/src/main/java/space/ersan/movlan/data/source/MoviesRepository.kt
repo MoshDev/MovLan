@@ -1,29 +1,41 @@
 package space.ersan.movlan.data.source
 
+import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
+import androidx.paging.toLiveData
 import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.withContext
 import space.ersan.movlan.data.model.GenreList
 import space.ersan.movlan.data.model.Movie
-import space.ersan.movlan.data.model.MovieList
+import space.ersan.movlan.data.source.local.MoviesDbBoundaryCallback
 import space.ersan.movlan.data.source.local.MoviesLocalDataSource
 import space.ersan.movlan.data.source.remote.MoviesRemoteDataSource
 import space.ersan.movlan.utils.AppCoroutineDispatchers
 import space.ersan.movlan.utils.Maybe
+//import androidx.paging.PagedList
+import space.ersan.movlan.data.MoviesDataSourceFactory
+
 
 class MoviesRepository(private val cor: AppCoroutineDispatchers,
                        private val localDataSource: MoviesLocalDataSource,
-                       private val remoteDataSource: MoviesRemoteDataSource) {
+                       private val remoteDataSource: MoviesRemoteDataSource,
+                       private val moviesDbBoundaryCallback: MoviesDbBoundaryCallback) {
 
-  fun getPopularMovies(page: Int, callback: (Maybe<MovieList>) -> Unit) {
-    launch(cor.NETWORK) {
-      val result = remoteDataSource.getPopularMovies(page)
-      if (result is Maybe.Some && result.value.results != null) {
-        localDataSource.insertAll(page, result.value.results)
-      }
-      withContext(cor.UI) {
-        callback(result)
-      }
-    }
+  fun getPopularMovies(): LiveData<PagedList<Movie>> {
+
+    val pagedListConfig = PagedList.Config.Builder()
+        .setEnablePlaceholders(false)
+        .setInitialLoadSizeHint(10)
+        .setPageSize(20)
+        .build()
+
+    val factory = MoviesDataSourceFactory(cor,remoteDataSource)
+    return  LivePagedListBuilder(factory, pagedListConfig).build()
+
+//    localDataSource.getPopularMovies(1).add
+//    return localDataSource.getPopularMovies(1)
+//        .toLiveData(20, null, moviesDbBoundaryCallback)
   }
 
   fun getGenres(clb: (Maybe<GenreList>) -> Unit) {

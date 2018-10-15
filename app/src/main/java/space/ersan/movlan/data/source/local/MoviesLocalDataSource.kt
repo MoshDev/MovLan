@@ -1,13 +1,14 @@
 package space.ersan.movlan.data.source.local
 
-import space.ersan.movlan.data.model.GenreList
+import androidx.paging.DataSource
+import androidx.paging.PageKeyedDataSource
 import space.ersan.movlan.data.model.Movie
-import space.ersan.movlan.data.model.MovieList
-import space.ersan.movlan.utils.Maybe
 
 class MoviesLocalDataSource(private val moviesDao: MoviesDao) {
 
   fun insertAll(page: Int, movies: List<Movie>) {
+    println("Mosh insertAll page= $page & list: ${movies.size}")
+
     val listed = movies.mapIndexed { index: Int, movie: Movie ->
       movie.page = page
       movie.indexInListing = index
@@ -16,9 +17,10 @@ class MoviesLocalDataSource(private val moviesDao: MoviesDao) {
     moviesDao.insert(listed)
   }
 
-  suspend fun getPopularMovies(page: Int): Maybe<MovieList> = Maybe.None()
+  fun getPopularMovies(page: Int) = moviesDao.getMoviesByPage(page)
 
-  suspend fun getMovieDetails(movieId: Int): Maybe<Movie> = Maybe.None()
-
-  suspend fun getGenres(): Maybe<GenreList> = Maybe.None()
+  fun deleteAll() {
+    println("Mosh deleteAll")
+    moviesDao.deleteAll()
+  }
 }

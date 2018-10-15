@@ -3,6 +3,7 @@ package space.ersan.movlan.home
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import space.ersan.movlan.data.model.GenreList
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.model.MovieList
@@ -15,7 +16,7 @@ class HomeViewModel(application: Application, private val moviesRepository: Movi
 
   val isLoading = MutableLiveData<Boolean>().apply { value = false }
 
-  val movies = MutableLiveData<List<Movie>>()
+  val movies = moviesRepository.getPopularMovies()
   private val page = AtomicInteger(1)
   private val pendingPage = AtomicInteger(-1)
   private var genreList: GenreList? = null
@@ -28,15 +29,16 @@ class HomeViewModel(application: Application, private val moviesRepository: Movi
   private fun loadMovies(page: Int, forceUpdate: Boolean) {
     pendingPage.set(page)
 
-    loadGenres {
-      moviesRepository.getPopularMovies(page) {
-        isLoading.value = false
-        pendingPage.set(-1)
-        when (it) {
-          is Maybe.Some -> enrich(it.value)
-        }
-      }
-    }
+//    loadGenres {
+//      moviesRepository.getPopularMovies().observe(this, Observer {  })
+//      moviesRepository.getPopularMovies(page) {
+//        isLoading.value = false
+//        pendingPage.set(-1)
+//        when (it) {
+//          is Maybe.Some -> enrich(it.value)
+//        }
+//      }
+//    }
   }
 
   private fun loadGenres(onNext: () -> Unit) {
@@ -54,19 +56,19 @@ class HomeViewModel(application: Application, private val moviesRepository: Movi
       }
     }
   }
-
-  private fun enrich(movieList: MovieList) {
-    val newList = (movieList.results ?: emptyList()).map { movie ->
-      val ids = movie.genreIds
-      if (ids != null && ids.isNotEmpty()) {
-        val enrichedGenres = ids.map { id -> genreList!!.genres?.first { it?.id == id } }
-        return@map movie.copy(genres = enrichedGenres)
-      }
-      return@map movie
-    }
-
-    movies.postValue(newList)
-  }
+//
+//  private fun enrich(movieList: MovieList) {
+//    val newList = (movieList.results ?: emptyList()).map { movie ->
+//      val ids = movie.genreIds
+//      if (ids != null && ids.isNotEmpty()) {
+//        val enrichedGenres = ids.map { id -> genreList!!.genres?.first { it?.id == id } }
+//        return@map movie.copy(genres = enrichedGenres)
+//      }
+//      return@map movie
+//    }
+//
+//    movies.postValue(newList)
+//  }
 
   fun loadNextPage() {
     if (pendingPage.get() != -1) {

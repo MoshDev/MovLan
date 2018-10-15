@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.widget.FrameLayout
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import kotlinx.android.synthetic.main.view_main.view.*
@@ -26,11 +27,10 @@ class HomeView(context: Context, private val thumbnailLoader: ImageLoader.Thumbn
     recyclerView.layoutManager = layoutManger
   }
 
-  fun setMovies(result: List<Movie>) {
+  fun setMovies(result: PagedList<Movie>) {
     println("setting movies list $result")
 
-    adapter.items.addAll(result)
-    adapter.notifyDataSetChanged()
+    adapter.submitList(result)
   }
 
   fun observeEndlessScroll(clb: () -> Unit) {
@@ -42,7 +42,6 @@ class HomeView(context: Context, private val thumbnailLoader: ImageLoader.Thumbn
   }
 
   fun observeMovieListClicks(clb: (Movie) -> Unit) {
-    adapter.callback = clb
   }
 
   fun showError(error: Exception) {

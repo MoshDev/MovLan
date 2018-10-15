@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import space.ersan.movlan.R
 import space.ersan.movlan.common.view.BaseAdapter
 import space.ersan.movlan.common.view.BaseViewHolder
@@ -13,10 +15,17 @@ import space.ersan.movlan.ext.toDeviceDate
 import space.ersan.movlan.ext.toYear
 import space.ersan.movlan.image.ImageLoader
 
-class MoviesListAdapter(private val thumbnailLoader: ImageLoader.Thumbnail) : BaseAdapter<Movie, MoviesListItemViewHolder>() {
+class MoviesListAdapter(private val thumbnailLoader: ImageLoader.Thumbnail) : PagedListAdapter<Movie, MoviesListItemViewHolder>(
+    DIFF_CALLBACK) {
+
+  override fun onBindViewHolder(holder: MoviesListItemViewHolder, position: Int) {
+    val movie = getItem(position)
+    movie?.let {
+      holder.onBind(it)
+    }
+  }
 
   private val innerCallback: (Movie) -> Unit = {
-    callback?.invoke(it)
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesListItemViewHolder {
@@ -24,6 +33,21 @@ class MoviesListAdapter(private val thumbnailLoader: ImageLoader.Thumbnail) : Ba
     return MoviesListItemViewHolder(thumbnailLoader,
         inflater.inflate(R.layout.view_movies_list_item, parent, false),
         innerCallback)
+  }
+
+
+  companion object {
+    private val DIFF_CALLBACK = object :
+        DiffUtil.ItemCallback<Movie>() {
+
+      override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem.id == newItem.id
+      }
+
+      override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+        return oldItem == newItem
+      }
+    }
   }
 }
 
@@ -46,4 +70,5 @@ class MoviesListItemViewHolder(private val thumbnailLoader: ImageLoader.Thumbnai
       genre?.name ?: ""
     }
   }
+
 }
