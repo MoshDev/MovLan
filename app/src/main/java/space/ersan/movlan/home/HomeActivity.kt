@@ -2,7 +2,7 @@ package space.ersan.movlan.home
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import space.ersan.movlan.app.builder.Movlan
+import space.ersan.movlan.app.Movlan
 import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity() {

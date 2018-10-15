@@ -18,7 +18,7 @@ class HomePresenter(private val view: HomeView, private val model: HomeModel) {
 
     view.observeSwipeToRefresh{
       model.viewModel().refreshData()
-      view.setRefreshInficator(false)
+      view.setRefreshIndicator(false)
     }
   }
 

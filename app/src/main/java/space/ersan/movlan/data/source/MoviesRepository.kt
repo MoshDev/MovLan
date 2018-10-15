@@ -1,6 +1,5 @@
 package space.ersan.movlan.data.source
 
-//import androidx.paging.PagedList
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
@@ -35,6 +34,7 @@ class MoviesRepository(private val cor: AppCoroutineDispatchers,
   }
 
   fun getMovieDetails(movieId: Int, callback: (Movie) -> Unit) {
+    TODO()
   }
 
   fun invalidate() {
@@ -42,8 +42,8 @@ class MoviesRepository(private val cor: AppCoroutineDispatchers,
       val result = remoteDataSource.getPopularMovies(1)
       when (result) {
         is Maybe.Some -> withContext(cor.IO) {
-          localDataSource.deleteAll()
           localDataSource.insertAll(1, result.value.results!!)
+          localDataSource.deleteAllExcept(1)
         }
       }
     }

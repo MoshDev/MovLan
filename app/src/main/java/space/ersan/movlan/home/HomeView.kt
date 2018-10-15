@@ -16,7 +16,7 @@ import space.ersan.movlan.home.list.MoviesListAdapter
 import space.ersan.movlan.image.ImageLoader
 
 @SuppressLint("ViewConstructor")
-class HomeView(context: Context, private val thumbnailLoader: ImageLoader.Thumbnail) : FrameLayout(
+class HomeView(context: Context, thumbnailLoader: ImageLoader.Thumbnail) : FrameLayout(
     context) {
 
   private val adapter: MoviesListAdapter = MoviesListAdapter(thumbnailLoader)
@@ -29,29 +29,17 @@ class HomeView(context: Context, private val thumbnailLoader: ImageLoader.Thumbn
   }
 
   fun setMovies(result: PagedList<Movie>) {
-    println("setting movies list $result")
-
     adapter.submitList(result)
-    recyclerView.addOnScrollListener(object : EndlessRecyclerViewScrollListener(layoutManger) {
-      override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
-        val key = result.lastKey
-        println("Mosh lastKey:$key")
-        val lastItem = adapter.getItem(adapter.itemCount - 1)
-        println("Mosh lastItem: ${lastItem?.page}, total Items: ${adapter.itemCount}")
-      }
-    })
   }
 
   fun observeMovieListClicks(clb: (Movie) -> Unit) {
   }
 
-  fun showError(error: Exception) {
-    error.printStackTrace()
+  fun observeSwipeToRefresh(clb: () -> Unit) {
+    swipeToRefresh.setOnRefreshListener(clb)
   }
 
-  fun observeSwipeToRefresh(clb: () -> Unit) = swipeToRefresh.setOnRefreshListener(clb)
-
-  fun setRefreshInficator(refresh: Boolean) {
+  fun setRefreshIndicator(refresh: Boolean) {
     swipeToRefresh.isRefreshing = refresh
   }
 

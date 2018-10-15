@@ -2,7 +2,6 @@ package space.ersan.movlan.app
 
 import android.app.Application
 import space.ersan.movlan.R
-import space.ersan.movlan.app.builder.Movlan
 import space.ersan.movlan.app.builder.Injector
 import space.ersan.movlan.data.model.AppConfig
 

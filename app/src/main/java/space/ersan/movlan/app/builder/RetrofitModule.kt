@@ -41,7 +41,7 @@ class RetrofitModule {
   @AppScope
   fun provideOkHttpClient(appConfig: AppConfig, cache: Cache): OkHttpClient {
     return OkHttpClient.Builder()
-        .cache(cache)
+//        .cache(cache)
         .queryInterceptor("api_key", appConfig.movieDbApiKey)
         .addInterceptor(createLoggingInterceptor())
         .build()

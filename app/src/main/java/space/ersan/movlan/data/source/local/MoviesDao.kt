@@ -31,5 +31,8 @@ interface MoviesDao {
   @Query("DELETE FROM movie")
   fun deleteAll()
 
+  @Query("DELETE FROM movie WHERE page<> :pageToKeep")
+  fun deleteAllExcept(pageToKeep: Int)
+
 }
 
