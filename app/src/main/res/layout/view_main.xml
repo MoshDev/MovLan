@@ -20,14 +20,21 @@
 
   </com.google.android.material.appbar.AppBarLayout>
 
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerView"
+  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/swipeToRefresh"
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_weight="1"
-    android:clipChildren="false"
-    android:clipToPadding="false"
-    tools:itemCount="9"
-    tools:listitem="@layout/recycler_view_item" />
+    android:layout_weight="1">
+
+    <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/recyclerView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:clipChildren="false"
+      android:clipToPadding="false"
+      tools:itemCount="9"
+      tools:listitem="@layout/recycler_view_item" />
+
+  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>

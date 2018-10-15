@@ -6,6 +6,6 @@ import java.util.concurrent.Executors
 
 open class AppCoroutineDispatchers(
     val IO: CoroutineDispatcher = Executors.newSingleThreadExecutor().asCoroutineDispatcher(),
-    val NETWORK: CoroutineDispatcher = Executors.newSingleThreadExecutor().asCoroutineDispatcher(),
+    val NETWORK: CoroutineDispatcher = Executors.newFixedThreadPool(2).asCoroutineDispatcher(),
     val UI: CoroutineDispatcher = kotlinx.coroutines.experimental.android.UI
 )

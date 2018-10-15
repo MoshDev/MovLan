@@ -28,6 +28,10 @@ class MoviesListAdapter(private val thumbnailLoader: ImageLoader.Thumbnail) : Pa
   private val innerCallback: (Movie) -> Unit = {
   }
 
+  public override fun getItem(position: Int): Movie? {
+    return super.getItem(position)
+  }
+
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesListItemViewHolder {
     val inflater = LayoutInflater.from(parent.context)
     return MoviesListItemViewHolder(thumbnailLoader,
@@ -69,6 +73,7 @@ class MoviesListItemViewHolder(private val thumbnailLoader: ImageLoader.Thumbnai
     genresTextView.text = item.genres?.joinToString(" | ") { genre ->
       genre?.name ?: ""
     }
+    genresTextView.text = "${item.indexInListing} "
   }
 
 }

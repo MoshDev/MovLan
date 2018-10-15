@@ -3,13 +3,8 @@ package space.ersan.movlan.home
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import space.ersan.movlan.data.model.GenreList
-import space.ersan.movlan.data.model.Movie
-import space.ersan.movlan.data.model.MovieList
 import space.ersan.movlan.data.source.MoviesRepository
-import space.ersan.movlan.utils.Maybe
-import java.util.concurrent.atomic.AtomicInteger
 
 class HomeViewModel(application: Application, private val moviesRepository: MoviesRepository) : AndroidViewModel(
     application) {
@@ -17,45 +12,32 @@ class HomeViewModel(application: Application, private val moviesRepository: Movi
   val isLoading = MutableLiveData<Boolean>().apply { value = false }
 
   val movies = moviesRepository.getPopularMovies()
-  private val page = AtomicInteger(1)
-  private val pendingPage = AtomicInteger(-1)
   private var genreList: GenreList? = null
 
   init {
     isLoading.value = true
-    loadMovies(page.get(), false)
+    moviesRepository.invalidate()
   }
 
-  private fun loadMovies(page: Int, forceUpdate: Boolean) {
-    pendingPage.set(page)
-
-//    loadGenres {
-//      moviesRepository.getPopularMovies().observe(this, Observer {  })
-//      moviesRepository.getPopularMovies(page) {
-//        isLoading.value = false
-//        pendingPage.set(-1)
+  fun refreshData(){
+    moviesRepository.invalidate()
+  }
+//
+//  private fun loadGenres(onNext: () -> Unit) {
+//    if (genreList != null) {
+//      onNext()
+//    } else {
+//      moviesRepository.getGenres {
 //        when (it) {
-//          is Maybe.Some -> enrich(it.value)
+//          is Maybe.Some -> {
+//            genreList = it.value
+//            onNext()
+//          }
+//          else -> TODO()
 //        }
 //      }
 //    }
-  }
-
-  private fun loadGenres(onNext: () -> Unit) {
-    if (genreList != null) {
-      onNext()
-    } else {
-      moviesRepository.getGenres {
-        when (it) {
-          is Maybe.Some -> {
-            genreList = it.value
-            onNext()
-          }
-          else -> TODO()
-        }
-      }
-    }
-  }
+//  }
 //
 //  private fun enrich(movieList: MovieList) {
 //    val newList = (movieList.results ?: emptyList()).map { movie ->
@@ -70,11 +52,5 @@ class HomeViewModel(application: Application, private val moviesRepository: Movi
 //    movies.postValue(newList)
 //  }
 
-  fun loadNextPage() {
-    if (pendingPage.get() != -1) {
-      return
-    }
-    loadMovies(page.incrementAndGet(), false)
-  }
 
 }

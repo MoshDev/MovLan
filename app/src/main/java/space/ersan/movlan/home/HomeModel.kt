@@ -15,8 +15,6 @@ class HomeModel(private val lifecycleOwner: LifecycleOwner, private val viewMode
     viewModel.movies.observe(lifecycleOwner, Observer(clb))
   }
 
-  fun loadNextPage() {
-    viewModel.loadNextPage()
-  }
+  fun viewModel() = viewModel
 
 }

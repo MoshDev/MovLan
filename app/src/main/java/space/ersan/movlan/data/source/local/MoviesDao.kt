@@ -22,11 +22,8 @@ abstract class MoviesDb : RoomDatabase() {
 @Dao
 interface MoviesDao {
 
-//  @Query("SELECT * FROM movie WHERE page=:page ORDER BY indexInListing ASC")
-//  fun getMoviesByPage(page: Int): DataSource.Factory<Int, Movie>
-
-  @Query("SELECT * FROM movie WHERE page=:page ORDER BY indexInListing ASC")
-  fun getMoviesByPage(page: Int): DataSource.Factory<Int,Movie>
+  @Query("SELECT * FROM movie ORDER BY indexInListing ASC")
+  fun getMovies(): DataSource.Factory<Int, Movie>
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   fun insert(movies: List<Movie>)

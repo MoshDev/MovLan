@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.widget.FrameLayout
+import androidx.core.view.postDelayed
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -31,12 +32,12 @@ class HomeView(context: Context, private val thumbnailLoader: ImageLoader.Thumbn
     println("setting movies list $result")
 
     adapter.submitList(result)
-  }
-
-  fun observeEndlessScroll(clb: () -> Unit) {
     recyclerView.addOnScrollListener(object : EndlessRecyclerViewScrollListener(layoutManger) {
       override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
-        clb()
+        val key = result.lastKey
+        println("Mosh lastKey:$key")
+        val lastItem = adapter.getItem(adapter.itemCount - 1)
+        println("Mosh lastItem: ${lastItem?.page}, total Items: ${adapter.itemCount}")
       }
     })
   }
@@ -46,6 +47,12 @@ class HomeView(context: Context, private val thumbnailLoader: ImageLoader.Thumbn
 
   fun showError(error: Exception) {
     error.printStackTrace()
+  }
+
+  fun observeSwipeToRefresh(clb: () -> Unit) = swipeToRefresh.setOnRefreshListener(clb)
+
+  fun setRefreshInficator(refresh: Boolean) {
+    swipeToRefresh.isRefreshing = refresh
   }
 
 }

@@ -1,7 +1,7 @@
 package space.ersan.movlan.data.source
 
+//import androidx.paging.PagedList
 import androidx.lifecycle.LiveData
-import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import kotlinx.coroutines.experimental.launch
@@ -13,8 +13,6 @@ import space.ersan.movlan.data.source.local.MoviesLocalDataSource
 import space.ersan.movlan.data.source.remote.MoviesRemoteDataSource
 import space.ersan.movlan.utils.AppCoroutineDispatchers
 import space.ersan.movlan.utils.Maybe
-//import androidx.paging.PagedList
-import space.ersan.movlan.data.MoviesDataSourceFactory
 
 
 class MoviesRepository(private val cor: AppCoroutineDispatchers,
@@ -23,19 +21,8 @@ class MoviesRepository(private val cor: AppCoroutineDispatchers,
                        private val moviesDbBoundaryCallback: MoviesDbBoundaryCallback) {
 
   fun getPopularMovies(): LiveData<PagedList<Movie>> {
-
-    val pagedListConfig = PagedList.Config.Builder()
-        .setEnablePlaceholders(false)
-        .setInitialLoadSizeHint(10)
-        .setPageSize(20)
-        .build()
-
-    val factory = MoviesDataSourceFactory(cor,remoteDataSource)
-    return  LivePagedListBuilder(factory, pagedListConfig).build()
-
-//    localDataSource.getPopularMovies(1).add
-//    return localDataSource.getPopularMovies(1)
-//        .toLiveData(20, null, moviesDbBoundaryCallback)
+    return localDataSource.getPopularMovies(1)
+        .toLiveData(pageSize = 20, initialLoadKey = 1, boundaryCallback = moviesDbBoundaryCallback)
   }
 
   fun getGenres(clb: (Maybe<GenreList>) -> Unit) {
@@ -48,5 +35,17 @@ class MoviesRepository(private val cor: AppCoroutineDispatchers,
   }
 
   fun getMovieDetails(movieId: Int, callback: (Movie) -> Unit) {
+  }
+
+  fun invalidate() {
+    launch(cor.NETWORK) {
+      val result = remoteDataSource.getPopularMovies(1)
+      when (result) {
+        is Maybe.Some -> withContext(cor.IO) {
+          localDataSource.deleteAll()
+          localDataSource.insertAll(1, result.value.results!!)
+        }
+      }
+    }
   }
 }
