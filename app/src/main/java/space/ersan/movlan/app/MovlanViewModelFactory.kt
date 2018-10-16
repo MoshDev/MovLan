@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.details.MovieDetailsViewModel
 import space.ersan.movlan.home.HomeViewModel
+import space.ersan.movlan.search.MovieSearchViewModel
 import space.ersan.movlan.utils.LiveNetworkStatus
 
 class MovlanViewModelFactory(private val application: Application, private val moviesRepository: MoviesRepository,
@@ -20,6 +21,10 @@ class MovlanViewModelFactory(private val application: Application, private val m
       }
       isAssignableFrom(MovieDetailsViewModel::class.java) -> {
         MovieDetailsViewModel(application,
+            moviesRepository)
+      }
+      isAssignableFrom(MovieSearchViewModel::class.java) -> {
+        MovieSearchViewModel(application,
             moviesRepository)
       }
       else -> throw IllegalArgumentException("Cannot find ViewModel class for ${modelClass.name}")

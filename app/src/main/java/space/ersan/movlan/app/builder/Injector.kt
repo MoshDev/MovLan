@@ -8,6 +8,9 @@ import space.ersan.movlan.details.builder.MovieDetailsModule
 import space.ersan.movlan.home.HomeActivity
 import space.ersan.movlan.home.builder.DaggerHomeComponent
 import space.ersan.movlan.home.builder.HomeModule
+import space.ersan.movlan.search.MovieSearchActivity
+import space.ersan.movlan.search.builder.DaggerMovieSearchComponent
+import space.ersan.movlan.search.builder.MovieSearchModule
 
 class Injector(movlanApp: MovlanApp, config: AppConfig) {
 
@@ -31,4 +34,9 @@ class Injector(movlanApp: MovlanApp, config: AppConfig) {
       .build()
       .inject(detailsActivity)
 
+  fun inject(movieSearchActivity: MovieSearchActivity) = DaggerMovieSearchComponent.builder()
+      .appComponent(appComponent)
+      .movieSearchModule(MovieSearchModule((movieSearchActivity)))
+      .build()
+      .inject(movieSearchActivity)
 }

@@ -8,5 +8,7 @@
   <string name="movie_revenue">Revenue: %s</string>
   <string name="movie_language">Language: %s</string>
   <string name="unknown_language">N/A</string>
+  <string name="search">Search</string>
+  <string name="search_hint">Movie Name</string>
 
 </resources>
