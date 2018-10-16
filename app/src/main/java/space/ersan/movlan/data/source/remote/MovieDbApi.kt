@@ -12,7 +12,7 @@ interface MovieDbApi {
   fun getPopularMovies(@Query("page") page: Int = 1): Deferred<MovieList>
 
   @GET("movie/{movie_id}")
-  fun getMovieDetails(@Query("movie_id") movieId: Int): Deferred<Movie>
+  fun getMovieDetails(@Path("movie_id") movieId: Int): Deferred<Movie>
 
   @GET("genre/movie/list")
   fun getGenres(): Deferred<GenreList>

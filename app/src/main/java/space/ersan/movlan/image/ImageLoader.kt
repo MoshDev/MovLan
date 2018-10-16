@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import space.ersan.movlan.BuildConfig
 import space.ersan.movlan.R
 import space.ersan.movlan.data.model.Movie
 
@@ -25,10 +26,12 @@ sealed class ImageLoader(private val requestManager: RequestManager,
 
   class Backdrop(application: Application) : ImageLoader(Glide.with(application)
       .applyDefaultRequestOptions(defaultRequestOptions),
-      application.getString(R.string.movie_db_poster_url), { it.posterPath })
+      application.getString(R.string.movie_db_backdrop_url), { it.backdropPath })
 
   fun loadImage(imageView: ImageView, movie: Movie) {
-    requestManager.load("$imagesBaseUrl${pathResolver(movie)}")
+    val path = pathResolver(movie)?.let { "$imagesBaseUrl$it" }
+    if (BuildConfig.DEBUG) println(path)
+    requestManager.load(path)
         .transition(DrawableTransitionOptions.withCrossFade())
         .into(imageView)
   }

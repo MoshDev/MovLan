@@ -27,6 +27,8 @@ data class Movie(
     @SerializedName("vote_average") val voteAverage: Double?,
     @SerializedName("vote_count") val voteCount: Int?,
     @SerializedName("genre_ids") val genreIds: IntArray?,
+    @SerializedName("revenue") val revenue: Long?,
+    @SerializedName("original_language") val originalLanguage: String?,
     val page: Int = 1,
     val indexInListing: Int = 0
 )

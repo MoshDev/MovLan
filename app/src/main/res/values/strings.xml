@@ -2,5 +2,11 @@
   <string name="app_name">MovLan</string>
   <string name="retry">Retry</string>
   <string name="network_error_home_movies_list">Failed to load movies, Sorry</string>
+  <string name="homepage">Homepage</string>
+  <string name="open_with">Open With:</string>
+  <string name="movie_runtime">Duration: %2dh %2dm</string>
+  <string name="movie_revenue">Revenue: %s</string>
+  <string name="movie_language">Language: %s</string>
+  <string name="unknown_language">N/A</string>
 
 </resources>

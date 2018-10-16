@@ -25,13 +25,13 @@ class MovieDetailsModule(private val activity: MovieDetailsActivity, private val
   @Provides
   @MovieDetailsScope
   fun providePresenter(view: MovieDetailsView, model: MovieDetailsViewModel): MovieDetailsPresenter {
-    return MovieDetailsPresenter(view, model)
+    return MovieDetailsPresenter(activity, view, model)
   }
 
   @Provides
   @MovieDetailsScope
   fun provideView(posterLoader: ImageLoader.Poster, backdropLoader: ImageLoader.Backdrop): MovieDetailsView {
-    return MovieDetailsView(activity, backdropLoader)
+    return MovieDetailsView(activity, backdropLoader, posterLoader)
   }
 
   @Provides

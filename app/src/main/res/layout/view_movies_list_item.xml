@@ -2,16 +2,17 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
+  android:layout_width="@dimen/poster_small_width"
   android:layout_height="wrap_content"
-  android:layout_marginStart="4dp"
-  android:layout_marginTop="4dp"
-  android:layout_marginEnd="4dp"
-  android:layout_marginBottom="4dp"
+  android:layout_marginStart="@dimen/padding_small"
+  android:layout_marginTop="@dimen/padding_small"
+  android:layout_marginEnd="@dimen/padding_small"
+  android:layout_marginBottom="@dimen/padding_small"
+  tools:layout_width="@dimen/poster_small_width"
   android:clickable="true"
   android:focusable="true"
   android:foreground="?selectableItemBackground"
-  app:cardCornerRadius="4dp">
+  app:cardCornerRadius="@dimen/card_corner_radius">
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -20,8 +21,8 @@
 
     <ImageView
       android:id="@+id/thumbnailImageView"
-      android:layout_width="match_parent"
-      android:layout_height="160dp"
+      android:layout_width="@dimen/poster_small_width"
+      android:layout_height="@dimen/poster_small_height"
       android:scaleType="centerCrop"
       tools:src="@drawable/sample1" />
 
@@ -33,17 +34,17 @@
       android:gravity="top|center_horizontal"
       android:lines="2"
       android:maxLines="2"
-      android:padding="4dp"
+      android:padding="@dimen/padding_small"
       android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-      android:textSize="12sp"
+      android:textSize="@dimen/small_font_size"
       tools:text="Terminator" />
 
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      android:paddingStart="4dp"
-      android:paddingEnd="4dp">
+      android:paddingStart="@dimen/padding_small"
+      android:paddingEnd="@dimen/padding_small">
 
       <TextView
         android:id="@+id/movieRatingTextView"
@@ -51,9 +52,9 @@
         android:layout_height="wrap_content"
         android:drawableEnd="@drawable/ic_star_grey"
         android:gravity="center"
-        android:paddingEnd="4dp"
+        android:paddingEnd="@dimen/padding_small"
         android:textColor="@color/light_grey"
-        android:textSize="12sp"
+        android:textSize="@dimen/small_font_size"
         tools:ignore="RtlSymmetry"
         tools:text="2.6" />
 
@@ -66,7 +67,7 @@
         android:gravity="end"
         android:lines="1"
         android:textColor="@color/light_grey"
-        android:textSize="12sp"
+        android:textSize="@dimen/small_font_size"
         tools:text="2017" />
 
     </LinearLayout>
@@ -78,9 +79,9 @@
       android:ellipsize="end"
       android:gravity="end"
       android:lines="1"
-      android:padding="4dp"
+      android:padding="@dimen/padding_small"
       android:textColor="@color/light_grey"
-      android:textSize="12sp"
+      android:textSize="@dimen/small_font_size"
       tools:text="Horror | Drama | Blood" />
 
   </LinearLayout>

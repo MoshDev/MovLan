@@ -21,7 +21,8 @@ class HomeView(context: Context, posterLoader: ImageLoader.Poster)
   : BaseView(context) {
 
   private val adapter: MoviesListAdapter = MoviesListAdapter(posterLoader)
-  private val layoutManger = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+  private val layoutManger = StaggeredGridLayoutManager(context.resources.getInteger(R.integer.listing_movies_span),
+      StaggeredGridLayoutManager.VERTICAL)
   private val recyclerView: RecyclerView
   private val swipeToRefresh: SwipeRefreshLayout
   private val progressBar: ContentLoadingProgressBar

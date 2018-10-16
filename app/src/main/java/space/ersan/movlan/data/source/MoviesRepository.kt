@@ -1,6 +1,7 @@
 package space.ersan.movlan.data.source
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import kotlinx.coroutines.experimental.launch
@@ -25,13 +26,21 @@ class MoviesRepository(private val cor: AppCoroutineDispatchers,
         .toLiveData(pageSize = 20, initialLoadKey = 1, boundaryCallback = moviesDbBoundaryCallback)
   }
 
-  fun getMovieDetails(movieId: Int, callback: (Movie?) -> Unit) {
+  fun getMovieDetails(movieId: Int): LiveData<Movie> {
+    val movieData = MutableLiveData<Movie>()
     launch(cor.IO) {
-      val result = localDataSource.getMovie(movieId)
-      withContext(cor.UI) {
-        callback(result)
+      val localMovie = localDataSource.getMovie(movieId)
+      if (localMovie != null) {
+        movieData.postValue(localMovie)
+      }
+      withContext(cor.NETWORK) {
+        val remoteMovie = remoteDataSource.getMovieDetails(movieId)
+        if (remoteMovie is Maybe.Some) {
+          movieData.postValue(remoteMovie.value)
+        }
       }
     }
+    return movieData
   }
 
   fun invalidate() {
