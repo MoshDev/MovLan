@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <dimen name="poster_small_width">140dp</dimen>
-  <dimen name="poster_small_height">208dp</dimen>
+  <dimen name="poster_small_width">120dp</dimen>
+  <dimen name="poster_small_height">180dp</dimen>
+
+  <!--<dimen name="poster_small_width">140dp</dimen>-->
+  <!--<dimen name="poster_small_height">208dp</dimen>-->
+  <!--//TODO make the image view ratioable-->
 
   <dimen name="backdrop_height">208dp</dimen>
 
@@ -13,8 +17,5 @@
   <dimen name="small_font_size">12sp</dimen>
 
   <integer name="listing_movies_span">3</integer>
-
-  <!--300-->
-  <!--450-->
 
 </resources>
