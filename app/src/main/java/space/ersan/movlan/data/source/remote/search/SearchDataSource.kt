@@ -17,7 +17,7 @@ class SearchDataSource(private val cor: AppCoroutineDispatchers,
     launch(cor.NETWORK) {
       val result = remoteDataSource.search(query, page)
       when (result) {
-        is Maybe.Some -> callback.onResult(result.value.results!!.sortedBy(::sortByPopularity),
+        is Maybe.Some -> callback.onResult(result.value.results!!.sortedByDescending(::sortByPopularity),
             null,
             SearchQuery(query, page.inc()))
         is Maybe.Error -> result.error.printStackTrace()
@@ -31,14 +31,14 @@ class SearchDataSource(private val cor: AppCoroutineDispatchers,
     launch(cor.NETWORK) {
       val result = remoteDataSource.search(query, page)
       when (result) {
-        is Maybe.Some -> callback.onResult(result.value.results!!.sortedBy(::sortByPopularity),
+        is Maybe.Some -> callback.onResult(result.value.results!!.sortedByDescending(::sortByPopularity),
             SearchQuery(query, page.inc()))
         is Maybe.Error -> result.error.printStackTrace()
       }
     }
   }
 
-  private fun sortByPopularity(it: Movie): Double = it.popularity ?: 0.0
+  private fun sortByPopularity(it: Movie): Double = it.popularity ?: -1.0
 
   override fun loadBefore(params: LoadParams<SearchQuery>, callback: LoadCallback<SearchQuery, Movie>) {
   }
