@@ -18,6 +18,10 @@ MovLan is an sample project which attempts to use the latest libraries and tools
 ## Architecture
 The app uses MVVM architecture which fits more with the latest libraries used (ViewModel and Room) and the app requirements.
 
+## Download APK
+
+The apk could be downloaded from [Here](https://github.com/MoshDev/MovLan/tree/master/apk)
+
 ### Code style
 Uses the default Kotlin code style built-in AndroidStudio
 
