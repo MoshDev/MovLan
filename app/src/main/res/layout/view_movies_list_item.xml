@@ -2,13 +2,13 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="@dimen/poster_small_width"
+  android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:layout_marginStart="@dimen/padding_small"
   android:layout_marginTop="@dimen/padding_small"
   android:layout_marginEnd="@dimen/padding_small"
   android:layout_marginBottom="@dimen/padding_small"
-  tools:layout_width="@dimen/poster_small_width"
+  tools:layout_width="180dp"
   android:clickable="true"
   android:focusable="true"
   android:foreground="?selectableItemBackground"
@@ -19,10 +19,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
+    <space.ersan.movlan.utils.AspectRatioImageView
       android:id="@+id/thumbnailImageView"
-      android:layout_width="@dimen/poster_small_width"
-      android:layout_height="@dimen/poster_small_height"
+      app:ari_ratio="@string/poster_image_ratio"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
       android:scaleType="centerCrop"
       tools:src="@drawable/sample1" />
 

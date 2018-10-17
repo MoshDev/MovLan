@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <dimen name="backdrop_height">208dp</dimen>
-
   <integer name="listing_movies_span">5</integer>
-
-  <!--300-->
-  <!--450-->
 
 </resources>

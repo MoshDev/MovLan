@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <dimen name="poster_small_width">120dp</dimen>
-  <dimen name="poster_small_height">180dp</dimen>
-
-  <!--<dimen name="poster_small_width">140dp</dimen>-->
-  <!--<dimen name="poster_small_height">208dp</dimen>-->
-  <!--//TODO make the image view ratioable-->
-
-  <dimen name="backdrop_height">208dp</dimen>
+  <item name="poster_image_ratio" type="string">1.5</item>
+  <item name="backdrop_image_ratio" type="string">0.56</item>
+  <dimen name="details_poster_width">128dp</dimen>
 
   <dimen name="padding_small">4dp</dimen>
   <dimen name="padding_medium">8dp</dimen>

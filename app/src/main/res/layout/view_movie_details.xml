@@ -33,16 +33,18 @@
 
       <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/backdrop_height"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_medium"
         app:cardCornerRadius="@dimen/card_corner_radius">
 
-        <ImageView
+        <space.ersan.movlan.utils.AspectRatioImageView
           android:id="@+id/backdropImageView"
+          app:ari_ratio="@string/backdrop_image_ratio"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
+          android:layout_height="0dp"
           android:scaleType="centerCrop"
           tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
       </androidx.cardview.widget.CardView>
 
       <LinearLayout
@@ -51,19 +53,20 @@
         android:orientation="horizontal"
         android:padding="@dimen/padding_medium">
 
-        <ImageView
+        <space.ersan.movlan.utils.AspectRatioImageView
           android:id="@+id/thumbnailImageView"
-          android:layout_width="@dimen/poster_small_width"
-          android:layout_height="@dimen/poster_small_height"
-          android:adjustViewBounds="true"
+          android:layout_width="@dimen/details_poster_width"
+          android:layout_height="0dp"
+          android:scaleType="centerCrop"
+          app:ari_ratio="@string/poster_image_ratio"
           tools:src="@drawable/sample1" />
 
         <LinearLayout
           android:layout_width="0dp"
           android:layout_height="wrap_content"
+          android:layout_gravity="fill_vertical"
           android:layout_weight="1"
           android:gravity="center_vertical"
-          android:layout_gravity="fill_vertical"
           android:orientation="vertical"
           android:padding="@dimen/padding_medium">
 
