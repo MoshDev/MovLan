@@ -9,11 +9,7 @@ class HomePresenter(private val lifecycleOwner: LifecycleOwner, private val view
     viewModel.observeMovies(lifecycleOwner, view::setMovies)
     viewModel.observeNetworkStatus(lifecycleOwner, view::setNetworkStatus)
     view.observeSwipeToRefresh(viewModel::refreshData)
-
-    view.observeMovieListClicks {
-      viewModel.showMovieDetails(it.id)
-      println("Mosh $it")
-    }
+    view.observeMovieListClicks(viewModel::showMovieDetails)
 
   }
 

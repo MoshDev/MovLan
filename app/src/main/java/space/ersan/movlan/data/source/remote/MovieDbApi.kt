@@ -17,4 +17,7 @@ interface MovieDbApi {
   @GET("genre/movie/list")
   fun getGenres(): Deferred<GenreList>
 
+  @GET("search/movie")
+  fun search(@Query("query") query: String, @Query("page") page: Int = 1, @Query("include_adult") includeAdult: Boolean = false): Deferred<MovieList>
+
 }

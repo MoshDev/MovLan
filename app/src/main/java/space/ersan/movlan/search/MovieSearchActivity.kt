@@ -1,6 +1,6 @@
 package space.ersan.movlan.search
 
-import android.content.Context
+import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -8,11 +8,6 @@ import space.ersan.movlan.app.Movlan
 import javax.inject.Inject
 
 class MovieSearchActivity : AppCompatActivity() {
-  companion object {
-
-    fun intentFor(context: Context): Intent = Intent(context, MovieSearchActivity::
-    class.java)
-  }
 
   @Inject
   lateinit var presenter: MovieSearchPresenter
@@ -24,6 +19,24 @@ class MovieSearchActivity : AppCompatActivity() {
     Movlan.injector.inject(this)
     setContentView(view)
     presenter.onCreate()
+
+    handleSearchIntent(intent)
+    println("Mosh 1 MovieSearchActivity ${intent}")
+  }
+
+  override fun onNewIntent(intent: Intent?) {
+    super.onNewIntent(intent)
+    handleSearchIntent(intent)
+    println("Mosh 2 MovieSearchActivity ${intent}")
+  }
+
+  private fun handleSearchIntent(intent: Intent?) {
+    if (Intent.ACTION_SEARCH == intent?.action) {
+      val query: String? = intent.getStringExtra(SearchManager.QUERY)
+      query?.let {
+        presenter.searchFor(it)
+      }
+    }
   }
 }
 

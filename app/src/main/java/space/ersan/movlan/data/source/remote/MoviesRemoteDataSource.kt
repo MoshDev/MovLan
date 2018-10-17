@@ -25,4 +25,10 @@ class MoviesRemoteDataSource(private val api: MovieDbApi) {
     Maybe.Error(err)
   }
 
+  suspend fun search(query: String, page: Int): Maybe<MovieList> = try {
+    Maybe.Some(api.search(query, page).await())
+  } catch (err: Exception) {
+    Maybe.Error(err)
+  }
+
 }

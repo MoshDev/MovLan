@@ -14,6 +14,9 @@ import space.ersan.movlan.utils.AppCoroutineDispatchers
 import space.ersan.movlan.utils.LiveNetworkStatus
 import space.ersan.movlan.utils.Maybe
 import space.ersan.movlan.utils.NetworkStatus
+import androidx.paging.LivePagedListBuilder
+import space.ersan.movlan.data.source.remote.search.SearchDataSourceFactory
+
 
 class MoviesRepository(private val cor: AppCoroutineDispatchers,
                        private val localDataSource: MoviesLocalDataSource,
@@ -68,5 +71,17 @@ class MoviesRepository(private val cor: AppCoroutineDispatchers,
       }
 
     }
+  }
+
+  fun searchMovies(query: String): LiveData<PagedList<Movie>> {
+    val pagedListConfig = PagedList.Config.Builder()
+        .setEnablePlaceholders(false)
+        .setInitialLoadSizeHint(20)
+        .setPageSize(20)
+        .build()
+
+    return LivePagedListBuilder(SearchDataSourceFactory(cor, remoteDataSource, query),
+        pagedListConfig)
+        .build()
   }
 }

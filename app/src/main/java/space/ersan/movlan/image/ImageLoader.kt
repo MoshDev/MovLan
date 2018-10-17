@@ -16,8 +16,8 @@ sealed class ImageLoader(private val requestManager: RequestManager,
 
   private companion object {
     private val defaultRequestOptions = RequestOptions()
-        .fallback(R.drawable.ic_image_fallback)
-        .error(R.drawable.ic_image_error)
+        .fallback(R.drawable.bg_image_error)
+        .error(R.drawable.bg_image_error)
   }
 
   class Poster(application: Application) : ImageLoader(Glide.with(application)

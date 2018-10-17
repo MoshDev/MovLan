@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.ComponentName
 import android.content.Context
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.MenuItemCompat
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +23,7 @@ import space.ersan.movlan.search.MovieSearchActivity
 import space.ersan.movlan.utils.NetworkStatus
 
 @SuppressLint("ViewConstructor")
-class HomeView(context: Context, posterLoader: ImageLoader.Poster)
+open class HomeView(context: Context, posterLoader: ImageLoader.Poster)
   : BaseView(context) {
 
   private val adapter: MoviesListAdapter = MoviesListAdapter(posterLoader)
@@ -35,6 +35,7 @@ class HomeView(context: Context, posterLoader: ImageLoader.Poster)
   private val toolbar: Toolbar
   private var shownSnackbar: Snackbar? = null
 
+
   init {
     View.inflate(context, R.layout.view_main, this)
     recyclerView = findViewById(R.id.recyclerView)
@@ -42,30 +43,38 @@ class HomeView(context: Context, posterLoader: ImageLoader.Poster)
     recyclerView.layoutManager = layoutManger
 
     swipeToRefresh = findViewById(R.id.swipeToRefresh)
+    swipeToRefresh.isEnabled = false
     progressBar = findViewById(R.id.progressBar)
+    progressBar.hide()
 
     toolbar = findViewById(R.id.toolbar)
     toolbar.inflateMenu(R.menu.home_menu)
 
-    val menu = toolbar.menu
-    val menuItem =  menu.findItem(R.id.actionSearch)
-    val searchView = menuItem?.actionView as SearchView
-    searchView.setOnQueryTextFocusChangeListener{ _: View, hasFocus: Boolean -> if(!hasFocus) menuItem.collapseActionView()}
 
+    val searchMenuItem: MenuItem = toolbar.menu.findItem(R.id.actionSearch)
+    val searchView: SearchView = searchMenuItem.actionView as SearchView
+    searchView.setOnQueryTextFocusChangeListener { _: View, hasFocus: Boolean -> if (!hasFocus) searchMenuItem.collapseActionView() }
     val searchManager = context.getSystemService(Context.SEARCH_SERVICE) as SearchManager
     searchView.setSearchableInfo(searchManager.getSearchableInfo(ComponentName(context,
         MovieSearchActivity::class.java)))
+  }
+
+  protected open fun setTitle(title: String) {
+    toolbar.title = title
   }
 
   fun setMovies(result: PagedList<Movie>) {
     adapter.submitList(result)
   }
 
-  fun observeMovieListClicks(clb: (Movie) -> Unit) {
-    adapter.clicksCallback = clb
+  fun observeMovieListClicks(clb: (Context, Movie) -> Unit) {
+    adapter.clicksCallback = {
+      clb(context, it)
+    }
   }
 
   fun observeSwipeToRefresh(clb: () -> Unit) {
+    swipeToRefresh.isEnabled = true
     swipeToRefresh.setOnRefreshListener {
       clb()
       swipeToRefresh.isRefreshing = false

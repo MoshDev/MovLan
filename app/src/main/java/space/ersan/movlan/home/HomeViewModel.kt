@@ -1,6 +1,7 @@
 package space.ersan.movlan.home
 
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
@@ -36,11 +37,8 @@ class HomeViewModel(application: Application,
     movies.observe(lifecycleOwner, Observer(clb))
   }
 
-  fun showMovieDetails(id: Int) {
-    val app: MovlanApp = getApplication()
-    val intent = MovieDetailsActivity.intentFor(app, id)
-    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    app.startActivity(intent)
+  fun showMovieDetails(context: Context, movie: Movie) {
+    context.startActivity(MovieDetailsActivity.intentFor(context, movie.id))
   }
 
 }
