@@ -16,7 +16,7 @@ MovLan is an sample project which attempts to use the latest libraries and tools
 * Uses [dagger-android](https://google.github.io/dagger/android.html) for dependency injection
 
 ## Architecture
-The app uses MVVM architecture which fits more with the latest libraries used (ViewModel and Room)
+The app uses MVVM architecture which fits more with the latest libraries used (ViewModel and Room) and the app requirements.
 
 ### Code style
 Uses the default Kotlin code style built-in AndroidStudio
