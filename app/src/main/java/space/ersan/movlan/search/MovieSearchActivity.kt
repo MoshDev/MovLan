@@ -21,13 +21,11 @@ class MovieSearchActivity : AppCompatActivity() {
     presenter.onCreate()
 
     handleSearchIntent(intent)
-    println("Mosh 1 MovieSearchActivity ${intent}")
   }
 
   override fun onNewIntent(intent: Intent?) {
     super.onNewIntent(intent)
     handleSearchIntent(intent)
-    println("Mosh 2 MovieSearchActivity ${intent}")
   }
 
   private fun handleSearchIntent(intent: Intent?) {

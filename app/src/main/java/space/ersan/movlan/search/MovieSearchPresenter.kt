@@ -6,12 +6,14 @@ import androidx.lifecycle.Observer
 class MovieSearchPresenter(private val lifecycleOwner: LifecycleOwner, private val view: MovieSearchView, private val viewModel: MovieSearchViewModel) {
 
   fun onCreate() {
+    view.observeMovieListClicks(viewModel::showMovieDetails)
   }
 
   fun searchFor(query: String) {
     view.setTitle(query)
-    viewModel.searchFor(query)
-        .observe(lifecycleOwner, Observer { view.setMovies(it) })
-    view.observeMovieListClicks(viewModel::showMovieDetails)
+    if (!viewModel.isTheSameQuery(query)) {
+      viewModel.searchFor(query)
+          .observe(lifecycleOwner, Observer { view.setMovies(it) })
+    }
   }
 }
