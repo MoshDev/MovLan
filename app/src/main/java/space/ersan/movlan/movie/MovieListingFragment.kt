@@ -1,4 +1,4 @@
-package space.ersan.movlan.home.movie
+package space.ersan.movlan.movie
 
 import android.os.Bundle
 import android.view.LayoutInflater

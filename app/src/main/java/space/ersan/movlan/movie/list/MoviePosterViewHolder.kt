@@ -1,4 +1,4 @@
-package space.ersan.movlan.home.list
+package space.ersan.movlan.movie.list
 
 import android.view.View
 import android.widget.ImageView

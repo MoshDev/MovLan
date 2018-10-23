@@ -1,13 +1,8 @@
-package space.ersan.movlan.home.movie
+package space.ersan.movlan.movie
 
 import android.annotation.SuppressLint
-import android.app.SearchManager
-import android.content.ComponentName
 import android.content.Context
-import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
@@ -17,9 +12,8 @@ import com.google.android.material.snackbar.Snackbar
 import space.ersan.movlan.R
 import space.ersan.movlan.common.BaseView
 import space.ersan.movlan.data.model.Movie
-import space.ersan.movlan.home.list.MoviesListAdapter
+import space.ersan.movlan.movie.list.MoviesListAdapter
 import space.ersan.movlan.image.ImageLoader
-import space.ersan.movlan.search.MovieSearchActivity
 import space.ersan.movlan.utils.NetworkStatus
 
 @SuppressLint("ViewConstructor")
@@ -32,7 +26,6 @@ open class MovieListingView(context: Context, posterLoader: ImageLoader.Poster)
   private val recyclerView: RecyclerView
   private val swipeToRefresh: SwipeRefreshLayout
   private val progressBar: ContentLoadingProgressBar
-  private val toolbar: Toolbar
   private var shownSnackbar: Snackbar? = null
 
 
@@ -47,20 +40,6 @@ open class MovieListingView(context: Context, posterLoader: ImageLoader.Poster)
     progressBar = findViewById(R.id.progressBar)
     progressBar.hide()
 
-    toolbar = findViewById(R.id.toolbar)
-    toolbar.inflateMenu(R.menu.home_menu)
-
-
-    val searchMenuItem: MenuItem = toolbar.menu.findItem(R.id.actionSearch)
-    val searchView: SearchView = searchMenuItem.actionView as SearchView
-    searchView.setOnQueryTextFocusChangeListener { _: View, hasFocus: Boolean -> if (!hasFocus) searchMenuItem.collapseActionView() }
-    val searchManager = context.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-    searchView.setSearchableInfo(searchManager.getSearchableInfo(ComponentName(context,
-        MovieSearchActivity::class.java)))
-  }
-
-  protected open fun setTitle(title: String) {
-    toolbar.title = title
   }
 
   fun setMovies(result: PagedList<Movie>) {

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.details.MovieDetailsViewModel
-import space.ersan.movlan.home.movie.MovieListingViewModel
+import space.ersan.movlan.movie.MovieListingViewModel
 import space.ersan.movlan.search.MovieSearchViewModel
 import space.ersan.movlan.utils.LiveNetworkStatus
 

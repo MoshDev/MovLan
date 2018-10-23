@@ -1,4 +1,4 @@
-package space.ersan.movlan.home.movie
+package space.ersan.movlan.movie
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver

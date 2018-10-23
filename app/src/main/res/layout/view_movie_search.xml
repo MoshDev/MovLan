@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical">
 
-  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    android:id="@+id/swipeToRefresh"
+  <androidx.appcompat.widget.SearchView
+    android:id="@+id/searchView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:defaultQueryHint="@string/search_hint"
+    app:iconifiedByDefault="false">
+
+    <requestFocus />
+  </androidx.appcompat.widget.SearchView>
+
+  <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="1">
@@ -20,7 +30,16 @@
       tools:itemCount="9"
       tools:listitem="@layout/recycler_view_item" />
 
-  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <TextView
+      android:id="@+id/emptyMessageView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:gravity="center"
+      android:visibility="gone"
+      android:text="@string/no_result"
+      tools:visibility="visible" />
+  </FrameLayout>
 
   <androidx.core.widget.ContentLoadingProgressBar
     android:id="@+id/progressBar"

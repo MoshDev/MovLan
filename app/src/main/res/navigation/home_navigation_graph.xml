@@ -7,19 +7,19 @@
 
   <fragment
     android:id="@+id/movie_listing_fragment"
-    android:name="space.ersan.movlan.home.movie.MovieListingFragment"
+    android:name="space.ersan.movlan.movie.MovieListingFragment"
     android:label="@string/movies"
     tools:layout="@layout/view_movie_listing" />
 
   <fragment
     android:id="@+id/tv_listing_fragment"
-    android:name="space.ersan.movlan.home.tv.TvListingFragment"
+    android:name="space.ersan.movlan.tv.TvListingFragment"
     android:label="@string/tv"
     tools:layout="@layout/view_movie_listing" />
 
   <fragment
     android:id="@+id/search_fragment"
-    android:name="space.ersan.movlan.home.tv.TvListingFragment"
+    android:name="space.ersan.movlan.search.MovieSearchFragment"
     android:label="@string/search"
     tools:layout="@layout/view_movie_listing" />
 

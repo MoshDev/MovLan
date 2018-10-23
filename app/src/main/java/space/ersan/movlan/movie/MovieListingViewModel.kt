@@ -1,13 +1,11 @@
-package space.ersan.movlan.home.movie
+package space.ersan.movlan.movie
 
 import android.app.Application
 import android.content.Context
-import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import space.ersan.movlan.app.MovlanApp
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.details.MovieDetailsActivity

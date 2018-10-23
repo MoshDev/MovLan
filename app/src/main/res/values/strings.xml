@@ -13,5 +13,7 @@
 
   <string name="movies">Movies</string>
   <string name="tv">TV</string>
+  <string name="no_result">No Result</string>
+  <string name="coming_soon">Comming Soon</string>
 
 </resources>

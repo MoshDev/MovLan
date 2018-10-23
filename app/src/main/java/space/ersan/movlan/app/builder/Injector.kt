@@ -1,6 +1,5 @@
 package space.ersan.movlan.app.builder
 
-import space.ersan.movlan.app.ComponentProvider
 import space.ersan.movlan.app.MovlanApp
 import space.ersan.movlan.data.model.AppConfig
 import space.ersan.movlan.details.MovieDetailsActivity
@@ -10,10 +9,10 @@ import space.ersan.movlan.home.HomeActivity
 import space.ersan.movlan.home.builder.DaggerHomeComponent
 import space.ersan.movlan.home.builder.HomeComponent
 import space.ersan.movlan.home.builder.HomeModule
-import space.ersan.movlan.home.movie.MovieListingFragment
-import space.ersan.movlan.home.movie.builder.DaggerMovieListingComponent
-import space.ersan.movlan.home.movie.builder.MovieListingModule
-import space.ersan.movlan.search.MovieSearchActivity
+import space.ersan.movlan.movie.MovieListingFragment
+import space.ersan.movlan.movie.builder.DaggerMovieListingComponent
+import space.ersan.movlan.movie.builder.MovieListingModule
+import space.ersan.movlan.search.MovieSearchFragment
 import space.ersan.movlan.search.builder.DaggerMovieSearchComponent
 import space.ersan.movlan.search.builder.MovieSearchModule
 
@@ -42,15 +41,22 @@ class Injector(movlanApp: MovlanApp, config: AppConfig) {
       .build()
       .inject(detailsActivity)
 
-  fun inject(movieSearchActivity: MovieSearchActivity) = DaggerMovieSearchComponent.builder()
-      .appComponent(appComponent)
-      .movieSearchModule(MovieSearchModule((movieSearchActivity)))
-      .build()
-      .inject(movieSearchActivity)
+//  fun inject(movieSearchActivity: MovieSearchActivity) = DaggerMovieSearchComponent.builder()
+//      .appComponent(appComponent)
+//      .movieSearchModule(MovieSearchModule((movieSearchActivity)))
+//      .build()
+//      .inject(movieSearchActivity)
 
   fun inject(fragment: MovieListingFragment, homeComponent: HomeComponent) = DaggerMovieListingComponent.builder()
       .movieListingModule(MovieListingModule(fragment))
       .homeComponent(homeComponent)
       .build()
       .inject(fragment)
+
+  fun inject(fragment: MovieSearchFragment, homeComponent: HomeComponent) =
+      DaggerMovieSearchComponent.builder()
+          .homeComponent(homeComponent)
+          .movieSearchModule(MovieSearchModule(fragment))
+          .build()
+          .inject(fragment)
 }

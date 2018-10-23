@@ -4,23 +4,34 @@ import android.app.Application
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.details.MovieDetailsActivity
 import java.util.concurrent.atomic.AtomicReference
 
-class MovieSearchViewModel(application: Application, private val moviesRepository: MoviesRepository) : AndroidViewModel(
-    application) {
+class MovieSearchViewModel(application: Application,
+                           private val moviesRepository: MoviesRepository)
+  : AndroidViewModel(application) {
 
-  private val lastQuery = AtomicReference<String?>(null)
+  private val searchLiveData: MediatorLiveData<PagedList<Movie>> = MediatorLiveData()
 
-  fun isTheSameQuery(query: String): Boolean{
-    return query == lastQuery.get()
-  }
+  fun getSearchData(): LiveData<PagedList<Movie>> = searchLiveData
 
-  fun searchFor(query: String): LiveData<PagedList<Movie>> {
-    return moviesRepository.searchMovies(query)
+  var searchTextQuery: String? = null
+    private set
+
+  private var lastSearchLiveData: LiveData<PagedList<Movie>>? = null
+
+  fun searchMovies(query: String) {
+    searchTextQuery = query
+    lastSearchLiveData?.let {
+      searchLiveData.removeSource(it)
+    }
+    lastSearchLiveData = moviesRepository.searchMovies(query)
+    searchLiveData.addSource(lastSearchLiveData!!) { searchLiveData.postValue(it) }
   }
 
   fun showMovieDetails(context: Context, movie: Movie) {

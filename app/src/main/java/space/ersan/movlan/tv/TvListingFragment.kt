@@ -1,4 +1,4 @@
-package space.ersan.movlan.home.tv
+package space.ersan.movlan.tv
 
 import android.os.Bundle
 import android.view.Gravity
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import space.ersan.movlan.R
 
 class TvListingFragment : Fragment() {
 
@@ -14,7 +15,7 @@ class TvListingFragment : Fragment() {
     return TextView(requireContext()).apply {
       layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
           ViewGroup.LayoutParams.MATCH_PARENT)
-      text = "TV"
+      setText(R.string.coming_soon)
       gravity = Gravity.CENTER
     }
   }

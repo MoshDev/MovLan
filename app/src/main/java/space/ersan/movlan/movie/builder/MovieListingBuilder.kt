@@ -1,14 +1,14 @@
-package space.ersan.movlan.home.movie.builder
+package space.ersan.movlan.movie.builder
 
 import androidx.lifecycle.ViewModelProvider
 import dagger.Component
 import dagger.Module
 import dagger.Provides
 import space.ersan.movlan.home.builder.HomeComponent
-import space.ersan.movlan.home.movie.MovieListingFragment
-import space.ersan.movlan.home.movie.MovieListingPresenter
-import space.ersan.movlan.home.movie.MovieListingView
-import space.ersan.movlan.home.movie.MovieListingViewModel
+import space.ersan.movlan.movie.MovieListingFragment
+import space.ersan.movlan.movie.MovieListingPresenter
+import space.ersan.movlan.movie.MovieListingView
+import space.ersan.movlan.movie.MovieListingViewModel
 import space.ersan.movlan.image.ImageLoader
 import javax.inject.Scope
 
