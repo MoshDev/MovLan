@@ -46,7 +46,7 @@ class MovieSearchView(context: Context, posterLoader: ImageLoader.Poster) : Base
       }
 
       override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-        showEmptyMessage(false)
+        showEmptyMessage(itemCount == 0)
       }
     })
   }
