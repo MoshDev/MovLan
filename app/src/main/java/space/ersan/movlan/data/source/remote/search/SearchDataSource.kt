@@ -1,7 +1,7 @@
 package space.ersan.movlan.data.source.remote.search
 
 import androidx.paging.PageKeyedDataSource
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.launch
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.source.remote.MoviesRemoteDataSource
 import space.ersan.movlan.utils.AppCoroutineDispatchers

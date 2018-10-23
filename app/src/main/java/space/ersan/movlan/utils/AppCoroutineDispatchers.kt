@@ -1,11 +1,13 @@
 package space.ersan.movlan.utils
 
-import kotlinx.coroutines.experimental.CoroutineDispatcher
-import kotlinx.coroutines.experimental.asCoroutineDispatcher
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.android.Main
+import kotlinx.coroutines.asCoroutineDispatcher
 import java.util.concurrent.Executors
 
 open class AppCoroutineDispatchers(
     val IO: CoroutineDispatcher = Executors.newSingleThreadExecutor().asCoroutineDispatcher(),
     val NETWORK: CoroutineDispatcher = Executors.newFixedThreadPool(2).asCoroutineDispatcher(),
-    val UI: CoroutineDispatcher = kotlinx.coroutines.experimental.android.UI
+    val UI: CoroutineDispatcher = Dispatchers.Main
 )

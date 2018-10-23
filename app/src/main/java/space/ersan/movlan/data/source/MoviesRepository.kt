@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.withContext
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.source.local.MoviesDbBoundaryCallback
 import space.ersan.movlan.data.source.local.MoviesLocalDataSource

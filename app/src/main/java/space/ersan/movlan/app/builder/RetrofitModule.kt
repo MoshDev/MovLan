@@ -2,7 +2,7 @@ package space.ersan.movlan.app.builder
 
 import android.app.Application
 import com.google.gson.Gson
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import space.ersan.movlan.BuildConfig
 import dagger.Module
 import dagger.Provides
