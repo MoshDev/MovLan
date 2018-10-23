@@ -1,4 +1,4 @@
-package space.ersan.movlan.utils
+package space.ersan.movlan.widget
 
 import android.content.Context
 import android.util.AttributeSet

@@ -1,4 +1,4 @@
-package space.ersan.movlan.common.mvp
+package space.ersan.movlan.common
 
 import android.content.Context
 import android.widget.FrameLayout

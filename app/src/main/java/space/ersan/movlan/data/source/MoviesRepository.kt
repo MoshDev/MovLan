@@ -69,7 +69,6 @@ class MoviesRepository(private val cor: AppCoroutineDispatchers,
         }
         is Maybe.Error -> networkStatus.postValue(NetworkStatus.Error(movies.error.message))
       }
-
     }
   }
 

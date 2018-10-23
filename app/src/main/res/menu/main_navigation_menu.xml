@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+  <item
+    android:id="@id/movie_listing_fragment"
+    android:icon="@drawable/ic_movie_tab"
+    android:title="@string/movies"
+    tools:showAsAction="ifRoom" />
+  <item
+    android:id="@id/tv_listing_fragment"
+    android:icon="@drawable/ic_tv_tab"
+    android:title="@string/tv"
+    tools:showAsAction="ifRoom" />
+</menu>

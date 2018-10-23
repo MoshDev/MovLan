@@ -8,7 +8,6 @@
   android:layout_marginTop="@dimen/padding_small"
   android:layout_marginEnd="@dimen/padding_small"
   android:layout_marginBottom="@dimen/padding_small"
-  tools:layout_width="180dp"
   android:clickable="true"
   android:focusable="true"
   android:foreground="?selectableItemBackground"
@@ -19,7 +18,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <space.ersan.movlan.utils.AspectRatioImageView
+    <space.ersan.movlan.widget.AspectRatioImageView
       android:id="@+id/thumbnailImageView"
       app:ari_ratio="@string/poster_image_ratio"
       android:layout_width="match_parent"

@@ -1,8 +1,8 @@
-package space.ersan.movlan.home
+package space.ersan.movlan.home.movie
 
 import androidx.lifecycle.LifecycleOwner
 
-class HomePresenter(private val lifecycleOwner: LifecycleOwner, private val view: HomeView, private val viewModel: HomeViewModel) {
+class MovieListingPresenter(private val lifecycleOwner: LifecycleOwner, private val view: MovieListingView, private val viewModel: MovieListingViewModel) {
 
   fun onCreate() {
 

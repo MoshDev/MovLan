@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.details.MovieDetailsViewModel
-import space.ersan.movlan.home.HomeViewModel
+import space.ersan.movlan.home.movie.MovieListingViewModel
 import space.ersan.movlan.search.MovieSearchViewModel
 import space.ersan.movlan.utils.LiveNetworkStatus
 
@@ -14,8 +14,8 @@ class MovlanViewModelFactory(private val application: Application, private val m
 
   override fun <T : ViewModel> create(modelClass: Class<T>): T = with(modelClass) {
     when {
-      isAssignableFrom(HomeViewModel::class.java) -> {
-        HomeViewModel(application,
+      isAssignableFrom(MovieListingViewModel::class.java) -> {
+        MovieListingViewModel(application,
             moviesRepository,
             networkStatus)
       }

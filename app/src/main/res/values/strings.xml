@@ -11,4 +11,7 @@
   <string name="search">Search</string>
   <string name="search_hint">Movie Name</string>
 
+  <string name="movies">Movies</string>
+  <string name="tv">TV</string>
+
 </resources>

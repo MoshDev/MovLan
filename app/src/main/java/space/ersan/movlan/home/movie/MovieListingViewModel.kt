@@ -1,4 +1,4 @@
-package space.ersan.movlan.home
+package space.ersan.movlan.home.movie
 
 import android.app.Application
 import android.content.Context
@@ -14,9 +14,9 @@ import space.ersan.movlan.details.MovieDetailsActivity
 import space.ersan.movlan.utils.LiveNetworkStatus
 import space.ersan.movlan.utils.NetworkStatus
 
-class HomeViewModel(application: Application,
-                    private val moviesRepository: MoviesRepository,
-                    private val networkStatus: LiveNetworkStatus)
+class MovieListingViewModel(application: Application,
+                            private val moviesRepository: MoviesRepository,
+                            private val networkStatus: LiveNetworkStatus)
   : AndroidViewModel(application) {
 
   private val movies = moviesRepository.getPopularMovies()

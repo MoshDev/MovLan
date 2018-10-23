@@ -1,4 +1,4 @@
-package space.ersan.movlan.home
+package space.ersan.movlan.home.movie
 
 import android.annotation.SuppressLint
 import android.app.SearchManager
@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import space.ersan.movlan.R
-import space.ersan.movlan.common.mvp.BaseView
+import space.ersan.movlan.common.BaseView
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.home.list.MoviesListAdapter
 import space.ersan.movlan.image.ImageLoader
@@ -23,7 +23,7 @@ import space.ersan.movlan.search.MovieSearchActivity
 import space.ersan.movlan.utils.NetworkStatus
 
 @SuppressLint("ViewConstructor")
-open class HomeView(context: Context, posterLoader: ImageLoader.Poster)
+open class MovieListingView(context: Context, posterLoader: ImageLoader.Poster)
   : BaseView(context) {
 
   private val adapter: MoviesListAdapter = MoviesListAdapter(posterLoader)
@@ -37,7 +37,7 @@ open class HomeView(context: Context, posterLoader: ImageLoader.Poster)
 
 
   init {
-    View.inflate(context, R.layout.view_main, this)
+    View.inflate(context, R.layout.view_movie_listing, this)
     recyclerView = findViewById(R.id.recyclerView)
     recyclerView.adapter = adapter
     recyclerView.layoutManager = layoutManger

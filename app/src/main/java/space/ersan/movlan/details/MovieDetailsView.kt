@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import space.ersan.movlan.R
-import space.ersan.movlan.common.mvp.BaseView
+import space.ersan.movlan.common.BaseView
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.ext.toYear
 import space.ersan.movlan.image.ImageLoader
