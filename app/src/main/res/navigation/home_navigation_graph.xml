@@ -4,6 +4,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/main_navigation"
   app:startDestination="@id/movie_listing_fragment">
+
   <fragment
     android:id="@+id/movie_listing_fragment"
     android:name="space.ersan.movlan.home.movie.MovieListingFragment"
@@ -14,6 +15,12 @@
     android:id="@+id/tv_listing_fragment"
     android:name="space.ersan.movlan.home.tv.TvListingFragment"
     android:label="@string/tv"
+    tools:layout="@layout/view_movie_listing" />
+
+  <fragment
+    android:id="@+id/search_fragment"
+    android:name="space.ersan.movlan.home.tv.TvListingFragment"
+    android:label="@string/search"
     tools:layout="@layout/view_movie_listing" />
 
 </navigation>

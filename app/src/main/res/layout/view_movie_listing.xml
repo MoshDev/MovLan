@@ -7,12 +7,12 @@
   android:orientation="vertical">
 
   <com.google.android.material.appbar.AppBarLayout
-    android:id="@+id/appBarLayout"
+    android:id="@+id/appBarLayout" android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.Toolbar
-      android:id="@+id/toolbar"
+      android:id="@+id/toolbar" android:visibility="gone"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:minHeight="?actionBarSize"

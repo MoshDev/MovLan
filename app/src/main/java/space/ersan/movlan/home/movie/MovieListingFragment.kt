@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import space.ersan.movlan.app.ComponentProvider
 import space.ersan.movlan.app.Movlan
+import space.ersan.movlan.home.builder.HomeComponent
 import javax.inject.Inject
 
 class MovieListingFragment : Fragment() {
@@ -18,8 +20,9 @@ class MovieListingFragment : Fragment() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    Movlan.injector.inject(this)
-    presenter.onCreate()
+    @Suppress("UNCHECKED_CAST")
+    Movlan.injector.inject(this, (requireActivity() as ComponentProvider<HomeComponent>).getComponent())
+    lifecycle.addObserver(presenter)
   }
 
 

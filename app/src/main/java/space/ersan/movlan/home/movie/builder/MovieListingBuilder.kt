@@ -1,11 +1,10 @@
 package space.ersan.movlan.home.movie.builder
 
-import androidx.lifecycle.ViewModelProviders
-import space.ersan.movlan.app.builder.AppComponent
+import androidx.lifecycle.ViewModelProvider
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import space.ersan.movlan.app.MovlanViewModelFactory
+import space.ersan.movlan.home.builder.HomeComponent
 import space.ersan.movlan.home.movie.MovieListingFragment
 import space.ersan.movlan.home.movie.MovieListingPresenter
 import space.ersan.movlan.home.movie.MovieListingView
@@ -13,8 +12,8 @@ import space.ersan.movlan.home.movie.MovieListingViewModel
 import space.ersan.movlan.image.ImageLoader
 import javax.inject.Scope
 
-@Component(dependencies = [AppComponent::class], modules = [MovieListingModule::class])
-@HomeScope
+@Component(dependencies = [HomeComponent::class], modules = [MovieListingModule::class])
+@MovieListingScope
 interface MovieListingComponent {
   fun inject(fragment: MovieListingFragment)
 }
@@ -23,23 +22,22 @@ interface MovieListingComponent {
 class MovieListingModule(private val fragment: MovieListingFragment) {
 
   @Provides
-  @HomeScope
+  @MovieListingScope
   fun provideHomePresenter(homeView: MovieListingView, viewModel: MovieListingViewModel): MovieListingPresenter {
     return MovieListingPresenter(fragment, homeView, viewModel)
   }
 
   @Provides
-  @HomeScope
+  @MovieListingScope
   fun provideHomeView(posterLoader: ImageLoader.Poster): MovieListingView {
     return MovieListingView(fragment.requireContext(), posterLoader)
   }
 
   @Provides
-  @HomeScope
-  fun provideHomeViewModel(factory: MovlanViewModelFactory) = ViewModelProviders.of(fragment,
-      factory).get(MovieListingViewModel::class.java)
+  @MovieListingScope
+  fun provideHomeViewModel(viewModelProvider: ViewModelProvider) = viewModelProvider.get(MovieListingViewModel::class.java)
 
 }
 
 @Scope
-annotation class HomeScope
+annotation class MovieListingScope
