@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import space.ersan.movlan.data.model.Movie
@@ -31,7 +32,7 @@ class MoviesRepository(private val cor: AppCoroutineDispatchers,
 
   fun getMovieDetails(movieId: Int): LiveData<Movie> {
     val movieData = MutableLiveData<Movie>()
-    launch(cor.IO) {
+    GlobalScope.launch(cor.IO) {
       val localMovie = localDataSource.getMovie(movieId)
       if (localMovie != null) {
         movieData.postValue(localMovie)
@@ -48,7 +49,7 @@ class MoviesRepository(private val cor: AppCoroutineDispatchers,
 
   fun invalidate() {
     networkStatus.postValue(NetworkStatus.Loading)
-    launch(cor.NETWORK) {
+    GlobalScope.launch(cor.NETWORK) {
       val genres = remoteDataSource.getGenres()
       when (genres) {
         is Maybe.Some -> withContext(cor.IO) {

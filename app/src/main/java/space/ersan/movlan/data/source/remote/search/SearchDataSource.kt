@@ -1,6 +1,7 @@
 package space.ersan.movlan.data.source.remote.search
 
 import androidx.paging.PageKeyedDataSource
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.source.remote.MoviesRemoteDataSource
@@ -14,7 +15,7 @@ class SearchDataSource(private val cor: AppCoroutineDispatchers,
 
   override fun loadInitial(params: LoadInitialParams<SearchQuery>, callback: LoadInitialCallback<SearchQuery, Movie>) {
     val page = 1
-    launch(cor.NETWORK) {
+    GlobalScope.launch(cor.NETWORK) {
       val result = remoteDataSource.search(query, page)
       when (result) {
         is Maybe.Some -> callback.onResult(result.value.results!!.sortedByDescending(::sortByPopularity),
@@ -28,7 +29,7 @@ class SearchDataSource(private val cor: AppCoroutineDispatchers,
   override fun loadAfter(params: LoadParams<SearchQuery>, callback: LoadCallback<SearchQuery, Movie>) {
     val page = params.key.page
     val query = params.key.query
-    launch(cor.NETWORK) {
+    GlobalScope.launch(cor.NETWORK) {
       val result = remoteDataSource.search(query, page)
       when (result) {
         is Maybe.Some -> callback.onResult(result.value.results!!.sortedByDescending(::sortByPopularity),

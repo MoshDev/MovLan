@@ -1,6 +1,7 @@
 package space.ersan.movlan.data.source.local
 
 import androidx.paging.PagedList
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import space.ersan.movlan.data.model.Movie
@@ -18,7 +19,7 @@ class MoviesDbBoundaryCallback(private val cor: AppCoroutineDispatchers,
 
   override fun onZeroItemsLoaded() {
     val page = 1
-    launch(cor.NETWORK) {
+    GlobalScope.launch(cor.NETWORK) {
       val genres = remoteDataSource.getGenres()
       when (genres) {
         is Maybe.Some -> withContext(cor.IO) { localDataSource.insertAllGenres(genres.value.genres!!) }
@@ -45,7 +46,7 @@ class MoviesDbBoundaryCallback(private val cor: AppCoroutineDispatchers,
     networkStatus.postValue(NetworkStatus.Loading)
 
     val nextPage = itemAtEnd.page.inc()
-    launch(cor.NETWORK) {
+    GlobalScope.launch(cor.NETWORK) {
       val result = remoteDataSource.getPopularMovies(nextPage)
       when (result) {
         is Maybe.Some -> withContext(cor.IO) {
