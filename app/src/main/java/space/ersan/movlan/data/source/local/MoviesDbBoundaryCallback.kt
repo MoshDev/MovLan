@@ -23,7 +23,7 @@ class MoviesDbBoundaryCallback(private val cor: AppCoroutineDispatchers,
       when (genres) {
         is Maybe.Some -> withContext(cor.IO) { localDataSource.insertAllGenres(genres.value.genres!!) }
         is Maybe.Error -> {
-          networkStatus.postValue(NetworkStatus.Error(genres.error.message, ::onZeroItemsLoaded))
+          networkStatus.postValue(NetworkStatus.Error(::onZeroItemsLoaded))
           return@launch
         }
       }
@@ -35,7 +35,7 @@ class MoviesDbBoundaryCallback(private val cor: AppCoroutineDispatchers,
           networkStatus.postValue(NetworkStatus.Loaded)
         }
         is Maybe.Error -> {
-          networkStatus.postValue(NetworkStatus.Error(movies.error.message))
+          networkStatus.postValue(NetworkStatus.Error())
         }
       }
     }
@@ -53,7 +53,7 @@ class MoviesDbBoundaryCallback(private val cor: AppCoroutineDispatchers,
               result.value.results ?: emptyList())
           networkStatus.postValue(NetworkStatus.Loaded)
         }
-        is Maybe.Error -> networkStatus.postValue(NetworkStatus.Error(result.error.message) {
+        is Maybe.Error -> networkStatus.postValue(NetworkStatus.Error {
           onItemAtEndLoaded(itemAtEnd)
         })
       }

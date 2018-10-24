@@ -1,9 +1,7 @@
 package space.ersan.movlan.ext
 
-import android.content.Context
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 object MovieDateParser {
 
@@ -18,7 +16,6 @@ object MovieDateParser {
     return null
   }
 }
-
 
 private val MOVIE_YEAR_DATE_FORMAT by lazy {
   SimpleDateFormat("yyyy", Locale.US)

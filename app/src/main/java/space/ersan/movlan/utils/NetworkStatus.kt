@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 sealed class NetworkStatus {
   object Loading : NetworkStatus()
   object Loaded : NetworkStatus()
-  class Error(val msg: String?, val retry: (() -> Unit)? = null) : NetworkStatus()
+  class Error(val retry: (() -> Unit)? = null) : NetworkStatus()
 }
 
 class LiveNetworkStatus : LiveData<NetworkStatus>() {

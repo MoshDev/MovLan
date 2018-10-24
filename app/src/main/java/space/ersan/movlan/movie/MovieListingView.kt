@@ -12,12 +12,12 @@ import com.google.android.material.snackbar.Snackbar
 import space.ersan.movlan.R
 import space.ersan.movlan.common.BaseView
 import space.ersan.movlan.data.model.Movie
-import space.ersan.movlan.movie.list.MoviesListAdapter
 import space.ersan.movlan.image.ImageLoader
+import space.ersan.movlan.movie.list.MoviesListAdapter
 import space.ersan.movlan.utils.NetworkStatus
 
 @SuppressLint("ViewConstructor")
-open class MovieListingView(context: Context, posterLoader: ImageLoader.Poster)
+class MovieListingView(context: Context, posterLoader: ImageLoader.Poster)
   : BaseView(context) {
 
   private val adapter: MoviesListAdapter = MoviesListAdapter(posterLoader)

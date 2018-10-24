@@ -12,6 +12,7 @@ import space.ersan.movlan.utils.LiveNetworkStatus
 class MovlanViewModelFactory(private val application: Application, private val moviesRepository: MoviesRepository,
                              private val networkStatus: LiveNetworkStatus) : ViewModelProvider.NewInstanceFactory() {
 
+  @Suppress("UNCHECKED_CAST")
   override fun <T : ViewModel> create(modelClass: Class<T>): T = with(modelClass) {
     when {
       isAssignableFrom(MovieListingViewModel::class.java) -> {

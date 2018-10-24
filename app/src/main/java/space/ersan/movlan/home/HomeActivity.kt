@@ -2,7 +2,6 @@ package space.ersan.movlan.home
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -10,7 +9,6 @@ import space.ersan.movlan.R
 import space.ersan.movlan.app.ComponentProvider
 import space.ersan.movlan.app.Movlan
 import space.ersan.movlan.home.builder.HomeComponent
-import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity(), ComponentProvider<HomeComponent> {
 

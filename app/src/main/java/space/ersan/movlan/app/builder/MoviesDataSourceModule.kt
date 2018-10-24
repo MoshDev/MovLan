@@ -6,8 +6,8 @@ import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.data.source.local.MoviesDao
 import space.ersan.movlan.data.source.local.MoviesDbBoundaryCallback
 import space.ersan.movlan.data.source.local.MoviesLocalDataSource
-import space.ersan.movlan.data.source.remote.MoviesRemoteDataSource
 import space.ersan.movlan.data.source.remote.MovieDbApi
+import space.ersan.movlan.data.source.remote.MoviesRemoteDataSource
 import space.ersan.movlan.utils.AppCoroutineDispatchers
 import space.ersan.movlan.utils.LiveNetworkStatus
 

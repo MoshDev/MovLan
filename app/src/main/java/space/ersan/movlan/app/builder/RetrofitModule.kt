@@ -3,7 +3,6 @@ package space.ersan.movlan.app.builder
 import android.app.Application
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import space.ersan.movlan.BuildConfig
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -12,9 +11,10 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import space.ersan.movlan.BuildConfig
 import space.ersan.movlan.data.model.AppConfig
-import space.ersan.movlan.ext.queryInterceptor
 import space.ersan.movlan.data.source.remote.MovieDbApi
+import space.ersan.movlan.ext.queryInterceptor
 import java.io.File
 
 @Module
@@ -39,9 +39,9 @@ class RetrofitModule {
 
   @Provides
   @AppScope
-  fun provideOkHttpClient(appConfig: AppConfig, cache: Cache): OkHttpClient {
+  fun provideOkHttpClient(appConfig: AppConfig, @Suppress("UNUSED_PARAMETER") cache: Cache): OkHttpClient {
     return OkHttpClient.Builder()
-//        .cache(cache)
+//        .cache(cache) // Disabled to demonstrate the save state
         .queryInterceptor("api_key", appConfig.movieDbApiKey)
         .addInterceptor(createLoggingInterceptor())
         .build()

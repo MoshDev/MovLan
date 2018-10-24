@@ -6,7 +6,7 @@ import dagger.Provides
 import space.ersan.movlan.image.ImageLoader
 
 @Module
-class ImageLoaderModule() {
+class ImageLoaderModule {
 
   @AppScope
   @Provides

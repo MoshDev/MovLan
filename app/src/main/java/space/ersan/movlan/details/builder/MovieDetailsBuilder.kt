@@ -1,11 +1,11 @@
 package space.ersan.movlan.details.builder
 
 import androidx.lifecycle.ViewModelProviders
-import space.ersan.movlan.app.builder.AppComponent
 import dagger.Component
 import dagger.Module
 import dagger.Provides
 import space.ersan.movlan.app.MovlanViewModelFactory
+import space.ersan.movlan.app.builder.AppComponent
 import space.ersan.movlan.details.MovieDetailsActivity
 import space.ersan.movlan.details.MovieDetailsPresenter
 import space.ersan.movlan.details.MovieDetailsView

@@ -7,7 +7,6 @@ import dagger.Module
 import dagger.Provides
 import space.ersan.movlan.app.MovlanViewModelFactory
 import space.ersan.movlan.app.builder.AppComponent
-import space.ersan.movlan.app.builder.ViewModelFactoryModule
 import space.ersan.movlan.home.HomeActivity
 import space.ersan.movlan.image.ImageLoader
 import javax.inject.Scope

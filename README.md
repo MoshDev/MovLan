@@ -26,7 +26,7 @@ The apk could be downloaded from [Here](https://github.com/MoshDev/MovLan/tree/m
 Uses the default Kotlin code style built-in AndroidStudio
 
 ### API keys
-At the moment the MovieDB API key is left in the project to make it easier to build, as future improvment it will be moved to the CI instance and readin from the gradle properties.
+At the moment the MovieDB API key is left in the project to make it easier to build, as future improvement it will be moved to the CI instance and reading it from the gradle properties.
 
 ## License
 

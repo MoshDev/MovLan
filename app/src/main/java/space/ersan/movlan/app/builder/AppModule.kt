@@ -10,7 +10,7 @@ class AppModule(private val movlanApp: MovlanApp) {
 
   @AppScope
   @Provides
-  fun movelanApp(): MovlanApp = movlanApp
+  fun movlanApp(): MovlanApp = movlanApp
 
   @AppScope
   @Provides

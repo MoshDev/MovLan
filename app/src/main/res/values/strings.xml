@@ -3,7 +3,6 @@
   <string name="retry">Retry</string>
   <string name="network_error_home_movies_list">Failed to load movies, Sorry</string>
   <string name="homepage">Homepage</string>
-  <string name="open_with">Open With:</string>
   <string name="movie_runtime">Duration: %2dh %2dm</string>
   <string name="movie_revenue">Revenue: %s</string>
   <string name="movie_language">Language: %s</string>
@@ -14,6 +13,6 @@
   <string name="movies">Movies</string>
   <string name="tv">TV</string>
   <string name="no_result">No Result</string>
-  <string name="coming_soon">Comming Soon</string>
+  <string name="coming_soon">Coming Soon</string>
 
 </resources>

@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import space.ersan.movlan.R
 import space.ersan.movlan.common.BaseView
 import space.ersan.movlan.data.model.Movie
-import space.ersan.movlan.movie.list.MoviesListAdapter
 import space.ersan.movlan.image.ImageLoader
+import space.ersan.movlan.movie.list.MoviesListAdapter
 
 @SuppressLint("ViewConstructor")
 class MovieSearchView(context: Context, posterLoader: ImageLoader.Poster) : BaseView(

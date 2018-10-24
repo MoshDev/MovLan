@@ -1,19 +1,15 @@
 package space.ersan.movlan.search.builder
 
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import space.ersan.movlan.app.builder.AppComponent
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import space.ersan.movlan.app.MovlanViewModelFactory
 import space.ersan.movlan.home.builder.HomeComponent
-import space.ersan.movlan.home.builder.HomeModule
-import space.ersan.movlan.search.MovieSearchView
-import space.ersan.movlan.search.MovieSearchViewModel
 import space.ersan.movlan.image.ImageLoader
 import space.ersan.movlan.search.MovieSearchFragment
 import space.ersan.movlan.search.MovieSearchPresenter
+import space.ersan.movlan.search.MovieSearchView
+import space.ersan.movlan.search.MovieSearchViewModel
 import javax.inject.Scope
 
 @Component(dependencies = [HomeComponent::class], modules = [MovieSearchModule::class])

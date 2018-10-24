@@ -2,6 +2,7 @@ package space.ersan.movlan.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import kotlinx.coroutines.launch
@@ -10,12 +11,11 @@ import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.source.local.MoviesDbBoundaryCallback
 import space.ersan.movlan.data.source.local.MoviesLocalDataSource
 import space.ersan.movlan.data.source.remote.MoviesRemoteDataSource
+import space.ersan.movlan.data.source.remote.search.SearchDataSourceFactory
 import space.ersan.movlan.utils.AppCoroutineDispatchers
 import space.ersan.movlan.utils.LiveNetworkStatus
 import space.ersan.movlan.utils.Maybe
 import space.ersan.movlan.utils.NetworkStatus
-import androidx.paging.LivePagedListBuilder
-import space.ersan.movlan.data.source.remote.search.SearchDataSourceFactory
 
 
 class MoviesRepository(private val cor: AppCoroutineDispatchers,
@@ -56,7 +56,7 @@ class MoviesRepository(private val cor: AppCoroutineDispatchers,
           localDataSource.insertAllGenres(genres.value.genres!!)
         }
         is Maybe.Error -> {
-          networkStatus.postValue(NetworkStatus.Error(genres.error.message, ::invalidate))
+          networkStatus.postValue(NetworkStatus.Error(::invalidate))
           return@launch
         }
       }
@@ -67,7 +67,7 @@ class MoviesRepository(private val cor: AppCoroutineDispatchers,
           localDataSource.deleteAllMoviesExcept(1)
           networkStatus.postValue(NetworkStatus.Loaded)
         }
-        is Maybe.Error -> networkStatus.postValue(NetworkStatus.Error(movies.error.message))
+        is Maybe.Error -> networkStatus.postValue(NetworkStatus.Error())
       }
     }
   }

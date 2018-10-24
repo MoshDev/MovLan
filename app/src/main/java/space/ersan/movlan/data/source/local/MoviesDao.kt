@@ -1,12 +1,9 @@
 package space.ersan.movlan.data.source.local
 
 import androidx.paging.DataSource
-import androidx.paging.PageKeyedDataSource
 import androidx.room.*
-import com.google.gson.Gson
 import space.ersan.movlan.data.model.Genre
 import space.ersan.movlan.data.model.Movie
-import java.util.*
 
 @Database(entities = [Movie::class, Genre::class], version = 1, exportSchema = false)
 @TypeConverters(GenreTypeConverter::class, DateTypeConverter::class, IntArrayTypeConverter::class)

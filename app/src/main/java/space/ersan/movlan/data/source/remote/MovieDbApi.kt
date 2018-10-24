@@ -1,7 +1,9 @@
 package space.ersan.movlan.data.source.remote
 
 import kotlinx.coroutines.Deferred
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 import space.ersan.movlan.data.model.GenreList
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.model.MovieList

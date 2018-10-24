@@ -5,11 +5,11 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import space.ersan.movlan.home.builder.HomeComponent
+import space.ersan.movlan.image.ImageLoader
 import space.ersan.movlan.movie.MovieListingFragment
 import space.ersan.movlan.movie.MovieListingPresenter
 import space.ersan.movlan.movie.MovieListingView
 import space.ersan.movlan.movie.MovieListingViewModel
-import space.ersan.movlan.image.ImageLoader
 import javax.inject.Scope
 
 @Component(dependencies = [HomeComponent::class], modules = [MovieListingModule::class])
