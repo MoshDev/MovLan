@@ -12,6 +12,8 @@ android {
     versionCode 1
     versionName "1.0"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    android.defaultConfig.resValue "string", "movie_db_api_key", getMovieApiKey()
   }
   buildTypes {
     release {
@@ -28,12 +30,6 @@ android {
   sourceSets {
     androidTest.java.srcDirs += "src/test-shared/java"
     test.java.srcDirs += "src/test-shared/java"
-  }
-}
-
-kotlin {
-  experimental {
-    coroutines "enable"
   }
 }
 
@@ -106,4 +102,20 @@ dependencies {
   testImplementation "androidx.arch.core:core-testing:$arch_core_version"
   testImplementation "org.mockito:mockito-core:2.22.0"
 
+}
+
+def getMovieApiKey(){
+  def systemApiKey = System.getenv("MOVIE_DB_API_KEY")
+  if(!systemApiKey){
+    def properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    systemApiKey = properties.getProperty("MOVIE_DB_API_KEY")
+  }
+  systemApiKey
+}
+
+task sample(){
+  doLast{
+    println(getMovieApiKey())
+  }
 }

@@ -1,4 +1,6 @@
 
+[![CircleCI](https://circleci.com/gh/MoshDev/MovLan/tree/master.svg?style=svg)](https://circleci.com/gh/MoshDev/MovLan/tree/master)
+
 # MovLan 🎦 
 
 MovLan is a sample project movie listing Android app, which uses the [TheMovieDb](https://www.themoviedb.org/) API.
