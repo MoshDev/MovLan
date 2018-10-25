@@ -111,6 +111,9 @@ def getMovieApiKey(){
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
     systemApiKey = properties.getProperty("MOVIE_DB_API_KEY")
   }
+  if(!systemApiKey){
+    systemApiKey = "5d66a45677199ff38b6070adc8141e75" //Temporary
+  }
   systemApiKey
 }
 
