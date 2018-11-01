@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import space.ersan.movlan.app.Movlan
+import space.ersan.movlan.common.NativeView
 import javax.inject.Inject
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -21,13 +22,13 @@ class MovieDetailsActivity : AppCompatActivity() {
   @Inject
   lateinit var presenter: MovieDetailsPresenter
   @Inject
-  lateinit var view: MovieDetailsView
+  lateinit var view: NativeView
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, -1)
     Movlan.injector.inject(this, movieId)
-    setContentView(view)
+    setContentView(view.getView())
     presenter.onCreate()
   }
 }

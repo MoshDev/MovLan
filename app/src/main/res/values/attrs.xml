@@ -2,7 +2,7 @@
 <resources>
 
   <declare-styleable name="AspectRatioImageView">
-    <attr format="float" name="ari_ratio"/>
+    <attr name="ari_ratio" format="float" />
   </declare-styleable>
 
 </resources>

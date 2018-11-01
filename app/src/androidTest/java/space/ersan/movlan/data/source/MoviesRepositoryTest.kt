@@ -35,7 +35,7 @@ class MoviesRepositoryTest {
   private val searchMovies = (1..30).map { moviesFactory.createMovie(title = "Name$it") }
   private val genreList = (0..3).map { Genre(it, "Genre:$it") }
 
-  private lateinit var moviesRepository: MoviesRepository
+  private lateinit var moviesRepository: DefaultMoviesRepository
   private lateinit var database: MoviesDb
   private lateinit var lifecycleOwner: LifecycleOwner
 
@@ -59,7 +59,7 @@ class MoviesRepositoryTest {
         remoteDataSource,
         localDataSource,
         networkStatus)
-    moviesRepository = MoviesRepository(TestCoroutineDispatchers,
+    moviesRepository = DefaultMoviesRepository(TestCoroutineDispatchers,
         localDataSource,
         remoteDataSource,
         boundaryCallback,

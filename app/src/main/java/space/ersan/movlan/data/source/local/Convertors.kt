@@ -2,12 +2,19 @@ package space.ersan.movlan.data.source.local
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
+import space.ersan.movlan.app.Movlan
 import space.ersan.movlan.data.model.Genre
 import java.util.*
+import javax.inject.Inject
 
 class GenreTypeConverter {
 
-  private val gson = Gson()
+  @Inject
+  lateinit var gson: Gson
+
+  init {
+    Movlan.injector.inject(this)
+  }
 
   @TypeConverter
   fun toList(value: String?): List<Genre>? = value?.let {
@@ -31,7 +38,12 @@ class DateTypeConverter {
 
 class IntArrayTypeConverter {
 
-  private val gson = Gson()
+  @Inject
+  lateinit var gson: Gson
+
+  init {
+    Movlan.injector.inject(this)
+  }
 
   @TypeConverter
   fun toArray(value: String?): IntArray? = value?.let { gson.fromJson(value, IntArray::class.java) }

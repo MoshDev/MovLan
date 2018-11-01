@@ -1,12 +1,13 @@
-package space.ersan.movlan.search
+package space.ersan.movlan.movie
 
 import android.content.Context
 import androidx.paging.PagedList
 import space.ersan.movlan.data.model.Movie
+import space.ersan.movlan.utils.NetworkStatus
 
-interface MovieSearchView {
-  fun setSearchQueryText(query: String?)
+interface MoviesListingView {
   fun setMovies(result: PagedList<Movie>)
   fun observeMovieListClicks(clb: (Context, Movie) -> Unit)
-  fun observeSearchQuery(clb: (String) -> Unit)
+  fun observeSwipeToRefresh(clb: () -> Unit)
+  fun setNetworkStatus(networkStatus: NetworkStatus)
 }

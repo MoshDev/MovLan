@@ -4,9 +4,9 @@ import space.ersan.movlan.data.model.Genre
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.ext.getEnrichedGenres
 
-class MoviesLocalDataSource(private val moviesDao: MoviesDao) {
+class MoviesLocalDataSource(private val moviesDao: MoviesDao) : LocalDataSource {
 
-  fun insertAll(page: Int, movies: List<Movie>) {
+  override fun insertAll(page: Int, movies: List<Movie>) {
 
     val genres = getGenres()
 
@@ -17,13 +17,12 @@ class MoviesLocalDataSource(private val moviesDao: MoviesDao) {
         .run { moviesDao.insertMovies(this) }
   }
 
-  fun getMovies() = moviesDao.getMovies()
-  fun deleteAllMovies() = moviesDao.deleteAllMovies()
-  fun deleteAllMoviesExcept(pageToKeep: Int) = moviesDao.deleteAllMoviesExcept(pageToKeep)
-
-  private fun getGenres() = moviesDao.getGenres()
-  fun insertAllGenres(genres: List<Genre>) = moviesDao.insertGenres(genres)
-  fun deleteAllGenres() = moviesDao.deleteAllGenres()
-  fun getMovie(movieId: Int)  = moviesDao.getMovie(movieId)
+  override fun getMovies() = moviesDao.getMovies()
+  override fun deleteAllMovies() = moviesDao.deleteAllMovies()
+  override fun deleteAllMoviesExcept(pageToKeep: Int) = moviesDao.deleteAllMoviesExcept(pageToKeep)
+  override fun getGenres() = moviesDao.getGenres()
+  override fun insertAllGenres(genres: List<Genre>) = moviesDao.insertGenres(genres)
+  override fun deleteAllGenres() = moviesDao.deleteAllGenres()
+  override fun getMovie(movieId: Int) = moviesDao.getMovie(movieId)
 
 }

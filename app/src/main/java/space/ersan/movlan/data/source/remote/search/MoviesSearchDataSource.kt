@@ -4,13 +4,13 @@ import androidx.paging.PageKeyedDataSource
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import space.ersan.movlan.data.model.Movie
-import space.ersan.movlan.data.source.remote.MoviesRemoteDataSource
+import space.ersan.movlan.data.source.remote.RemoteDataSource
 import space.ersan.movlan.utils.AppCoroutineDispatchers
 import space.ersan.movlan.utils.Maybe
 
-class SearchDataSource(private val cor: AppCoroutineDispatchers,
-                       private val remoteDataSource: MoviesRemoteDataSource,
-                       private val query: String)
+class MoviesSearchDataSource(private val cor: AppCoroutineDispatchers,
+                             private val remoteDataSource: RemoteDataSource,
+                             private val query: String)
   : PageKeyedDataSource<SearchQuery, Movie>() {
 
   override fun loadInitial(params: LoadInitialParams<SearchQuery>, callback: LoadInitialCallback<SearchQuery, Movie>) {

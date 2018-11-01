@@ -1,5 +1,6 @@
 package space.ersan.movlan.app.builder
 
+import com.google.gson.Gson
 import dagger.Component
 import space.ersan.movlan.app.MovlanViewModelFactory
 import space.ersan.movlan.data.source.MoviesRepository
@@ -24,5 +25,7 @@ interface AppComponent {
   fun exposeBackdropImageLoader(): ImageLoader.Backdrop
 
   fun exposeViewModelFactory(): MovlanViewModelFactory
+
+  fun exposeGson(): Gson
 
 }

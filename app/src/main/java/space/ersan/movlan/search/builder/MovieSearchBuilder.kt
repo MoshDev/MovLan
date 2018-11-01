@@ -4,12 +4,10 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Component
 import dagger.Module
 import dagger.Provides
+import space.ersan.movlan.common.NativeView
 import space.ersan.movlan.home.builder.HomeComponent
 import space.ersan.movlan.image.ImageLoader
-import space.ersan.movlan.search.MovieSearchFragment
-import space.ersan.movlan.search.MovieSearchPresenter
-import space.ersan.movlan.search.MovieSearchView
-import space.ersan.movlan.search.MovieSearchViewModel
+import space.ersan.movlan.search.*
 import javax.inject.Scope
 
 @Component(dependencies = [HomeComponent::class], modules = [MovieSearchModule::class])
@@ -24,18 +22,23 @@ class MovieSearchModule(private val fragment: MovieSearchFragment) {
   @Provides
   @MovieSearchScope
   fun providePresenter(view: MovieSearchView, model: MovieSearchViewModel): MovieSearchPresenter {
-    return MovieSearchPresenter(fragment, view, model)
+    return DefaultMovieSearchPresenter(fragment, view, model)
   }
 
   @Provides
   @MovieSearchScope
   fun provideView(posterLoader: ImageLoader.Poster): MovieSearchView {
-    return MovieSearchView(fragment.requireContext(), posterLoader)
+    return DefaultMovieSearchView(fragment.requireContext(), posterLoader)
   }
 
   @Provides
   @MovieSearchScope
-  fun provideViewModel(viewModelProvider: ViewModelProvider) = viewModelProvider.get(MovieSearchViewModel::class.java)
+  fun provideNativeView(view: MovieSearchView) = view as NativeView
+
+  @Provides
+  @MovieSearchScope
+  fun provideViewModel(viewModelProvider: ViewModelProvider) = viewModelProvider.get(
+      MovieSearchViewModel::class.java)
 
 }
 

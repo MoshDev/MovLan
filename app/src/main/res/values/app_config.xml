@@ -2,7 +2,7 @@
 <resources>
 
   <string name="movie_db_api_base_url">https://api.themoviedb.org/3/</string>
-  <string name="movie_db_poster_url">https://image.tmdb.org/t/p/w780</string>
+  <string name="movie_db_poster_url">https://image.tmdb.org/t/p/w342</string>
   <string name="movie_db_backdrop_url">https://image.tmdb.org/t/p/w780</string>
 
 </resources>

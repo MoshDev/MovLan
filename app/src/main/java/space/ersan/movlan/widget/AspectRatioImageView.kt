@@ -9,7 +9,8 @@ class AspectRatioImageView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : AppCompatImageView(context, attrs, defStyleAttr) {
 
-  private val ratio:Float
+  private val ratio: Float
+
   init {
     val a = context.obtainStyledAttributes(attrs, R.styleable.AspectRatioImageView)
     ratio = a.getFloat(R.styleable.AspectRatioImageView_ari_ratio, 1F)

@@ -25,10 +25,10 @@
 
         <space.ersan.movlan.widget.AspectRatioImageView
           android:id="@+id/backdropImageView"
-          app:ari_ratio="@string/backdrop_image_ratio"
           android:layout_width="match_parent"
           android:layout_height="0dp"
           android:scaleType="centerCrop"
+          app:ari_ratio="@string/backdrop_image_ratio"
           tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
       </androidx.cardview.widget.CardView>

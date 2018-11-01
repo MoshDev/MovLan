@@ -6,10 +6,8 @@ import dagger.Module
 import dagger.Provides
 import space.ersan.movlan.app.MovlanViewModelFactory
 import space.ersan.movlan.app.builder.AppComponent
-import space.ersan.movlan.details.MovieDetailsActivity
-import space.ersan.movlan.details.MovieDetailsPresenter
-import space.ersan.movlan.details.MovieDetailsView
-import space.ersan.movlan.details.MovieDetailsViewModel
+import space.ersan.movlan.common.NativeView
+import space.ersan.movlan.details.*
 import space.ersan.movlan.image.ImageLoader
 import javax.inject.Scope
 
@@ -24,15 +22,19 @@ class MovieDetailsModule(private val activity: MovieDetailsActivity, private val
 
   @Provides
   @MovieDetailsScope
-  fun providePresenter(view: MovieDetailsView, model: MovieDetailsViewModel): MovieDetailsPresenter {
+  fun providePresenter(view: DetailsView, model: MovieDetailsViewModel): MovieDetailsPresenter {
     return MovieDetailsPresenter(activity, view, model)
   }
 
   @Provides
   @MovieDetailsScope
-  fun provideView(posterLoader: ImageLoader.Poster, backdropLoader: ImageLoader.Backdrop): MovieDetailsView {
+  fun provideView(posterLoader: ImageLoader.Poster, backdropLoader: ImageLoader.Backdrop): DetailsView {
     return MovieDetailsView(activity, backdropLoader, posterLoader)
   }
+
+  @Provides
+  @MovieDetailsScope
+  fun provideNativeView(view: DetailsView) = view as NativeView
 
   @Provides
   @MovieDetailsScope

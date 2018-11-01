@@ -10,10 +10,10 @@ class ImageLoaderModule {
 
   @AppScope
   @Provides
-  fun thumbnailLoader(application: Application)  = ImageLoader.Poster(application)
+  fun thumbnailLoader(application: Application) = ImageLoader.Poster(application)
 
   @AppScope
   @Provides
-  fun posterLoader(application: Application)  = ImageLoader.Backdrop(application)
+  fun posterLoader(application: Application) = ImageLoader.Backdrop(application)
 
 }

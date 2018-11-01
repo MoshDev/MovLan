@@ -5,15 +5,15 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import space.ersan.movlan.data.model.Movie
-import space.ersan.movlan.data.source.remote.MoviesRemoteDataSource
+import space.ersan.movlan.data.source.remote.RemoteDataSource
 import space.ersan.movlan.utils.AppCoroutineDispatchers
 import space.ersan.movlan.utils.LiveNetworkStatus
 import space.ersan.movlan.utils.Maybe
 import space.ersan.movlan.utils.NetworkStatus
 
 class MoviesDbBoundaryCallback(private val cor: AppCoroutineDispatchers,
-                               private val remoteDataSource: MoviesRemoteDataSource,
-                               private val localDataSource: MoviesLocalDataSource,
+                               private val remoteDataSource: RemoteDataSource,
+                               private val localDataSource: LocalDataSource,
                                private val networkStatus: LiveNetworkStatus)
   : PagedList.BoundaryCallback<Movie>() {
 

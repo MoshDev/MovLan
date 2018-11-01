@@ -4,11 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import space.ersan.movlan.R
-import space.ersan.movlan.common.BaseView
+import space.ersan.movlan.common.NativeView
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.ext.toYear
 import space.ersan.movlan.image.ImageLoader
@@ -16,8 +17,9 @@ import java.text.NumberFormat
 import java.util.*
 
 @SuppressLint("ViewConstructor")
-class MovieDetailsView(context: Context, private val backdropLoader: ImageLoader.Backdrop, private val posterLoader: ImageLoader.Poster) : BaseView(
-    context) {
+class MovieDetailsView(context: Context, private val backdropLoader: ImageLoader.Backdrop,
+                       private val posterLoader: ImageLoader.Poster)
+  : FrameLayout(context), NativeView, DetailsView {
 
   private val backdropImageView: ImageView
   private val thumbnailImageView: ImageView
@@ -47,7 +49,7 @@ class MovieDetailsView(context: Context, private val backdropLoader: ImageLoader
     languageTextView = findViewById(R.id.languageTextView)
   }
 
-  fun setMovie(movie: Movie) {
+  override fun setMovie(movie: Movie) {
     this.movie = movie
     backdropLoader.loadImage(backdropImageView, movie)
     posterLoader.loadImage(thumbnailImageView, movie)
@@ -75,16 +77,17 @@ class MovieDetailsView(context: Context, private val backdropLoader: ImageLoader
     languageTextView.isVisible = !movie.originalLanguage.isNullOrBlank()
     movie.originalLanguage?.let {
       languageTextView.text = resources.getString(R.string.movie_language,
-          Locale(it).displayLanguage?: resources.getString(R.string.unknown_language))
+          Locale(it).displayLanguage ?: resources.getString(R.string.unknown_language))
     }
 
   }
 
-  fun observeHomePageButtonClicks(clb: (String?) -> Unit) {
+  override fun observeHomePageButtonClicks(clb: (String?) -> Unit) {
     homepageButton.setOnClickListener {
       clb(movie.homepage)
     }
   }
 
+  override fun getView() = this
 
 }

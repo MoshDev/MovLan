@@ -36,8 +36,8 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:gravity="center"
-      android:visibility="gone"
       android:text="@string/no_result"
+      android:visibility="gone"
       tools:visibility="visible" />
   </FrameLayout>
 

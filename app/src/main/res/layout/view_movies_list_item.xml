@@ -20,10 +20,10 @@
 
     <space.ersan.movlan.widget.AspectRatioImageView
       android:id="@+id/thumbnailImageView"
-      app:ari_ratio="@string/poster_image_ratio"
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:scaleType="centerCrop"
+      app:ari_ratio="@string/poster_image_ratio"
       tools:src="@tools:sample/avatars" />
 
     <TextView
