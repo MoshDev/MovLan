@@ -1,27 +1,22 @@
 package space.ersan.movlan.data.source.remote.search
 
 import androidx.paging.PageKeyedDataSource
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import space.ersan.movlan.data.model.Movie
-import space.ersan.movlan.data.source.remote.RemoteDataSource
-import space.ersan.movlan.utils.AppCoroutineDispatchers
+import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.utils.Maybe
 
-class MoviesSearchDataSource(private val cor: AppCoroutineDispatchers,
-                             private val remoteDataSource: RemoteDataSource,
+class MoviesSearchDataSource(private val repository: MoviesRepository,
                              private val query: String)
   : PageKeyedDataSource<SearchQuery, Movie>() {
 
   override fun loadInitial(params: LoadInitialParams<SearchQuery>, callback: LoadInitialCallback<SearchQuery, Movie>) {
     val page = 1
-    GlobalScope.launch(cor.NETWORK) {
-      val result = remoteDataSource.search(query, page)
-      when (result) {
-        is Maybe.Some -> callback.onResult(result.value.results!!.sortedByDescending(::sortByPopularity),
+    repository.searchMovies(query, page, ::sortByPopularity) {
+      when (it) {
+        is Maybe.Some -> callback.onResult(it.value.results!!,
             null,
             SearchQuery(query, page.inc()))
-        is Maybe.Error -> result.error.printStackTrace()
+        is Maybe.Error -> it.error.printStackTrace()
       }
     }
   }
@@ -29,10 +24,9 @@ class MoviesSearchDataSource(private val cor: AppCoroutineDispatchers,
   override fun loadAfter(params: LoadParams<SearchQuery>, callback: LoadCallback<SearchQuery, Movie>) {
     val page = params.key.page
     val query = params.key.query
-    GlobalScope.launch(cor.NETWORK) {
-      val result = remoteDataSource.search(query, page)
+    repository.searchMovies(query, page, ::sortByPopularity) { result ->
       when (result) {
-        is Maybe.Some -> callback.onResult(result.value.results!!.sortedByDescending(::sortByPopularity),
+        is Maybe.Some -> callback.onResult(result.value.results!!,
             SearchQuery(query, page.inc()))
         is Maybe.Error -> result.error.printStackTrace()
       }

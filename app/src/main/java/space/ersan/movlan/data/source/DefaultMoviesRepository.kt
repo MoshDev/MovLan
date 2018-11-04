@@ -9,8 +9,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import space.ersan.movlan.data.model.Movie
+import space.ersan.movlan.data.model.MovieList
 import space.ersan.movlan.data.source.local.LocalDataSource
-import space.ersan.movlan.data.source.local.MoviesDbBoundaryCallback
+import space.ersan.movlan.data.source.local.MoviesDbBoundaryCallbackFactory
 import space.ersan.movlan.data.source.remote.RemoteDataSource
 import space.ersan.movlan.data.source.remote.search.SearchDataSourceFactory
 import space.ersan.movlan.utils.AppCoroutineDispatchers
@@ -21,12 +22,47 @@ import space.ersan.movlan.utils.NetworkStatus
 class DefaultMoviesRepository(private val cor: AppCoroutineDispatchers,
                               private val localDataSource: LocalDataSource,
                               private val remoteDataSource: RemoteDataSource,
-                              private val moviesDbBoundaryCallback: MoviesDbBoundaryCallback,
+                              private val moviesDbBoundaryCallbackFactory: MoviesDbBoundaryCallbackFactory,
                               private val networkStatus: LiveNetworkStatus) : MoviesRepository {
 
-  override fun getPopularMovies(): LiveData<PagedList<Movie>> {
+  override fun searchMovies(query: String, page: Int, sorting: (Movie) -> Double, callback: (Maybe<MovieList>) -> Unit) {
+    GlobalScope.launch(cor.NETWORK) {
+      val result = remoteDataSource.search(query, page)
+      callback(result)
+    }
+  }
+
+  override fun loadPopularMovies(page: Int) {
+    GlobalScope.launch(cor.NETWORK) {
+      if (page == 1) {
+        val genres = remoteDataSource.getGenres()
+        when (genres) {
+          is Maybe.Some -> withContext(cor.IO) { localDataSource.insertAllGenres(genres.value.genres!!) }
+          is Maybe.Error -> {
+            networkStatus.postValue(NetworkStatus.Error { loadPopularMovies(page) })
+            return@launch
+          }
+        }
+      }
+      val movies = remoteDataSource.getPopularMovies(page)
+      when (movies) {
+        is Maybe.Some -> withContext(cor.IO) {
+          if (page == 1) localDataSource.deleteAllMovies()
+          localDataSource.insertAll(page, movies.value.results ?: emptyList())
+          networkStatus.postValue(NetworkStatus.Loaded)
+        }
+        is Maybe.Error -> {
+          networkStatus.postValue(NetworkStatus.Error { loadPopularMovies(page) })
+        }
+      }
+    }
+  }
+
+  override fun getPopularMoviesPaginated(): LiveData<PagedList<Movie>> {
     return localDataSource.getMovies()
-        .toLiveData(pageSize = 20, initialLoadKey = 1, boundaryCallback = moviesDbBoundaryCallback)
+        .toLiveData(pageSize = 20,
+            initialLoadKey = 1,
+            boundaryCallback = moviesDbBoundaryCallbackFactory.createCallback(this))
   }
 
   override fun getMovieDetails(movieId: Int): LiveData<Movie> {
@@ -79,7 +115,7 @@ class DefaultMoviesRepository(private val cor: AppCoroutineDispatchers,
         .setPageSize(20)
         .build()
 
-    return LivePagedListBuilder(SearchDataSourceFactory(cor, remoteDataSource, query),
+    return LivePagedListBuilder(/*TODO to be injected somehow*/SearchDataSourceFactory(this, query),
         pagedListConfig)
         .build()
   }

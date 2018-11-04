@@ -17,7 +17,7 @@ class MovieListingViewModel(application: Application,
                             private val networkStatus: LiveNetworkStatus)
   : AndroidViewModel(application) {
 
-  private val movies = moviesRepository.getPopularMovies()
+  private val movies = moviesRepository.getPopularMoviesPaginated()
 
   init {
     refreshData()

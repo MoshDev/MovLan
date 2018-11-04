@@ -2,13 +2,13 @@ package space.ersan.movlan.data.source.remote.search
 
 import androidx.paging.DataSource
 import space.ersan.movlan.data.model.Movie
-import space.ersan.movlan.data.source.remote.RemoteDataSource
-import space.ersan.movlan.utils.AppCoroutineDispatchers
+import space.ersan.movlan.data.source.MoviesRepository
 
-class SearchDataSourceFactory(private val cor: AppCoroutineDispatchers,
-                              private val remoteDataSource: RemoteDataSource,
-                              private val query: String) : DataSource.Factory<SearchQuery, Movie>() {
+class SearchDataSourceFactory(private val repository: MoviesRepository,
+                              private val query: String)
+  : DataSource.Factory<SearchQuery, Movie>() {
+
   override fun create(): DataSource<SearchQuery, Movie> {
-    return MoviesSearchDataSource(cor, remoteDataSource, query)
+    return MoviesSearchDataSource(repository, query)
   }
 }

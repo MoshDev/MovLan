@@ -17,9 +17,7 @@ import space.ersan.movlan.MoviesFactory
 import space.ersan.movlan.TestCoroutineDispatchers
 import space.ersan.movlan.app.MovlanApp
 import space.ersan.movlan.data.model.Genre
-import space.ersan.movlan.data.source.local.MoviesDb
-import space.ersan.movlan.data.source.local.MoviesDbBoundaryCallback
-import space.ersan.movlan.data.source.local.MoviesLocalDataSource
+import space.ersan.movlan.data.source.local.*
 import space.ersan.movlan.data.source.remote.MoviesRemoteDataSource
 import space.ersan.movlan.mock
 import space.ersan.movlan.utils.LiveNetworkStatus
@@ -44,7 +42,7 @@ class MoviesRepositoryTest {
       genreList = genreList,
       movieDetails = popularMovies[0],
       searchResult = searchMovies
-      )
+  )
 
   @Before
   fun setUp() {
@@ -55,14 +53,11 @@ class MoviesRepositoryTest {
     val localDataSource = MoviesLocalDataSource(moviesDao)
     val remoteDataSource = MoviesRemoteDataSource(fakeMoviesApi)
     val networkStatus = LiveNetworkStatus()
-    val boundaryCallback = MoviesDbBoundaryCallback(TestCoroutineDispatchers,
-        remoteDataSource,
-        localDataSource,
-        networkStatus)
+    val boundaryCallbackFactory = DefaultMoviesDbBoundaryCallbackFactory()
     moviesRepository = DefaultMoviesRepository(TestCoroutineDispatchers,
         localDataSource,
         remoteDataSource,
-        boundaryCallback,
+        boundaryCallbackFactory,
         networkStatus)
 
     lifecycleOwner = LifecycleOwner {
@@ -79,7 +74,7 @@ class MoviesRepositoryTest {
 
   @Test
   fun getPopularMovies() {
-    val liveData = moviesRepository.getPopularMovies()
+    val liveData = moviesRepository.getPopularMoviesPaginated()
     liveData.observe(lifecycleOwner, Observer {
       Assert.assertNotNull(it)
       Assert.assertThat(it.size, `is`(equalTo(50)))
