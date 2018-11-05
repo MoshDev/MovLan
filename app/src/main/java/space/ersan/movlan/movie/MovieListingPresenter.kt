@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 
-class MovieListingPresenter(private val lifecycleOwner: LifecycleOwner, private val viewMovies: MoviesListingView, private val viewModel: MovieListingViewModel) : LifecycleObserver {
+class MovieListingBinder(private val lifecycleOwner: LifecycleOwner, private val viewMovies: MoviesListingView, private val viewModel: MovieListingViewModel) : LifecycleObserver {
 
   @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
   fun onCreate() {

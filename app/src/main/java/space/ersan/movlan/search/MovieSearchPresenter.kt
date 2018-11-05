@@ -1,5 +1,5 @@
 package space.ersan.movlan.search
 
-interface MovieSearchPresenter {
+interface MovieSearchBinder {
   fun onCreate()
 }

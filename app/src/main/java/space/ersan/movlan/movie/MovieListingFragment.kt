@@ -14,7 +14,7 @@ import javax.inject.Inject
 class MovieListingFragment : Fragment() {
 
   @Inject
-  lateinit var presenter: MovieListingPresenter
+  lateinit var binder: MovieListingBinder
 
   @Inject
   lateinit var view: NativeView
@@ -24,7 +24,7 @@ class MovieListingFragment : Fragment() {
     @Suppress("UNCHECKED_CAST")
     Movlan.injector.inject(this,
         (requireActivity() as ComponentProvider<HomeComponent>).getComponent())
-    lifecycle.addObserver(presenter)
+    lifecycle.addObserver(binder)
   }
 
 

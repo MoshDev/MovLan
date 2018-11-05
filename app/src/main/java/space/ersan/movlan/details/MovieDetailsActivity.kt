@@ -20,7 +20,7 @@ class MovieDetailsActivity : AppCompatActivity() {
   }
 
   @Inject
-  lateinit var presenter: MovieDetailsPresenter
+  lateinit var binder: MovieDetailsBinder
   @Inject
   lateinit var view: NativeView
 
@@ -29,6 +29,6 @@ class MovieDetailsActivity : AppCompatActivity() {
     val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, -1)
     Movlan.injector.inject(this, movieId)
     setContentView(view.getView())
-    presenter.onCreate()
+    binder.onCreate()
   }
 }

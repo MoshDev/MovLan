@@ -21,8 +21,8 @@ class MovieSearchModule(private val fragment: MovieSearchFragment) {
 
   @Provides
   @MovieSearchScope
-  fun providePresenter(view: MovieSearchView, model: MovieSearchViewModel): MovieSearchPresenter {
-    return DefaultMovieSearchPresenter(fragment, view, model)
+  fun provideBinder(view: MovieSearchView, model: MovieSearchViewModel): MovieSearchBinder {
+    return DefaultMovieSearchBinder(fragment, view, model)
   }
 
   @Provides

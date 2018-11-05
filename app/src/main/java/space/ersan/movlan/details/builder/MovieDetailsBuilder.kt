@@ -22,8 +22,8 @@ class MovieDetailsModule(private val activity: MovieDetailsActivity, private val
 
   @Provides
   @MovieDetailsScope
-  fun providePresenter(view: DetailsView, model: MovieDetailsViewModel): MovieDetailsPresenter {
-    return MovieDetailsPresenter(activity, view, model)
+  fun provideBinder(view: DetailsView, model: MovieDetailsViewModel): MovieDetailsBinder {
+    return MovieDetailsBinder(activity, view, model)
   }
 
   @Provides

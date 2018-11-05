@@ -21,8 +21,8 @@ class MovieListingModule(private val fragment: MovieListingFragment) {
 
   @Provides
   @MovieListingScope
-  fun provideHomePresenter(homeViewMovies: MoviesListingView, viewModel: MovieListingViewModel): MovieListingPresenter {
-    return MovieListingPresenter(fragment, homeViewMovies, viewModel)
+  fun provideHomeBinder(homeViewMovies: MoviesListingView, viewModel: MovieListingViewModel): MovieListingBinder {
+    return MovieListingBinder(fragment, homeViewMovies, viewModel)
   }
 
   @Provides

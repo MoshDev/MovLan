@@ -14,7 +14,7 @@ import javax.inject.Inject
 class MovieSearchFragment : Fragment() {
 
   @Inject
-  lateinit var presenterDefault: MovieSearchPresenter
+  lateinit var binderDefault: MovieSearchBinder
 
   @Inject
   lateinit var view: NativeView
@@ -24,7 +24,7 @@ class MovieSearchFragment : Fragment() {
     @Suppress("UNCHECKED_CAST")
     Movlan.injector.inject(this,
         (requireActivity() as ComponentProvider<HomeComponent>).getComponent())
-    presenterDefault.onCreate()
+    binderDefault.onCreate()
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

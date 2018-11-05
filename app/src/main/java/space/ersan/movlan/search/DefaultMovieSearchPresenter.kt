@@ -3,9 +3,9 @@ package space.ersan.movlan.search
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 
-class DefaultMovieSearchPresenter(private val lifecycleOwner: LifecycleOwner,
+class DefaultMovieSearchBinder(private val lifecycleOwner: LifecycleOwner,
                                   private val view: MovieSearchView,
-                                  private val viewModel: MovieSearchViewModel) : MovieSearchPresenter {
+                                  private val viewModel: MovieSearchViewModel) : MovieSearchBinder {
 
   override fun onCreate() {
     view.setSearchQueryText(viewModel.searchTextQuery)
