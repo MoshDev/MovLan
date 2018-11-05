@@ -14,20 +14,30 @@ import javax.inject.Inject
 class MovieSearchFragment : Fragment() {
 
   @Inject
-  lateinit var binderDefault: MovieSearchBinder
+  lateinit var nativeView: NativeView
 
   @Inject
-  lateinit var view: NativeView
+  lateinit var view: MovieSearchView
+
+  @Inject
+  lateinit var viewModel: MovieSearchViewModel
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
     @Suppress("UNCHECKED_CAST")
     Movlan.injector.inject(this,
         (requireActivity() as ComponentProvider<HomeComponent>).getComponent())
-    binderDefault.onCreate()
+
+    view.setSearchQueryText(viewModel.getSearchQuery())
+    view.observeMovieListClicks(viewModel::showMovieDetails)
+    view.observeSearchQuery { query ->
+      viewModel.searchMovies(query)
+          .observe({ lifecycle }, view::setMovies)
+    }
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    return view.getView()
+    return nativeView.getView()
   }
 }

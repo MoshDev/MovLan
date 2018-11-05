@@ -10,29 +10,34 @@ import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.details.MovieDetailsActivity
 
-class MovieSearchViewModel(application: Application,
-                           private val moviesRepository: MoviesRepository)
-  : AndroidViewModel(application) {
+class DefaultMovieSearchViewModel(application: Application,
+                                  private val moviesRepository: MoviesRepository)
+  : AndroidViewModel(application), MovieSearchViewModel {
 
   private val searchLiveData: MediatorLiveData<PagedList<Movie>> = MediatorLiveData()
-
-  fun getSearchData(): LiveData<PagedList<Movie>> = searchLiveData
-
-  var searchTextQuery: String? = null
-    private set
-
   private var lastSearchLiveData: LiveData<PagedList<Movie>>? = null
+  private var searchQuery: String? = null
 
-  fun searchMovies(query: String) {
-    searchTextQuery = query
+  override fun getSearchQuery(): String? = searchQuery
+
+  override fun searchMovies(query: String): LiveData<PagedList<Movie>> {
+    searchQuery = query
     lastSearchLiveData?.let {
       searchLiveData.removeSource(it)
     }
     lastSearchLiveData = moviesRepository.searchMovies(query)
     searchLiveData.addSource(lastSearchLiveData!!) { searchLiveData.postValue(it) }
+    return lastSearchLiveData!!
   }
 
-  fun showMovieDetails(context: Context, movie: Movie) {
-    context.startActivity(MovieDetailsActivity.intentFor(context, movie.id))
-  }
+  override fun showMovieDetails(context: Context, movie: Movie) = context.startActivity(
+      MovieDetailsActivity.intentFor(context, movie.id))
+}
+
+interface MovieSearchViewModel {
+
+  fun getSearchQuery(): String?
+  fun searchMovies(query: String): LiveData<PagedList<Movie>>
+  fun showMovieDetails(context: Context, movie: Movie)
+
 }

@@ -14,21 +14,29 @@ import javax.inject.Inject
 class MovieListingFragment : Fragment() {
 
   @Inject
-  lateinit var binder: MovieListingBinder
+  lateinit var nativeView: NativeView
 
   @Inject
-  lateinit var view: NativeView
+  lateinit var view: MoviesListingView
+
+  @Inject
+  lateinit var viewModelDefault: MovieListingViewModel
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
     @Suppress("UNCHECKED_CAST")
     Movlan.injector.inject(this,
         (requireActivity() as ComponentProvider<HomeComponent>).getComponent())
-    lifecycle.addObserver(binder)
+
+    viewModelDefault.getMovies().observe({ lifecycle }, view::setMovies)
+    viewModelDefault.getNetworkStatus().observe({ lifecycle }, view::setNetworkStatus)
+    view.observeSwipeToRefresh(viewModelDefault::refreshMovies)
+    view.observeMovieListClicks(viewModelDefault::showMovieDetails)
+
   }
 
-
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    return view.getView()
+    return nativeView.getView()
   }
 }

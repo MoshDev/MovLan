@@ -21,12 +21,6 @@ class MovieSearchModule(private val fragment: MovieSearchFragment) {
 
   @Provides
   @MovieSearchScope
-  fun provideBinder(view: MovieSearchView, model: MovieSearchViewModel): MovieSearchBinder {
-    return DefaultMovieSearchBinder(fragment, view, model)
-  }
-
-  @Provides
-  @MovieSearchScope
   fun provideView(posterLoader: ImageLoader.Poster): MovieSearchView {
     return DefaultMovieSearchView(fragment.requireContext(), posterLoader)
   }
@@ -37,8 +31,8 @@ class MovieSearchModule(private val fragment: MovieSearchFragment) {
 
   @Provides
   @MovieSearchScope
-  fun provideViewModel(viewModelProvider: ViewModelProvider) = viewModelProvider.get(
-      MovieSearchViewModel::class.java)
+  fun provideViewModel(viewModelProvider: ViewModelProvider): MovieSearchViewModel = viewModelProvider.get(
+      DefaultMovieSearchViewModel::class.java)
 
 }
 

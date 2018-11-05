@@ -38,9 +38,9 @@ class DefaultInjector(movlanApp: MovlanApp, config: AppConfig) : Injector {
     return component
   }
 
-  override fun inject(detailsActivity: MovieDetailsActivity, movieId: Int) = DaggerMovieDetailsComponent.builder()
+  override fun inject(detailsActivity: MovieDetailsActivity) = DaggerMovieDetailsComponent.builder()
       .appComponent(appComponent)
-      .movieDetailsModule(MovieDetailsModule(detailsActivity, movieId))
+      .movieDetailsModule(MovieDetailsModule(detailsActivity))
       .build()
       .inject(detailsActivity)
 

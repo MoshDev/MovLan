@@ -20,15 +20,23 @@ class MovieDetailsActivity : AppCompatActivity() {
   }
 
   @Inject
-  lateinit var binder: MovieDetailsBinder
+  lateinit var nativeView: NativeView
+
   @Inject
-  lateinit var view: NativeView
+  lateinit var viewMovie: MovieDetailsView
+
+  @Inject
+  lateinit var viewModelDefault: MovieDetailsViewModel
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val movieId = intent.getIntExtra(EXTRA_MOVIE_ID, -1)
-    Movlan.injector.inject(this, movieId)
-    setContentView(view.getView())
-    binder.onCreate()
+    Movlan.injector.inject(this)
+    setContentView(nativeView.getView())
+
+    viewModelDefault.getMovieDetails(movieId).observe({lifecycle}, viewMovie::setMovie)
+    viewMovie.observeHomePageButtonClicks {
+      it?.also { homepage -> viewModelDefault.openHomePage(homepage) }
+    }
   }
 }

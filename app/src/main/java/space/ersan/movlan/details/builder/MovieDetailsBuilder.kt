@@ -18,29 +18,25 @@ interface MovieDetailsComponent {
 }
 
 @Module
-class MovieDetailsModule(private val activity: MovieDetailsActivity, private val _movieId: Int) {
+class MovieDetailsModule(private val activity: MovieDetailsActivity) {
 
   @Provides
   @MovieDetailsScope
-  fun provideBinder(view: DetailsView, model: MovieDetailsViewModel): MovieDetailsBinder {
-    return MovieDetailsBinder(activity, view, model)
+  fun provideView(posterLoader: ImageLoader.Poster, backdropLoader: ImageLoader.Backdrop): MovieDetailsView {
+    return DefaultMovieDetailsView(activity, backdropLoader, posterLoader)
   }
 
   @Provides
   @MovieDetailsScope
-  fun provideView(posterLoader: ImageLoader.Poster, backdropLoader: ImageLoader.Backdrop): DetailsView {
-    return MovieDetailsView(activity, backdropLoader, posterLoader)
-  }
+  fun provideNativeView(viewMovie: MovieDetailsView) = viewMovie as NativeView
 
   @Provides
   @MovieDetailsScope
-  fun provideNativeView(view: DetailsView) = view as NativeView
-
-  @Provides
-  @MovieDetailsScope
-  fun provideViewModel(factory: MovlanViewModelFactory) = ViewModelProviders.of(activity,
-      factory).get(MovieDetailsViewModel::class.java).apply { this.movieId = _movieId }
-
+  fun provideViewModel(factory: MovlanViewModelFactory): MovieDetailsViewModel =
+      ViewModelProviders.of(
+          activity,
+          factory)
+          .get(DefaultMovieDetailsViewModel::class.java)
 }
 
 @Scope

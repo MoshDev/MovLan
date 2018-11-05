@@ -10,7 +10,7 @@ import space.ersan.movlan.search.MovieSearchFragment
 
 interface Injector {
   fun inject(homeActivity: HomeActivity): HomeComponent
-  fun inject(detailsActivity: MovieDetailsActivity, movieId: Int)
+  fun inject(detailsActivity: MovieDetailsActivity)
   fun inject(fragment: MovieListingFragment, homeComponent: HomeComponent)
   fun inject(fragment: MovieSearchFragment, homeComponent: HomeComponent)
   fun inject(converter: GenreTypeConverter)
