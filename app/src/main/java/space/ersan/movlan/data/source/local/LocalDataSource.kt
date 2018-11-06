@@ -5,12 +5,12 @@ import space.ersan.movlan.data.model.Genre
 import space.ersan.movlan.data.model.Movie
 
 interface LocalDataSource {
-  fun insertAll(page: Int, movies: List<Movie>)
-  fun getMovies(): DataSource.Factory<Int, Movie>
-  fun deleteAllMovies()
-  fun deleteAllMoviesExcept(pageToKeep: Int)
-  fun getGenres(): List<Genre>
-  fun insertAllGenres(genres: List<Genre>)
-  fun deleteAllGenres()
-  fun getMovie(movieId: Int): Movie?
+  suspend fun insertAll(page: Int, movies: List<Movie>)
+  suspend fun getMovies(): DataSource.Factory<Int, Movie>
+  suspend fun deleteAllMovies()
+  suspend fun deleteAllMoviesExcept(pageToKeep: Int)
+  suspend fun getGenres(): List<Genre>
+  suspend fun insertAllGenres(genres: List<Genre>)
+  suspend fun deleteAllGenres()
+  suspend fun getMovie(movieId: Int): Movie?
 }

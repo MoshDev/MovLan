@@ -1,28 +1,48 @@
 package space.ersan.movlan.details
 
-import android.app.Application
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import space.ersan.movlan.app.MovlanApp
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.source.MoviesRepository
+import space.ersan.movlan.utils.AppCoroutineDispatchers
 
-class DefaultMovieDetailsViewModel(application: Application, private val moviesRepository: MoviesRepository) : AndroidViewModel(
-    application), MovieDetailsViewModel {
+class DefaultMovieDetailsViewModel(private val moviesRepository: MoviesRepository,
+                                   cor: AppCoroutineDispatchers)
+  : ViewModel(), MovieDetailsViewModel {
 
-  override fun getMovieDetails(movieId: Int) = moviesRepository.getMovieDetails(movieId)
+  private val parentJob = Job()
+  private val scope = CoroutineScope(cor.UI + parentJob)
 
-  override fun openHomePage(homePage: String?) {
-    val movlanApp: MovlanApp = getApplication()
+  override fun getMovieDetails(movieId: Int, clb: (LiveData<Movie>) -> Unit) {
+    val liveData = MutableLiveData<Movie>()
+    clb(liveData)
+    scope.launch {
+      moviesRepository.getMovieDetails(movieId) {
+        liveData.postValue(it)
+      }
+    }
+  }
+
+  override fun openHomePage(context: Context, homePage: String?) {
     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(homePage))
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    movlanApp.startActivity(intent)
+    context.startActivity(intent)
+  }
+
+  override fun onCleared() {
+    parentJob.cancel()
+    super.onCleared()
   }
 }
 
 interface MovieDetailsViewModel {
-  fun getMovieDetails(movieId: Int): LiveData<Movie>
-  fun openHomePage(homePage: String?)
+  fun getMovieDetails(movieId: Int, clb: (LiveData<Movie>) -> Unit)
+  fun openHomePage(context: Context, homePage: String?)
 }

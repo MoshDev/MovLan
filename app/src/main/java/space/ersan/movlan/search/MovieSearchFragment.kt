@@ -32,8 +32,9 @@ class MovieSearchFragment : Fragment() {
     view.setSearchQueryText(viewModel.getSearchQuery())
     view.observeMovieListClicks(viewModel::showMovieDetails)
     view.observeSearchQuery { query ->
-      viewModel.searchMovies(query)
-          .observe({ lifecycle }, view::setMovies)
+      viewModel.searchMovies(query) {
+        it.observe({ lifecycle }, view::setMovies)
+      }
     }
   }
 

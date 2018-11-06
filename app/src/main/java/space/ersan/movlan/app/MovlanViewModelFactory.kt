@@ -1,32 +1,26 @@
 package space.ersan.movlan.app
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.details.DefaultMovieDetailsViewModel
 import space.ersan.movlan.movie.DefaultMovieListingViewModel
 import space.ersan.movlan.search.DefaultMovieSearchViewModel
-import space.ersan.movlan.utils.LiveNetworkStatus
+import space.ersan.movlan.utils.AppCoroutineDispatchers
 
-class MovlanViewModelFactory(private val application: Application, private val moviesRepository: MoviesRepository,
-                             private val networkStatus: LiveNetworkStatus) : ViewModelProvider.NewInstanceFactory() {
+class MovlanViewModelFactory(private val moviesRepository: MoviesRepository, private val cor: AppCoroutineDispatchers) : ViewModelProvider.NewInstanceFactory() {
 
   @Suppress("UNCHECKED_CAST")
   override fun <T : ViewModel> create(modelClass: Class<T>): T = with(modelClass) {
     when {
       isAssignableFrom(DefaultMovieListingViewModel::class.java) -> {
-        DefaultMovieListingViewModel(application,
-            moviesRepository,
-            networkStatus)
+        DefaultMovieListingViewModel(moviesRepository, cor)
       }
       isAssignableFrom(DefaultMovieDetailsViewModel::class.java) -> {
-        DefaultMovieDetailsViewModel(application,
-            moviesRepository)
+        DefaultMovieDetailsViewModel(moviesRepository, cor)
       }
       isAssignableFrom(DefaultMovieSearchViewModel::class.java) -> {
-        DefaultMovieSearchViewModel(application,
-            moviesRepository)
+        DefaultMovieSearchViewModel(moviesRepository, cor)
       }
       else -> throw IllegalArgumentException("Cannot find ViewModel class for ${modelClass.name}")
     }

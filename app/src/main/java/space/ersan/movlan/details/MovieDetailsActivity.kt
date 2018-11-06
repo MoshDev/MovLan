@@ -34,9 +34,11 @@ class MovieDetailsActivity : AppCompatActivity() {
     Movlan.injector.inject(this)
     setContentView(nativeView.getView())
 
-    viewModelDefault.getMovieDetails(movieId).observe({lifecycle}, viewMovie::setMovie)
+    viewModelDefault.getMovieDetails(movieId) {
+      it.observe({ lifecycle }, viewMovie::setMovie)
+    }
     viewMovie.observeHomePageButtonClicks {
-      it?.also { homepage -> viewModelDefault.openHomePage(homepage) }
+      it?.also { homepage -> viewModelDefault.openHomePage(this@MovieDetailsActivity, homepage) }
     }
   }
 }

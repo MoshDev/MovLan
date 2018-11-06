@@ -1,28 +1,38 @@
 package space.ersan.movlan.data.source.local
 
+import kotlinx.coroutines.withContext
 import space.ersan.movlan.data.model.Genre
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.ext.getEnrichedGenres
+import space.ersan.movlan.utils.AppCoroutineDispatchers
 
-class MoviesLocalDataSource(private val moviesDao: MoviesDao) : LocalDataSource {
+class MoviesLocalDataSource(private val moviesDao: MoviesDao, private val cor: AppCoroutineDispatchers) : LocalDataSource {
 
-  override fun insertAll(page: Int, movies: List<Movie>) {
+  override suspend fun insertAll(page: Int, movies: List<Movie>) {
+    withContext(cor.IO) {
+      val genres = getGenres()
 
-    val genres = getGenres()
-
-    movies.mapIndexed { index: Int, movie: Movie ->
-      movie.copy(page = page, indexInListing = (page * 1000000) + index,
-          genres = movie.getEnrichedGenres(genres))
+      movies.mapIndexed { index: Int, movie: Movie ->
+        movie.copy(page = page, indexInListing = (page * 1000000) + index,
+            genres = movie.getEnrichedGenres(genres))
+      }
+          .run { moviesDao.insertMovies(this) }
     }
-        .run { moviesDao.insertMovies(this) }
   }
 
-  override fun getMovies() = moviesDao.getMovies()
-  override fun deleteAllMovies() = moviesDao.deleteAllMovies()
-  override fun deleteAllMoviesExcept(pageToKeep: Int) = moviesDao.deleteAllMoviesExcept(pageToKeep)
-  override fun getGenres() = moviesDao.getGenres()
-  override fun insertAllGenres(genres: List<Genre>) = moviesDao.insertGenres(genres)
-  override fun deleteAllGenres() = moviesDao.deleteAllGenres()
-  override fun getMovie(movieId: Int) = moviesDao.getMovie(movieId)
+  override suspend fun getMovies() = withContext(cor.IO) { moviesDao.getMovies() }
+  override suspend fun deleteAllMovies() = withContext(cor.IO) { moviesDao.deleteAllMovies() }
+  override suspend fun deleteAllMoviesExcept(pageToKeep: Int) = withContext(cor.IO) {
+    moviesDao.deleteAllMoviesExcept(
+        pageToKeep)
+  }
+
+  override suspend fun getGenres() = withContext(cor.IO) { moviesDao.getGenres() }
+  override suspend fun insertAllGenres(genres: List<Genre>) = withContext(cor.IO) {
+    moviesDao.insertGenres(genres)
+  }
+
+  override suspend fun deleteAllGenres() = withContext(cor.IO) { moviesDao.deleteAllGenres() }
+  override suspend fun getMovie(movieId: Int) = withContext(cor.IO) { moviesDao.getMovie(movieId) }
 
 }

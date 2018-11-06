@@ -4,13 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.model.MovieList
+import space.ersan.movlan.utils.LiveNetworkStatus
 import space.ersan.movlan.utils.Maybe
 
 interface MoviesRepository {
-  fun getPopularMoviesPaginated(): LiveData<PagedList<Movie>>
-  fun getMovieDetails(movieId: Int): LiveData<Movie>
-  fun invalidate()
-  fun searchMovies(query: String): LiveData<PagedList<Movie>>
-  fun loadPopularMovies(page: Int)
-  fun searchMovies(query: String, page: Int, sorting: (Movie) -> Double, callback: (Maybe<MovieList>) -> Unit)
+  suspend fun getPopularMoviesPaginated(networkStatus: LiveNetworkStatus): LiveData<PagedList<Movie>>
+  suspend fun getMovieDetails(movieId: Int, clb: (Movie) -> Unit)
+  suspend fun invalidate(networkStatus: LiveNetworkStatus)
+  suspend fun searchMovies(query: String): LiveData<PagedList<Movie>>
+  suspend fun loadPopularMovies(page: Int, networkStatus: LiveNetworkStatus)
+  suspend fun searchMovies(query: String, page: Int, sorting: (Movie) -> Double, callback: (Maybe<MovieList>) -> Unit)
 }

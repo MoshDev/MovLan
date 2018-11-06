@@ -29,7 +29,9 @@ class MovieListingFragment : Fragment() {
     Movlan.injector.inject(this,
         (requireActivity() as ComponentProvider<HomeComponent>).getComponent())
 
-    viewModelDefault.getMovies().observe({ lifecycle }, view::setMovies)
+    viewModelDefault.getMovies {
+      it.observe({ lifecycle }, view::setMovies)
+    }
     viewModelDefault.getNetworkStatus().observe({ lifecycle }, view::setNetworkStatus)
     view.observeSwipeToRefresh(viewModelDefault::refreshMovies)
     view.observeMovieListClicks(viewModelDefault::showMovieDetails)

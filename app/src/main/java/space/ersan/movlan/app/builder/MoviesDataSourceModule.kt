@@ -9,41 +9,35 @@ import space.ersan.movlan.data.source.remote.MovieDbApi
 import space.ersan.movlan.data.source.remote.MoviesRemoteDataSource
 import space.ersan.movlan.data.source.remote.RemoteDataSource
 import space.ersan.movlan.utils.AppCoroutineDispatchers
-import space.ersan.movlan.utils.LiveNetworkStatus
 
 @Module
 class MoviesDataSourceModule {
 
   @AppScope
   @Provides
-  fun localDataSource(moviesDao: MoviesDao): LocalDataSource = MoviesLocalDataSource(moviesDao)
+  fun localDataSource(moviesDao: MoviesDao, cor: AppCoroutineDispatchers): LocalDataSource = MoviesLocalDataSource(
+      moviesDao,
+      cor)
 
 
   @AppScope
   @Provides
-  fun remoteDataSource(api: MovieDbApi): RemoteDataSource = MoviesRemoteDataSource(api)
+  fun remoteDataSource(api: MovieDbApi, cor: AppCoroutineDispatchers): RemoteDataSource = MoviesRemoteDataSource(
+      api,
+      cor)
 
 
   @AppScope
   @Provides
-  fun moviesRepository(cor: AppCoroutineDispatchers, localDataSource: LocalDataSource,
-                       remoteDataSource: RemoteDataSource, moviesDbBoundaryCallbackFactory: MoviesDbBoundaryCallbackFactory,
-                       networkStatus: LiveNetworkStatus): MoviesRepository = DefaultMoviesRepository(
-      cor,
+  fun moviesRepository(localDataSource: LocalDataSource,
+                       remoteDataSource: RemoteDataSource, moviesDbBoundaryCallbackFactory: MoviesDbBoundaryCallbackFactory)
+      : MoviesRepository = DefaultMoviesRepository(
       localDataSource,
       remoteDataSource,
-      moviesDbBoundaryCallbackFactory,
-      networkStatus)
+      moviesDbBoundaryCallbackFactory)
 
   @AppScope
   @Provides
   fun moviesDbBoundaryCallbackFactory(): MoviesDbBoundaryCallbackFactory = DefaultMoviesDbBoundaryCallbackFactory()
-
-  @AppScope
-  @Provides
-  fun movieDataSourceNetworkStatus(): LiveNetworkStatus {
-    return LiveNetworkStatus()
-  }
-
 
 }
