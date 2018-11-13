@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModelProviders
 import dagger.Component
 import dagger.Module
 import dagger.Provides
-import space.ersan.movlan.app.MovlanViewModelFactory
 import space.ersan.movlan.app.builder.AppComponent
 import space.ersan.movlan.common.NativeView
 import space.ersan.movlan.details.*
 import space.ersan.movlan.image.ImageLoader
+import space.ersan.movlan.viewmodel.MovlanViewModelFactory
 import javax.inject.Scope
 
 @Component(dependencies = [AppComponent::class], modules = [MovieDetailsModule::class])

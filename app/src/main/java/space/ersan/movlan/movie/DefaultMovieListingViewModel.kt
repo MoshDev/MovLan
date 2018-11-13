@@ -12,10 +12,12 @@ import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.details.MovieDetailsActivity
 import space.ersan.movlan.utils.AppCoroutineDispatchers
 import space.ersan.movlan.utils.LiveNetworkStatus
+import javax.inject.Inject
 
-class DefaultMovieListingViewModel(private val moviesRepository: MoviesRepository,
-                                   private val cor: AppCoroutineDispatchers)
-  : ViewModel(), MovieListingViewModel {
+class DefaultMovieListingViewModel @Inject constructor(
+    private val moviesRepository: MoviesRepository,
+    cor: AppCoroutineDispatchers)
+  : MovieListingViewModel() {
 
 
   private val networkStatus = LiveNetworkStatus()
@@ -50,9 +52,9 @@ class DefaultMovieListingViewModel(private val moviesRepository: MoviesRepositor
 
 }
 
-interface MovieListingViewModel {
-  fun getNetworkStatus(): LiveNetworkStatus
-  fun getMovies(clb: (LiveData<PagedList<Movie>>) -> Unit)
-  fun refreshMovies()
-  fun showMovieDetails(context: Context, movie: Movie)
+abstract class MovieListingViewModel : ViewModel() {
+  abstract fun getNetworkStatus(): LiveNetworkStatus
+  abstract fun getMovies(clb: (LiveData<PagedList<Movie>>) -> Unit)
+  abstract fun refreshMovies()
+  abstract fun showMovieDetails(context: Context, movie: Movie)
 }

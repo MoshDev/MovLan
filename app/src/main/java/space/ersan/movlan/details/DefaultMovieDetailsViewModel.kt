@@ -12,22 +12,28 @@ import kotlinx.coroutines.launch
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.utils.AppCoroutineDispatchers
+import javax.inject.Inject
 
-class DefaultMovieDetailsViewModel(private val moviesRepository: MoviesRepository,
-                                   cor: AppCoroutineDispatchers)
+class DefaultMovieDetailsViewModel @Inject constructor(private val moviesRepository: MoviesRepository,
+                                                       cor: AppCoroutineDispatchers)
   : ViewModel(), MovieDetailsViewModel {
 
-  private val parentJob = Job()
+  private val parentJob: Job = Job()
   private val scope = CoroutineScope(cor.UI + parentJob)
+  private val movieDetailsLiveData = MutableLiveData<Movie>()
+  private var isParentJobRunning = false
 
-  override fun getMovieDetails(movieId: Int, clb: (LiveData<Movie>) -> Unit) {
-    val liveData = MutableLiveData<Movie>()
-    clb(liveData)
-    scope.launch {
-      moviesRepository.getMovieDetails(movieId) {
-        liveData.postValue(it)
+  override fun getMovieDetails(movieId: Int): LiveData<Movie> {
+    if (movieDetailsLiveData.value == null && !isParentJobRunning) {
+      isParentJobRunning = true
+      scope.launch {
+        moviesRepository.getMovieDetails(movieId) {
+          movieDetailsLiveData.postValue(it)
+        }
+        isParentJobRunning = false
       }
     }
+    return movieDetailsLiveData
   }
 
   override fun openHomePage(context: Context, homePage: String?) {
@@ -43,6 +49,6 @@ class DefaultMovieDetailsViewModel(private val moviesRepository: MoviesRepositor
 }
 
 interface MovieDetailsViewModel {
-  fun getMovieDetails(movieId: Int, clb: (LiveData<Movie>) -> Unit)
+  fun getMovieDetails(movieId: Int): LiveData<Movie>
   fun openHomePage(context: Context, homePage: String?)
 }

@@ -12,9 +12,10 @@ import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.details.MovieDetailsActivity
 import space.ersan.movlan.utils.AppCoroutineDispatchers
+import javax.inject.Inject
 
-class DefaultMovieSearchViewModel(private val moviesRepository: MoviesRepository,
-                                  cor: AppCoroutineDispatchers)
+class DefaultMovieSearchViewModel @Inject constructor(private val moviesRepository: MoviesRepository,
+                                                      cor: AppCoroutineDispatchers)
   : ViewModel(), MovieSearchViewModel {
 
   private val parentJob = Job()

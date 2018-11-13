@@ -23,10 +23,10 @@ class MovieDetailsActivity : AppCompatActivity() {
   lateinit var nativeView: NativeView
 
   @Inject
-  lateinit var viewMovie: MovieDetailsView
+  lateinit var view: MovieDetailsView
 
   @Inject
-  lateinit var viewModelDefault: MovieDetailsViewModel
+  lateinit var viewModel: MovieDetailsViewModel
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -34,11 +34,10 @@ class MovieDetailsActivity : AppCompatActivity() {
     Movlan.injector.inject(this)
     setContentView(nativeView.getView())
 
-    viewModelDefault.getMovieDetails(movieId) {
-      it.observe({ lifecycle }, viewMovie::setMovie)
-    }
-    viewMovie.observeHomePageButtonClicks {
-      it?.also { homepage -> viewModelDefault.openHomePage(this@MovieDetailsActivity, homepage) }
+    viewModel.getMovieDetails(movieId)
+        .observe({ lifecycle }, view::setMovie)
+    view.observeHomePageButtonClicks {
+      it?.also { homepage -> viewModel.openHomePage(this@MovieDetailsActivity, homepage) }
     }
   }
 }
