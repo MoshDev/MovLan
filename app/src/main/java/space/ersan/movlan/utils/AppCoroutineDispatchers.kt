@@ -2,7 +2,6 @@ package space.ersan.movlan.utils
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.android.Main
 import kotlinx.coroutines.asCoroutineDispatcher
 import java.util.concurrent.Executors
 

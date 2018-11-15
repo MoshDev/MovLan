@@ -7,30 +7,29 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.utils.AppCoroutineDispatchers
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
-class DefaultMovieDetailsViewModel @Inject constructor(private val moviesRepository: MoviesRepository,
-                                                       cor: AppCoroutineDispatchers)
-  : ViewModel(), MovieDetailsViewModel {
+class DefaultMovieDetailsViewModel @Inject constructor(
+    cor: AppCoroutineDispatchers,
+    private val moviesRepository: MoviesRepository)
+  : MovieDetailsViewModel(), CoroutineScope {
 
-  private val parentJob: Job = Job()
-  private val scope = CoroutineScope(cor.UI + parentJob)
+  override val coroutineContext: CoroutineContext = cor.UI + SupervisorJob()
   private val movieDetailsLiveData = MutableLiveData<Movie>()
-  private var isParentJobRunning = false
 
   override fun getMovieDetails(movieId: Int): LiveData<Movie> {
-    if (movieDetailsLiveData.value == null && !isParentJobRunning) {
-      isParentJobRunning = true
-      scope.launch {
+    if (movieDetailsLiveData.value == null) {
+      launch {
         moviesRepository.getMovieDetails(movieId) {
           movieDetailsLiveData.postValue(it)
         }
-        isParentJobRunning = false
       }
     }
     return movieDetailsLiveData
@@ -43,12 +42,12 @@ class DefaultMovieDetailsViewModel @Inject constructor(private val moviesReposit
   }
 
   override fun onCleared() {
-    parentJob.cancel()
+    coroutineContext.cancel()
     super.onCleared()
   }
 }
 
-interface MovieDetailsViewModel {
-  fun getMovieDetails(movieId: Int): LiveData<Movie>
-  fun openHomePage(context: Context, homePage: String?)
+abstract class MovieDetailsViewModel : ViewModel() {
+  abstract fun getMovieDetails(movieId: Int): LiveData<Movie>
+  abstract fun openHomePage(context: Context, homePage: String?)
 }

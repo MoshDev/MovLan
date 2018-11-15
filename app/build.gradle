@@ -37,18 +37,18 @@ dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
 
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.27.0-eap13"
-  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.27.0-eap13"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1"
 
   def androidx_version = "1.0.0"
-  implementation "androidx.appcompat:appcompat:$androidx_version"
+  implementation "androidx.appcompat:appcompat:1.0.2"
   implementation "com.google.android.material:material:$androidx_version"
-  implementation "androidx.vectordrawable:vectordrawable:$androidx_version"
+  implementation "androidx.vectordrawable:vectordrawable:1.0.1"
   implementation "androidx.cardview:cardview:$androidx_version"
-  implementation "androidx.core:core-ktx:$androidx_version"
+  implementation "androidx.core:core-ktx:1.0.1"
   implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
 
-  def room_version = "2.1.0-alpha01"
+  def room_version = "2.1.0-alpha02"
   implementation "androidx.room:room-runtime:$room_version"
   kapt "androidx.room:room-compiler:$room_version"
 
@@ -59,10 +59,10 @@ dependencies {
   implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
   kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
-  def paging_version = "2.1.0-alpha01"
+  def paging_version = "2.1.0-beta01"
   implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
-  def navigation_version = "1.0.0-alpha06"
+  def navigation_version = "1.0.0-alpha07"
   implementation "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
   implementation "android.arch.navigation:navigation-ui-ktx:$navigation_version"
 
@@ -85,8 +85,8 @@ dependencies {
   def atsl_runner_version = "1.1.0-alpha4"
   androidTestImplementation "androidx.test:runner:$atsl_runner_version"
   androidTestImplementation "androidx.test:rules:$atsl_runner_version"
-  androidTestImplementation "androidx.test.ext:junit:1.0.0-beta02"
-  androidTestImplementation "androidx.test:core:1.0.0-beta02"
+  androidTestImplementation "androidx.test.ext:junit:1.0.0"
+  androidTestImplementation "androidx.test:core:1.0.0"
 
   def arch_core_version = "2.0.0"
   androidTestImplementation "androidx.arch.core:core-testing:$arch_core_version"
@@ -94,13 +94,13 @@ dependencies {
   def junit_version = "4.12"
   androidTestImplementation "junit:junit:$junit_version"
   androidTestImplementation "com.squareup.retrofit2:retrofit-mock:$retrofit_version"
-  androidTestImplementation "org.mockito:mockito-core:2.22.0"
-  androidTestImplementation "org.mockito:mockito-android:2.22.0"
+  androidTestImplementation "org.mockito:mockito-core:2.23.0"
+  androidTestImplementation "org.mockito:mockito-android:2.23.0"
 
   testImplementation "junit:junit:$junit_version"
   testImplementation "com.squareup.retrofit2:retrofit-mock:$retrofit_version"
   testImplementation "androidx.arch.core:core-testing:$arch_core_version"
-  testImplementation "org.mockito:mockito-core:2.22.0"
+  testImplementation "org.mockito:mockito-core:2.23.0"
 
 }
 
