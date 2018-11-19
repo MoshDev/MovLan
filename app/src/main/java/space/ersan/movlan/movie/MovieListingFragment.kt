@@ -26,8 +26,10 @@ class MovieListingFragment : Fragment() {
     super.onCreate(savedInstanceState)
 
     @Suppress("UNCHECKED_CAST")
-    Movlan.injector.inject(this,
-        (requireActivity() as ComponentProvider<HomeComponent>).getComponent())
+    Movlan.injector.inject(
+      this,
+      (requireActivity() as ComponentProvider<HomeComponent>).getComponent()
+    )
 
     viewModelDefault.getMovies {
       it.observe({ lifecycle }, view::setMovies)
@@ -35,10 +37,13 @@ class MovieListingFragment : Fragment() {
     viewModelDefault.getNetworkStatus().observe({ lifecycle }, view::setNetworkStatus)
     view.observeSwipeToRefresh(viewModelDefault::refreshMovies)
     view.observeMovieListClicks(viewModelDefault::showMovieDetails)
-
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return nativeView.getView()
   }
 }

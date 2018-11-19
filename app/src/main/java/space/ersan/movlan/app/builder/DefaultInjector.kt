@@ -22,50 +22,52 @@ import space.ersan.movlan.search.builder.MovieSearchModule
 class DefaultInjector(movlanApp: MovlanApp, config: AppConfig) : Injector {
 
   private val appComponent: AppComponent = DaggerAppComponent.builder()
-      .appModule(AppModule(movlanApp))
-      .appConfigModule(AppConfigModule(config))
-      .gsonModule(GsonModule())
-      .imageLoaderModule(ImageLoaderModule())
-      .retrofitModule(RetrofitModule())
-      .build()
+    .appModule(AppModule(movlanApp))
+    .appConfigModule(AppConfigModule(config))
+    .gsonModule(GsonModule())
+    .imageLoaderModule(ImageLoaderModule())
+    .retrofitModule(RetrofitModule())
+    .build()
 
   override fun inject(homeActivity: HomeActivity): HomeComponent {
     val component = DaggerHomeComponent.builder()
-        .appComponent(appComponent)
-        .homeModule(HomeModule(homeActivity))
-        .build()!!
+      .appComponent(appComponent)
+      .homeModule(HomeModule(homeActivity))
+      .build()!!
     component.inject(homeActivity)
     return component
   }
 
-  override fun inject(detailsActivity: MovieDetailsActivity) = DaggerMovieDetailsComponent.builder()
+  override fun inject(detailsActivity: MovieDetailsActivity) =
+    DaggerMovieDetailsComponent.builder()
       .appComponent(appComponent)
       .movieDetailsModule(MovieDetailsModule(detailsActivity))
       .build()
       .inject(detailsActivity)
 
-  override fun inject(fragment: MovieListingFragment, homeComponent: HomeComponent) = DaggerMovieListingComponent.builder()
+  override fun inject(fragment: MovieListingFragment, homeComponent: HomeComponent) =
+    DaggerMovieListingComponent.builder()
       .movieListingModule(MovieListingModule(fragment))
       .homeComponent(homeComponent)
       .build()
       .inject(fragment)
 
   override fun inject(fragment: MovieSearchFragment, homeComponent: HomeComponent) =
-      DaggerMovieSearchComponent.builder()
-          .homeComponent(homeComponent)
-          .movieSearchModule(MovieSearchModule(fragment))
-          .build()
-          .inject(fragment)
+    DaggerMovieSearchComponent.builder()
+      .homeComponent(homeComponent)
+      .movieSearchModule(MovieSearchModule(fragment))
+      .build()
+      .inject(fragment)
 
   override fun inject(converter: GenreTypeConverter) =
-      DaggerConvertersComponent.builder()
-          .appComponent(appComponent)
-          .build()
-          .inject(converter)
+    DaggerConvertersComponent.builder()
+      .appComponent(appComponent)
+      .build()
+      .inject(converter)
 
   override fun inject(converter: IntArrayTypeConverter) =
-      DaggerConvertersComponent.builder()
-          .appComponent(appComponent)
-          .build()
-          .inject(converter)
+    DaggerConvertersComponent.builder()
+      .appComponent(appComponent)
+      .build()
+      .inject(converter)
 }

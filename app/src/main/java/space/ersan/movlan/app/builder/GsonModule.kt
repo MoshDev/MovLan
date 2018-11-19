@@ -6,7 +6,7 @@ import com.google.gson.JsonDeserializer
 import dagger.Module
 import dagger.Provides
 import space.ersan.movlan.ext.MovieDateParser
-import java.util.*
+import java.util.Date
 
 @Module
 class GsonModule {

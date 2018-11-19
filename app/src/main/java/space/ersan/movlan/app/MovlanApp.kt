@@ -10,8 +10,8 @@ class MovlanApp : Application() {
   override fun onCreate() {
     super.onCreate()
     val appConfig = AppConfig(
-        movieDbApiKey = getString(R.string.movie_db_api_key),
-        movieDbApiBaseUrl = getString(R.string.movie_db_api_base_url)
+      movieDbApiKey = getString(R.string.movie_db_api_key),
+      movieDbApiBaseUrl = getString(R.string.movie_db_api_base_url)
     )
     Movlan.injector = DefaultInjector(this, appConfig)
   }

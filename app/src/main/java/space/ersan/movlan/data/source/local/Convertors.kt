@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import space.ersan.movlan.app.Movlan
 import space.ersan.movlan.data.model.Genre
-import java.util.*
+import java.util.Date
 import javax.inject.Inject
 
 class GenreTypeConverter {
@@ -19,13 +19,12 @@ class GenreTypeConverter {
   @TypeConverter
   fun toList(value: String?): List<Genre>? = value?.let {
     gson.fromJson(value, Array<Genre>::class.java)
-        .toMutableList()
+      .toMutableList()
   }
 
   @TypeConverter
   fun toString(value: List<Genre>?): String? = value?.let { gson.toJson(value.toTypedArray()) }
 }
-
 
 class DateTypeConverter {
 
@@ -46,7 +45,8 @@ class IntArrayTypeConverter {
   }
 
   @TypeConverter
-  fun toArray(value: String?): IntArray? = value?.let { gson.fromJson(value, IntArray::class.java) }
+  fun toArray(value: String?): IntArray? =
+    value?.let { gson.fromJson(value, IntArray::class.java) }
 
   @TypeConverter
   fun toString(value: IntArray?): String? = value.let { gson.toJson(value) }

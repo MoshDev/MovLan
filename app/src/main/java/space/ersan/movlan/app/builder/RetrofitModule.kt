@@ -30,11 +30,11 @@ class RetrofitModule {
   @AppScope
   fun provideRetrofit(appConfig: AppConfig, okHttpClient: OkHttpClient, gson: Gson): Retrofit {
     return Retrofit.Builder()
-        .baseUrl(appConfig.movieDbApiBaseUrl)
-        .client(okHttpClient)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
-        .build()
+      .baseUrl(appConfig.movieDbApiBaseUrl)
+      .client(okHttpClient)
+      .addConverterFactory(GsonConverterFactory.create(gson))
+      .addCallAdapterFactory(CoroutineCallAdapterFactory())
+      .build()
   }
 
   @Provides
@@ -42,9 +42,9 @@ class RetrofitModule {
   fun provideOkHttpClient(appConfig: AppConfig, @Suppress("UNUSED_PARAMETER") cache: Cache): OkHttpClient {
     return OkHttpClient.Builder()
 //        .cache(cache) // Disabled to demonstrate the save state
-        .queryInterceptor("api_key", appConfig.movieDbApiKey)
-        .addInterceptor(createLoggingInterceptor())
-        .build()
+      .queryInterceptor("api_key", appConfig.movieDbApiKey)
+      .addInterceptor(createLoggingInterceptor())
+      .build()
   }
 
   @Provides

@@ -9,9 +9,11 @@ import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.ext.toYear
 import space.ersan.movlan.image.ImageLoader
 
-class MoviePosterViewHolder(private val posterLoader: ImageLoader.Poster,
-                            view: View, private val callback: (Movie) -> Unit)
-  : RecyclerView.ViewHolder(view) {
+class MoviePosterViewHolder(
+  private val posterLoader: ImageLoader.Poster,
+  view: View,
+  private val callback: (Movie) -> Unit
+) : RecyclerView.ViewHolder(view) {
 
   private val thumbnailImageView: ImageView = itemView.findViewById(R.id.thumbnailImageView)
   private val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
@@ -29,5 +31,4 @@ class MoviePosterViewHolder(private val posterLoader: ImageLoader.Poster,
       genre.name ?: ""
     }
   }
-
 }

@@ -13,5 +13,10 @@ interface MoviesRepository {
   suspend fun invalidate(networkStatus: LiveNetworkStatus)
   suspend fun searchMovies(query: String): LiveData<PagedList<Movie>>
   suspend fun loadPopularMovies(page: Int, networkStatus: LiveNetworkStatus)
-  suspend fun searchMovies(query: String, page: Int, sorting: (Movie) -> Double, callback: (Maybe<MovieList>) -> Unit)
+  suspend fun searchMovies(
+    query: String,
+    page: Int,
+    sorting: (Movie) -> Double,
+    callback: (Maybe<MovieList>) -> Unit
+  )
 }

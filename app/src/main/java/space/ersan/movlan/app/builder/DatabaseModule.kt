@@ -11,12 +11,13 @@ class DatabaseModule {
 
   @AppScope
   @Provides
-  fun moviesDb(application: Application) = Room.databaseBuilder(application,
-      MoviesDb::class.java,
-      MoviesDb.DB_NAME).build()
+  fun moviesDb(application: Application) = Room.databaseBuilder(
+    application,
+    MoviesDb::class.java,
+    MoviesDb.DB_NAME
+  ).build()
 
   @AppScope
   @Provides
   fun moviesDao(db: MoviesDb) = db.moviesDao()
-
 }

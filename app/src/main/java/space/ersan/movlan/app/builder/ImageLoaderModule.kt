@@ -15,5 +15,4 @@ class ImageLoaderModule {
   @AppScope
   @Provides
   fun posterLoader(application: Application) = ImageLoader.Backdrop(application)
-
 }

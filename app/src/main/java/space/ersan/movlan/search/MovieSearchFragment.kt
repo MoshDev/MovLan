@@ -26,8 +26,10 @@ class MovieSearchFragment : Fragment() {
     super.onCreate(savedInstanceState)
 
     @Suppress("UNCHECKED_CAST")
-    Movlan.injector.inject(this,
-        (requireActivity() as ComponentProvider<HomeComponent>).getComponent())
+    Movlan.injector.inject(
+      this,
+      (requireActivity() as ComponentProvider<HomeComponent>).getComponent()
+    )
 
     view.setSearchQueryText(viewModel.getSearchQuery())
     view.observeMovieListClicks(viewModel::showMovieDetails)
@@ -38,7 +40,11 @@ class MovieSearchFragment : Fragment() {
     }
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return nativeView.getView()
   }
 }

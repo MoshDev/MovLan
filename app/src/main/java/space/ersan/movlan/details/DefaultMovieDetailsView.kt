@@ -14,12 +14,14 @@ import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.ext.toYear
 import space.ersan.movlan.image.ImageLoader
 import java.text.NumberFormat
-import java.util.*
+import java.util.Locale
 
 @SuppressLint("ViewConstructor")
-class DefaultMovieDetailsView(context: Context, private val backdropLoader: ImageLoader.Backdrop,
-                              private val posterLoader: ImageLoader.Poster)
-  : FrameLayout(context), NativeView, MovieDetailsView {
+class DefaultMovieDetailsView(
+  context: Context,
+  private val backdropLoader: ImageLoader.Backdrop,
+  private val posterLoader: ImageLoader.Poster
+) : FrameLayout(context), NativeView, MovieDetailsView {
 
   private val backdropImageView: ImageView
   private val thumbnailImageView: ImageView
@@ -70,16 +72,21 @@ class DefaultMovieDetailsView(context: Context, private val backdropLoader: Imag
 
     revenueTextView.isVisible = movie.revenue != null
     movie.revenue?.let {
-      revenueTextView.text = resources.getString(R.string.movie_revenue,
-          NumberFormat.getCurrencyInstance(Locale.US).apply { maximumFractionDigits = 0 }.format(it))
+      revenueTextView.text = resources.getString(
+        R.string.movie_revenue,
+        NumberFormat.getCurrencyInstance(Locale.US).apply {
+          maximumFractionDigits = 0
+        }.format(it)
+      )
     }
 
     languageTextView.isVisible = !movie.originalLanguage.isNullOrBlank()
     movie.originalLanguage?.let {
-      languageTextView.text = resources.getString(R.string.movie_language,
-          Locale(it).displayLanguage ?: resources.getString(R.string.unknown_language))
+      languageTextView.text = resources.getString(
+        R.string.movie_language,
+        Locale(it).displayLanguage ?: resources.getString(R.string.unknown_language)
+      )
     }
-
   }
 
   override fun observeHomePageButtonClicks(clb: (String?) -> Unit) {
@@ -89,5 +96,4 @@ class DefaultMovieDetailsView(context: Context, private val backdropLoader: Imag
   }
 
   override fun getView() = this
-
 }

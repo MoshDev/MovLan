@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 import javax.inject.Provider
 
-class MovlanViewModelFactory @Inject constructor(private val map: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>)
-  : ViewModelProvider.NewInstanceFactory() {
+class MovlanViewModelFactory @Inject constructor(private val map: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>) :
+  ViewModelProvider.NewInstanceFactory() {
 
   @Suppress("UNCHECKED_CAST")
   override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -16,5 +16,4 @@ class MovlanViewModelFactory @Inject constructor(private val map: Map<Class<out 
     }
     throw IllegalArgumentException("Cannot find ViewModel class for ${modelClass.name}")
   }
-
 }

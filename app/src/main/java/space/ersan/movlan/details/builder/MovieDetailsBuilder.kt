@@ -6,7 +6,11 @@ import dagger.Module
 import dagger.Provides
 import space.ersan.movlan.app.builder.AppComponent
 import space.ersan.movlan.common.NativeView
-import space.ersan.movlan.details.*
+import space.ersan.movlan.details.DefaultMovieDetailsView
+import space.ersan.movlan.details.DefaultMovieDetailsViewModel
+import space.ersan.movlan.details.MovieDetailsActivity
+import space.ersan.movlan.details.MovieDetailsView
+import space.ersan.movlan.details.MovieDetailsViewModel
 import space.ersan.movlan.image.ImageLoader
 import space.ersan.movlan.viewmodel.MovlanViewModelFactory
 import javax.inject.Scope
@@ -22,7 +26,10 @@ class MovieDetailsModule(private val activity: MovieDetailsActivity) {
 
   @Provides
   @MovieDetailsScope
-  fun provideView(posterLoader: ImageLoader.Poster, backdropLoader: ImageLoader.Backdrop): MovieDetailsView {
+  fun provideView(
+    posterLoader: ImageLoader.Poster,
+    backdropLoader: ImageLoader.Backdrop
+  ): MovieDetailsView {
     return DefaultMovieDetailsView(activity, backdropLoader, posterLoader)
   }
 
@@ -33,10 +40,11 @@ class MovieDetailsModule(private val activity: MovieDetailsActivity) {
   @Provides
   @MovieDetailsScope
   fun provideViewModel(factory: MovlanViewModelFactory): MovieDetailsViewModel =
-      ViewModelProviders.of(
-          activity,
-          factory)
-          .get(DefaultMovieDetailsViewModel::class.java)
+    ViewModelProviders.of(
+      activity,
+      factory
+    )
+      .get(DefaultMovieDetailsViewModel::class.java)
 }
 
 @Scope

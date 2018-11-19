@@ -7,8 +7,10 @@ import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.utils.LiveNetworkStatus
 
-class MoviesDbBoundaryCallback(private val repository: MoviesRepository, private val networkStatus: LiveNetworkStatus)
-  : PagedList.BoundaryCallback<Movie>() {
+class MoviesDbBoundaryCallback(
+  private val repository: MoviesRepository,
+  private val networkStatus: LiveNetworkStatus
+) : PagedList.BoundaryCallback<Movie>() {
 
   override fun onZeroItemsLoaded() {
     GlobalScope.launch {
@@ -22,6 +24,4 @@ class MoviesDbBoundaryCallback(private val repository: MoviesRepository, private
       repository.loadPopularMovies(nextPage, networkStatus)
     }
   }
-
 }
-

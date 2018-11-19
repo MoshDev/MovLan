@@ -7,7 +7,11 @@ import dagger.Provides
 import space.ersan.movlan.common.NativeView
 import space.ersan.movlan.home.builder.HomeComponent
 import space.ersan.movlan.image.ImageLoader
-import space.ersan.movlan.search.*
+import space.ersan.movlan.search.DefaultMovieSearchView
+import space.ersan.movlan.search.DefaultMovieSearchViewModel
+import space.ersan.movlan.search.MovieSearchFragment
+import space.ersan.movlan.search.MovieSearchView
+import space.ersan.movlan.search.MovieSearchViewModel
 import javax.inject.Scope
 
 @Component(dependencies = [HomeComponent::class], modules = [MovieSearchModule::class])
@@ -31,9 +35,10 @@ class MovieSearchModule(private val fragment: MovieSearchFragment) {
 
   @Provides
   @MovieSearchScope
-  fun provideViewModel(viewModelProvider: ViewModelProvider): MovieSearchViewModel = viewModelProvider.get(
-      DefaultMovieSearchViewModel::class.java)
-
+  fun provideViewModel(viewModelProvider: ViewModelProvider): MovieSearchViewModel =
+    viewModelProvider.get(
+      DefaultMovieSearchViewModel::class.java
+    )
 }
 
 @Scope

@@ -11,10 +11,16 @@ import space.ersan.movlan.R
 
 class TvListingFragment : Fragment() {
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return TextView(requireContext()).apply {
-      layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-          ViewGroup.LayoutParams.MATCH_PARENT)
+      layoutParams = ViewGroup.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.MATCH_PARENT
+      )
       setText(R.string.coming_soon)
       gravity = Gravity.CENTER
     }

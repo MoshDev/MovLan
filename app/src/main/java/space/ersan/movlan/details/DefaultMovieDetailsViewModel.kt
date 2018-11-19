@@ -17,9 +17,9 @@ import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class DefaultMovieDetailsViewModel @Inject constructor(
-    cor: AppCoroutineDispatchers,
-    private val moviesRepository: MoviesRepository)
-  : MovieDetailsViewModel(), CoroutineScope {
+  cor: AppCoroutineDispatchers,
+  private val moviesRepository: MoviesRepository
+) : MovieDetailsViewModel(), CoroutineScope {
 
   override val coroutineContext: CoroutineContext = cor.UI + SupervisorJob()
   private val movieDetailsLiveData = MutableLiveData<Movie>()

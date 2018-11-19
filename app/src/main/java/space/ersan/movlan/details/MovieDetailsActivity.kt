@@ -14,9 +14,9 @@ class MovieDetailsActivity : AppCompatActivity() {
     private const val EXTRA_MOVIE_ID = "extra_movie_id"
 
     fun intentFor(context: Context, movieId: Int): Intent =
-        Intent(context, MovieDetailsActivity::class.java).apply {
-          putExtra(EXTRA_MOVIE_ID, movieId)
-        }
+      Intent(context, MovieDetailsActivity::class.java).apply {
+        putExtra(EXTRA_MOVIE_ID, movieId)
+      }
   }
 
   @Inject
@@ -35,7 +35,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     setContentView(nativeView.getView())
 
     viewModel.getMovieDetails(movieId)
-        .observe({ lifecycle }, view::setMovie)
+      .observe({ lifecycle }, view::setMovie)
     view.observeHomePageButtonClicks {
       it?.also { homepage -> viewModel.openHomePage(this@MovieDetailsActivity, homepage) }
     }

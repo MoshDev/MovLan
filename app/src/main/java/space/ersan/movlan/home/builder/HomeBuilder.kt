@@ -24,9 +24,10 @@ class HomeModule(private val homeActivity: HomeActivity) {
 
   @HomeScope
   @Provides
-  fun viewModelProvider(factory: MovlanViewModelFactory) = ViewModelProviders.of(homeActivity,
-      factory)
-
+  fun viewModelProvider(factory: MovlanViewModelFactory) = ViewModelProviders.of(
+    homeActivity,
+    factory
+  )
 }
 
 @Scope

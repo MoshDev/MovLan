@@ -15,10 +15,9 @@ import space.ersan.movlan.utils.LiveNetworkStatus
 import javax.inject.Inject
 
 class DefaultMovieListingViewModel @Inject constructor(
-    private val moviesRepository: MoviesRepository,
-    cor: AppCoroutineDispatchers)
-  : MovieListingViewModel() {
-
+  private val moviesRepository: MoviesRepository,
+  cor: AppCoroutineDispatchers
+) : MovieListingViewModel() {
 
   private val networkStatus = LiveNetworkStatus()
   private val parentJob = Job()
@@ -33,7 +32,8 @@ class DefaultMovieListingViewModel @Inject constructor(
   override fun getMovies(clb: (LiveData<PagedList<Movie>>) -> Unit) {
     scope.launch {
       val data = moviesRepository.getPopularMoviesPaginated(
-          networkStatus)
+        networkStatus
+      )
       clb(data)
     }
   }
@@ -43,13 +43,13 @@ class DefaultMovieListingViewModel @Inject constructor(
   }
 
   override fun showMovieDetails(context: Context, movie: Movie) = context.startActivity(
-      MovieDetailsActivity.intentFor(context, movie.id))
+    MovieDetailsActivity.intentFor(context, movie.id)
+  )
 
   override fun onCleared() {
     parentJob.cancel()
     super.onCleared()
   }
-
 }
 
 abstract class MovieListingViewModel : ViewModel() {

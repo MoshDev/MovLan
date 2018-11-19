@@ -11,11 +11,13 @@ import javax.inject.Scope
 annotation class AppScope
 
 @AppScope
-@Component(modules = [
-  AppModule::class, AppConfigModule::class, GsonModule::class,
-  ImageLoaderModule::class, RetrofitModule::class, MoviesDataSourceModule::class,
-  AppCoroutineModule::class, DatabaseModule::class, ViewModelModule::class
-])
+@Component(
+  modules = [
+    AppModule::class, AppConfigModule::class, GsonModule::class,
+    ImageLoaderModule::class, RetrofitModule::class, MoviesDataSourceModule::class,
+    AppCoroutineModule::class, DatabaseModule::class, ViewModelModule::class
+  ]
+)
 interface AppComponent {
 
   fun exposeMoviesRepository(): MoviesRepository
@@ -27,5 +29,4 @@ interface AppComponent {
   fun exposeViewModelFactory(): MovlanViewModelFactory
 
   fun exposeGson(): Gson
-
 }

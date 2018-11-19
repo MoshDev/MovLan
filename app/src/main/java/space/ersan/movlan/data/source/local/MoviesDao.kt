@@ -1,7 +1,13 @@
 package space.ersan.movlan.data.source.local
 
 import androidx.paging.DataSource
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Database
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import space.ersan.movlan.data.model.Genre
 import space.ersan.movlan.data.model.Movie
 
@@ -43,4 +49,3 @@ interface MoviesDao {
   @Query("SELECT * From movie WHERE id== :movieId LIMIT 1")
   fun getMovie(movieId: Int): Movie?
 }
-

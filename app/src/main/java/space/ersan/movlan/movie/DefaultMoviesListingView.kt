@@ -18,17 +18,18 @@ import space.ersan.movlan.movie.list.MoviesListAdapter
 import space.ersan.movlan.utils.NetworkStatus
 
 @SuppressLint("ViewConstructor")
-class DefaultMoviesListingView(context: Context, posterLoader: ImageLoader.Poster)
-  : FrameLayout(context), MoviesListingView, NativeView {
+class DefaultMoviesListingView(context: Context, posterLoader: ImageLoader.Poster) :
+  FrameLayout(context), MoviesListingView, NativeView {
 
   private val adapter: MoviesListAdapter = MoviesListAdapter(posterLoader)
-  private val layoutManger = StaggeredGridLayoutManager(context.resources.getInteger(R.integer.listing_movies_span),
-      StaggeredGridLayoutManager.VERTICAL)
+  private val layoutManger = StaggeredGridLayoutManager(
+    context.resources.getInteger(R.integer.listing_movies_span),
+    StaggeredGridLayoutManager.VERTICAL
+  )
   private val recyclerView: RecyclerView
   private val swipeToRefresh: SwipeRefreshLayout
   private val progressBar: ContentLoadingProgressBar
   private var shownSnackbar: Snackbar? = null
-
 
   init {
     View.inflate(context, R.layout.view_movie_listing, this)
@@ -40,7 +41,6 @@ class DefaultMoviesListingView(context: Context, posterLoader: ImageLoader.Poste
     swipeToRefresh.isEnabled = false
     progressBar = findViewById(R.id.progressBar)
     progressBar.hide()
-
   }
 
   override fun setMovies(result: PagedList<Movie>) {
@@ -71,12 +71,14 @@ class DefaultMoviesListingView(context: Context, posterLoader: ImageLoader.Poste
 
   private fun showErrorSnackBar(networkStatus: NetworkStatus.Error) {
     showLoadingBar(false)
-    val snackbar = Snackbar.make(this,
-        R.string.network_error_home_movies_list,
-        Snackbar.LENGTH_INDEFINITE)
-        .setAction(R.string.retry) {
-          networkStatus.retry?.invoke()
-        }
+    val snackbar = Snackbar.make(
+      this,
+      R.string.network_error_home_movies_list,
+      Snackbar.LENGTH_INDEFINITE
+    )
+      .setAction(R.string.retry) {
+        networkStatus.retry?.invoke()
+      }
     snackbar.show()
     shownSnackbar = snackbar
   }

@@ -5,5 +5,4 @@ import space.ersan.movlan.app.builder.Injector
 object Movlan {
 
   lateinit var injector: Injector
-
 }

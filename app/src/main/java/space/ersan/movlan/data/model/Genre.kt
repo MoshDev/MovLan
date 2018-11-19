@@ -6,6 +6,6 @@ import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "genre")
 data class Genre(
-    @PrimaryKey @SerializedName("id") val id: Int?,
-    @SerializedName("name") val name: String?
+  @PrimaryKey @SerializedName("id") val id: Int?,
+  @SerializedName("name") val name: String?
 )

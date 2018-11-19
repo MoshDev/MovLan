@@ -10,14 +10,20 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.runner.AndroidJUnit4
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.equalTo
-import org.junit.*
+import org.junit.After
+import org.junit.Assert
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import space.ersan.movlan.FakeMoviesApi
 import space.ersan.movlan.MoviesFactory
 import space.ersan.movlan.TestCoroutineDispatchers
 import space.ersan.movlan.app.MovlanApp
 import space.ersan.movlan.data.model.Genre
-import space.ersan.movlan.data.source.local.*
+import space.ersan.movlan.data.source.local.DefaultMoviesDbBoundaryCallbackFactory
+import space.ersan.movlan.data.source.local.MoviesDb
+import space.ersan.movlan.data.source.local.MoviesLocalDataSource
 import space.ersan.movlan.data.source.remote.MoviesRemoteDataSource
 import space.ersan.movlan.mock
 import space.ersan.movlan.utils.LiveNetworkStatus
@@ -38,27 +44,29 @@ class MoviesRepositoryTest {
   private lateinit var lifecycleOwner: LifecycleOwner
 
   private val fakeMoviesApi = FakeMoviesApi(
-      popularMovies = popularMovies,
-      genreList = genreList,
-      movieDetails = popularMovies[0],
-      searchResult = searchMovies
+    popularMovies = popularMovies,
+    genreList = genreList,
+    movieDetails = popularMovies[0],
+    searchResult = searchMovies
   )
 
   @Before
   fun setUp() {
     val context = ApplicationProvider.getApplicationContext<MovlanApp>()
     database = Room.inMemoryDatabaseBuilder(context, MoviesDb::class.java)
-        .build()
+      .build()
     val moviesDao = database.moviesDao()
     val localDataSource = MoviesLocalDataSource(moviesDao)
     val remoteDataSource = MoviesRemoteDataSource(fakeMoviesApi)
     val networkStatus = LiveNetworkStatus()
     val boundaryCallbackFactory = DefaultMoviesDbBoundaryCallbackFactory()
-    moviesRepository = DefaultMoviesRepository(TestCoroutineDispatchers,
-        localDataSource,
-        remoteDataSource,
-        boundaryCallbackFactory,
-        networkStatus)
+    moviesRepository = DefaultMoviesRepository(
+      TestCoroutineDispatchers,
+      localDataSource,
+      remoteDataSource,
+      boundaryCallbackFactory,
+      networkStatus
+    )
 
     lifecycleOwner = LifecycleOwner {
       LifecycleRegistry(mock()).apply {

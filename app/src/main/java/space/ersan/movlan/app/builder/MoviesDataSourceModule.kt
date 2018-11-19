@@ -4,7 +4,11 @@ import dagger.Module
 import dagger.Provides
 import space.ersan.movlan.data.source.DefaultMoviesRepository
 import space.ersan.movlan.data.source.MoviesRepository
-import space.ersan.movlan.data.source.local.*
+import space.ersan.movlan.data.source.local.DefaultMoviesDbBoundaryCallbackFactory
+import space.ersan.movlan.data.source.local.LocalDataSource
+import space.ersan.movlan.data.source.local.MoviesDao
+import space.ersan.movlan.data.source.local.MoviesDbBoundaryCallbackFactory
+import space.ersan.movlan.data.source.local.MoviesLocalDataSource
 import space.ersan.movlan.data.source.remote.MovieDbApi
 import space.ersan.movlan.data.source.remote.MoviesRemoteDataSource
 import space.ersan.movlan.data.source.remote.RemoteDataSource
@@ -15,29 +19,34 @@ class MoviesDataSourceModule {
 
   @AppScope
   @Provides
-  fun localDataSource(moviesDao: MoviesDao, cor: AppCoroutineDispatchers): LocalDataSource = MoviesLocalDataSource(
+  fun localDataSource(moviesDao: MoviesDao, cor: AppCoroutineDispatchers): LocalDataSource =
+    MoviesLocalDataSource(
       moviesDao,
-      cor)
-
+      cor
+    )
 
   @AppScope
   @Provides
-  fun remoteDataSource(api: MovieDbApi, cor: AppCoroutineDispatchers): RemoteDataSource = MoviesRemoteDataSource(
+  fun remoteDataSource(api: MovieDbApi, cor: AppCoroutineDispatchers): RemoteDataSource =
+    MoviesRemoteDataSource(
       api,
-      cor)
-
-
-  @AppScope
-  @Provides
-  fun moviesRepository(localDataSource: LocalDataSource,
-                       remoteDataSource: RemoteDataSource, moviesDbBoundaryCallbackFactory: MoviesDbBoundaryCallbackFactory)
-      : MoviesRepository = DefaultMoviesRepository(
-      localDataSource,
-      remoteDataSource,
-      moviesDbBoundaryCallbackFactory)
+      cor
+    )
 
   @AppScope
   @Provides
-  fun moviesDbBoundaryCallbackFactory(): MoviesDbBoundaryCallbackFactory = DefaultMoviesDbBoundaryCallbackFactory()
+  fun moviesRepository(
+    localDataSource: LocalDataSource,
+    remoteDataSource: RemoteDataSource,
+    moviesDbBoundaryCallbackFactory: MoviesDbBoundaryCallbackFactory
+  ): MoviesRepository = DefaultMoviesRepository(
+    localDataSource,
+    remoteDataSource,
+    moviesDbBoundaryCallbackFactory
+  )
 
+  @AppScope
+  @Provides
+  fun moviesDbBoundaryCallbackFactory(): MoviesDbBoundaryCallbackFactory =
+    DefaultMoviesDbBoundaryCallbackFactory()
 }

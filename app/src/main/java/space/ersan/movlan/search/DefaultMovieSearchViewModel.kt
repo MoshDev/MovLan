@@ -14,9 +14,10 @@ import space.ersan.movlan.details.MovieDetailsActivity
 import space.ersan.movlan.utils.AppCoroutineDispatchers
 import javax.inject.Inject
 
-class DefaultMovieSearchViewModel @Inject constructor(private val moviesRepository: MoviesRepository,
-                                                      cor: AppCoroutineDispatchers)
-  : ViewModel(), MovieSearchViewModel {
+class DefaultMovieSearchViewModel @Inject constructor(
+  private val moviesRepository: MoviesRepository,
+  cor: AppCoroutineDispatchers
+) : ViewModel(), MovieSearchViewModel {
 
   private val parentJob = Job()
   private val scope = CoroutineScope(cor.UI + parentJob)
@@ -37,11 +38,11 @@ class DefaultMovieSearchViewModel @Inject constructor(private val moviesReposito
       searchLiveData.addSource(lastSearchLiveData!!) { searchLiveData.postValue(it) }
       clb(lastSearchLiveData!!)
     }
-
   }
 
   override fun showMovieDetails(context: Context, movie: Movie) = context.startActivity(
-      MovieDetailsActivity.intentFor(context, movie.id))
+    MovieDetailsActivity.intentFor(context, movie.id)
+  )
 
   override fun onCleared() {
     parentJob.cancel()
@@ -54,5 +55,4 @@ interface MovieSearchViewModel {
   fun getSearchQuery(): String?
   fun searchMovies(query: String, clb: (LiveData<PagedList<Movie>>) -> Unit)
   fun showMovieDetails(context: Context, movie: Movie)
-
 }

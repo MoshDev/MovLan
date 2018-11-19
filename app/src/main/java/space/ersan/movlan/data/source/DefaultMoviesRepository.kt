@@ -14,12 +14,18 @@ import space.ersan.movlan.utils.LiveNetworkStatus
 import space.ersan.movlan.utils.Maybe
 import space.ersan.movlan.utils.NetworkStatus
 
-class DefaultMoviesRepository(private val localDataSource: LocalDataSource,
-                              private val remoteDataSource: RemoteDataSource,
-                              private val moviesDbBoundaryCallbackFactory: MoviesDbBoundaryCallbackFactory)
-  : MoviesRepository {
+class DefaultMoviesRepository(
+  private val localDataSource: LocalDataSource,
+  private val remoteDataSource: RemoteDataSource,
+  private val moviesDbBoundaryCallbackFactory: MoviesDbBoundaryCallbackFactory
+) : MoviesRepository {
 
-  override suspend fun searchMovies(query: String, page: Int, sorting: (Movie) -> Double, callback: (Maybe<MovieList>) -> Unit) {
+  override suspend fun searchMovies(
+    query: String,
+    page: Int,
+    sorting: (Movie) -> Double,
+    callback: (Maybe<MovieList>) -> Unit
+  ) {
     callback(remoteDataSource.search(query, page))
   }
 
@@ -31,8 +37,10 @@ class DefaultMoviesRepository(private val localDataSource: LocalDataSource,
         is Maybe.Error -> {
           networkStatus.postValue(NetworkStatus.Error {
             suspend {
-              loadPopularMovies(page,
-                  networkStatus)
+              loadPopularMovies(
+                page,
+                networkStatus
+              )
             }
           })
           return
@@ -50,8 +58,10 @@ class DefaultMoviesRepository(private val localDataSource: LocalDataSource,
       is Maybe.Error -> {
         networkStatus.postValue(NetworkStatus.Error {
           suspend {
-            loadPopularMovies(page,
-                networkStatus)
+            loadPopularMovies(
+              page,
+              networkStatus
+            )
           }
         })
       }
@@ -60,11 +70,15 @@ class DefaultMoviesRepository(private val localDataSource: LocalDataSource,
 
   override suspend fun getPopularMoviesPaginated(networkStatus: LiveNetworkStatus): LiveData<PagedList<Movie>> {
     return localDataSource.getMovies()
-        .toLiveData(pageSize = 20,
-            initialLoadKey = 1,
-            boundaryCallback = moviesDbBoundaryCallbackFactory.createCallback(this, networkStatus))
+      .toLiveData(
+        pageSize = 20,
+        initialLoadKey = 1,
+        boundaryCallback = moviesDbBoundaryCallbackFactory.createCallback(
+          this,
+          networkStatus
+        )
+      )
   }
-
 
   override suspend fun getMovieDetails(movieId: Int, clb: (Movie) -> Unit) {
     val localMovie = localDataSource.getMovie(movieId)
@@ -79,37 +93,41 @@ class DefaultMoviesRepository(private val localDataSource: LocalDataSource,
 
   override suspend fun invalidate(networkStatus: LiveNetworkStatus) {
     networkStatus.postValue(NetworkStatus.Loading)
-      val genres = remoteDataSource.getGenres()
-      when (genres) {
-        is Maybe.Some -> {
-          localDataSource.deleteAllGenres()
-          localDataSource.insertAllGenres(genres.value.genres!!)
-        }
-        is Maybe.Error -> {
-          networkStatus.postValue(NetworkStatus.Error { suspend { invalidate(networkStatus) } })
-          return
-        }
+    val genres = remoteDataSource.getGenres()
+    when (genres) {
+      is Maybe.Some -> {
+        localDataSource.deleteAllGenres()
+        localDataSource.insertAllGenres(genres.value.genres!!)
       }
-      val movies = remoteDataSource.getPopularMovies(1)
-      when (movies) {
-        is Maybe.Some -> {
-          localDataSource.insertAll(1, movies.value.results!!)
-          localDataSource.deleteAllMoviesExcept(1)
-          networkStatus.postValue(NetworkStatus.Loaded)
-        }
-        is Maybe.Error -> networkStatus.postValue(NetworkStatus.Error())
+      is Maybe.Error -> {
+        networkStatus.postValue(NetworkStatus.Error { suspend { invalidate(networkStatus) } })
+        return
       }
+    }
+    val movies = remoteDataSource.getPopularMovies(1)
+    when (movies) {
+      is Maybe.Some -> {
+        localDataSource.insertAll(1, movies.value.results!!)
+        localDataSource.deleteAllMoviesExcept(1)
+        networkStatus.postValue(NetworkStatus.Loaded)
+      }
+      is Maybe.Error -> networkStatus.postValue(NetworkStatus.Error())
+    }
   }
 
   override suspend fun searchMovies(query: String): LiveData<PagedList<Movie>> {
     val pagedListConfig = PagedList.Config.Builder()
-        .setEnablePlaceholders(false)
-        .setInitialLoadSizeHint(20)
-        .setPageSize(20)
-        .build()
+      .setEnablePlaceholders(false)
+      .setInitialLoadSizeHint(20)
+      .setPageSize(20)
+      .build()
 
-    return LivePagedListBuilder(/*TODO to be injected somehow*/SearchDataSourceFactory(this, query),
-        pagedListConfig)
-        .build()
+    return LivePagedListBuilder(/*TODO to be injected somehow*/SearchDataSourceFactory(
+      this,
+      query
+    ),
+      pagedListConfig
+    )
+      .build()
   }
 }

@@ -21,9 +21,9 @@ class HomeActivity : AppCompatActivity(), ComponentProvider<HomeComponent> {
     setContentView(R.layout.view_home)
 
     val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
-    val navHostFragment = supportFragmentManager.findFragmentById(R.id.navigation_host_fragment) as NavHostFragment
+    val navHostFragment =
+      supportFragmentManager.findFragmentById(R.id.navigation_host_fragment) as NavHostFragment
     NavigationUI.setupWithNavController(bottomNavigationView, navHostFragment.navController)
-
   }
 
   override fun getComponent() = homeComponent

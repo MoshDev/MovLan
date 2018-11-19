@@ -7,7 +7,10 @@ import space.ersan.movlan.data.model.MovieList
 import space.ersan.movlan.utils.AppCoroutineDispatchers
 import space.ersan.movlan.utils.Maybe
 
-class MoviesRemoteDataSource(private val api: MovieDbApi, private val cor: AppCoroutineDispatchers) : RemoteDataSource {
+class MoviesRemoteDataSource(
+  private val api: MovieDbApi,
+  private val cor: AppCoroutineDispatchers
+) : RemoteDataSource {
 
   override suspend fun getPopularMovies(page: Int): Maybe<MovieList> = withContext(cor.NETWORK) {
     try {
@@ -33,12 +36,12 @@ class MoviesRemoteDataSource(private val api: MovieDbApi, private val cor: AppCo
     }
   }
 
-  override suspend fun search(query: String, page: Int): Maybe<MovieList> = withContext(cor.NETWORK) {
-    try {
-      Maybe.Some(api.search(query, page).await())
-    } catch (err: Exception) {
-      Maybe.Error<MovieList>(err)
+  override suspend fun search(query: String, page: Int): Maybe<MovieList> =
+    withContext(cor.NETWORK) {
+      try {
+        Maybe.Some(api.search(query, page).await())
+      } catch (err: Exception) {
+        Maybe.Error<MovieList>(err)
+      }
     }
-  }
-
 }

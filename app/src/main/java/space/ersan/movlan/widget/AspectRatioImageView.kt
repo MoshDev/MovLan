@@ -6,7 +6,9 @@ import androidx.appcompat.widget.AppCompatImageView
 import space.ersan.movlan.R
 
 class AspectRatioImageView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+  context: Context,
+  attrs: AttributeSet? = null,
+  defStyleAttr: Int = 0
 ) : AppCompatImageView(context, attrs, defStyleAttr) {
 
   private val ratio: Float
@@ -34,8 +36,4 @@ class AspectRatioImageView @JvmOverloads constructor(
 
     setMeasuredDimension(width, height)
   }
-
 }
-
-
-

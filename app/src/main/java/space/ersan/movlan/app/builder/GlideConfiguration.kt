@@ -17,8 +17,10 @@ class GlideConfiguration : AppGlideModule() {
   override fun applyOptions(context: Context, builder: GlideBuilder) {
     builder.setAnimationExecutor(animationExecutor)
     if (diskCacheFactory == null) {
-      diskCacheFactory = InternalCacheDiskCacheFactory(context.applicationContext, "images_cached",
-          1024 * 1024 * 50)
+      diskCacheFactory = InternalCacheDiskCacheFactory(
+        context.applicationContext, "images_cached",
+        1024 * 1024 * 50
+      )
     }
     builder.setDiskCache(diskCacheFactory)
   }

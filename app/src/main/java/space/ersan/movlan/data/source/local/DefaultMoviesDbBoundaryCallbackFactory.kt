@@ -5,8 +5,10 @@ import space.ersan.movlan.utils.LiveNetworkStatus
 
 class DefaultMoviesDbBoundaryCallbackFactory : MoviesDbBoundaryCallbackFactory {
 
-  override fun createCallback(repository: MoviesRepository, networkStatus: LiveNetworkStatus): MoviesDbBoundaryCallback {
+  override fun createCallback(
+    repository: MoviesRepository,
+    networkStatus: LiveNetworkStatus
+  ): MoviesDbBoundaryCallback {
     return MoviesDbBoundaryCallback(repository, networkStatus)
   }
-
 }

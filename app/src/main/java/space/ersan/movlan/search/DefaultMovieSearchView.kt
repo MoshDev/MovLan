@@ -18,11 +18,14 @@ import space.ersan.movlan.movie.list.MoviesListAdapter
 
 @SuppressLint("ViewConstructor")
 class DefaultMovieSearchView(context: Context, posterLoader: ImageLoader.Poster) : FrameLayout(
-    context), MovieSearchView, NativeView {
+  context
+), MovieSearchView, NativeView {
 
   private val adapter: MoviesListAdapter = MoviesListAdapter(posterLoader)
-  private val layoutManger = StaggeredGridLayoutManager(context.resources.getInteger(R.integer.listing_movies_span),
-      StaggeredGridLayoutManager.VERTICAL)
+  private val layoutManger = StaggeredGridLayoutManager(
+    context.resources.getInteger(R.integer.listing_movies_span),
+    StaggeredGridLayoutManager.VERTICAL
+  )
   private val recyclerView: RecyclerView
   private val progressBar: ContentLoadingProgressBar
   private val searchView: SearchView
@@ -91,5 +94,4 @@ class DefaultMovieSearchView(context: Context, posterLoader: ImageLoader.Poster)
   }
 
   override fun getView() = this
-
 }

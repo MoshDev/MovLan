@@ -10,29 +10,31 @@ import space.ersan.movlan.BuildConfig
 import space.ersan.movlan.R
 import space.ersan.movlan.data.model.Movie
 
-sealed class ImageLoader(private val requestManager: RequestManager,
-                         private val imagesBaseUrl: String,
-                         private val pathResolver: (Movie) -> String?) {
+sealed class ImageLoader(
+  private val requestManager: RequestManager,
+  private val imagesBaseUrl: String,
+  private val pathResolver: (Movie) -> String?
+) {
 
   private companion object {
     private val defaultRequestOptions = RequestOptions()
-        .fallback(R.drawable.bg_image_error)
-        .error(R.drawable.bg_image_error)
+      .fallback(R.drawable.bg_image_error)
+      .error(R.drawable.bg_image_error)
   }
 
   class Poster(application: Application) : ImageLoader(Glide.with(application)
-      .applyDefaultRequestOptions(defaultRequestOptions),
-      application.getString(R.string.movie_db_poster_url), { it.posterPath })
+    .applyDefaultRequestOptions(defaultRequestOptions),
+    application.getString(R.string.movie_db_poster_url), { it.posterPath })
 
   class Backdrop(application: Application) : ImageLoader(Glide.with(application)
-      .applyDefaultRequestOptions(defaultRequestOptions),
-      application.getString(R.string.movie_db_backdrop_url), { it.backdropPath })
+    .applyDefaultRequestOptions(defaultRequestOptions),
+    application.getString(R.string.movie_db_backdrop_url), { it.backdropPath })
 
   fun loadImage(imageView: ImageView, movie: Movie) {
     val path = pathResolver(movie)?.let { "$imagesBaseUrl$it" }
     if (BuildConfig.DEBUG) println(path)
     requestManager.load(path)
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .into(imageView)
+      .transition(DrawableTransitionOptions.withCrossFade())
+      .into(imageView)
   }
 }

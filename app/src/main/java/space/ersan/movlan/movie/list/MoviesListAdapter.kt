@@ -8,8 +8,10 @@ import space.ersan.movlan.R
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.image.ImageLoader
 
-class MoviesListAdapter(private val posterLoader: ImageLoader.Poster) : PagedListAdapter<Movie, MoviePosterViewHolder>(
-    DIFF_CALLBACK) {
+class MoviesListAdapter(private val posterLoader: ImageLoader.Poster) :
+  PagedListAdapter<Movie, MoviePosterViewHolder>(
+    DIFF_CALLBACK
+  ) {
 
   override fun onBindViewHolder(holder: MoviePosterViewHolder, position: Int) {
     val movie = getItem(position)
@@ -30,15 +32,16 @@ class MoviesListAdapter(private val posterLoader: ImageLoader.Poster) : PagedLis
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviePosterViewHolder {
     val inflater = LayoutInflater.from(parent.context)
-    return MoviePosterViewHolder(posterLoader,
-        inflater.inflate(R.layout.view_movies_list_item, parent, false),
-        innerCallback)
+    return MoviePosterViewHolder(
+      posterLoader,
+      inflater.inflate(R.layout.view_movies_list_item, parent, false),
+      innerCallback
+    )
   }
-
 
   private companion object {
     private val DIFF_CALLBACK = object :
-        DiffUtil.ItemCallback<Movie>() {
+      DiffUtil.ItemCallback<Movie>() {
 
       override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
         return oldItem.id == newItem.id
