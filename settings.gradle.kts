@@ -10,7 +10,7 @@ pluginManagement {
   resolutionStrategy {
     eachPlugin {
       when (requested.id.id) {
-        "com.android.application" -> useModule("com.android.tools.build:gradle:${requested.version}")
+        "com.android.application", "com.android.library" -> useModule("com.android.tools.build:gradle:${requested.version}")
         "kotlin-android-extensions" -> useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:${requested.version}")
         "com.google.gms.oss.licenses.plugin" -> useModule("com.google.gms:oss-licenses:${requested.version}")
         "org.jlleitschuh.gradle.ktlint" -> useModule("org.jlleitschuh.gradle:ktlint-gradle:${requested.version}")

@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
+import info.movito.themoviedbapi.TmdbApi
+import info.movito.themoviedbapi.model.core.MovieResultsPage
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.model.MovieList
 import space.ersan.movlan.data.source.local.LocalDataSource
@@ -13,12 +15,17 @@ import space.ersan.movlan.data.source.remote.search.SearchDataSourceFactory
 import space.ersan.movlan.utils.LiveNetworkStatus
 import space.ersan.movlan.utils.Maybe
 import space.ersan.movlan.utils.NetworkStatus
+import java.util.Locale
 
 class DefaultMoviesRepository(
   private val localDataSource: LocalDataSource,
   private val remoteDataSource: RemoteDataSource,
   private val moviesDbBoundaryCallbackFactory: MoviesDbBoundaryCallbackFactory
 ) : MoviesRepository {
+
+  private val tmdbApi: TmdbApi by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+    TmdbApi("5d66a45677199ff38b6070adc8141e75")
+  }
 
   override suspend fun searchMovies(
     query: String,
@@ -129,5 +136,9 @@ class DefaultMoviesRepository(
       pagedListConfig
     )
       .build()
+  }
+
+  override suspend fun getNowPlayingMovies(page: Int): MovieResultsPage {
+    return tmdbApi.movies.getNowPlayingMovies(Locale.ENGLISH.language, page, null)
   }
 }

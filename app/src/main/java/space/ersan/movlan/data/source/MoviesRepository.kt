@@ -2,6 +2,7 @@ package space.ersan.movlan.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
+import info.movito.themoviedbapi.model.core.MovieResultsPage
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.model.MovieList
 import space.ersan.movlan.utils.LiveNetworkStatus
@@ -19,4 +20,6 @@ interface MoviesRepository {
     sorting: (Movie) -> Double,
     callback: (Maybe<MovieList>) -> Unit
   )
+
+  suspend fun getNowPlayingMovies(page: Int = 1): MovieResultsPage
 }

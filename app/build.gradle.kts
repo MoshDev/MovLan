@@ -28,7 +28,7 @@ android {
     getByName("debug") {
       applicationIdSuffix = ".debug"
       versionNameSuffix = "-debug"
-      isMinifyEnabled = false
+
       proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
     }
   }
@@ -70,6 +70,7 @@ dependencies {
   implementation(Depends.Network.gsonconvertor)
   implementation(Depends.Network.logging)
   implementation(Depends.Network.coroutineadapter)
+  implementation("info.movito:themoviedbapi:1.8")
 
   implementation(Depends.Glide.runtime)
   kapt(Depends.Glide.compiler)
@@ -103,5 +104,5 @@ dependencies {
 fun getMovieApiKey(): String {
   return System.getenv("MOVIE_DB_API_KEY")
     ?: project.rootProject.properties["MOVIE_DB_API_KEY"] as? String
-    ?: "5d66a45677199ff38b6070adc8141e75"
+    ?: throw Exception("Movie API key is not set.")
 }

@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class DefaultMovieListingViewModel @Inject constructor(
   private val moviesRepository: MoviesRepository,
-  cor: AppCoroutineDispatchers
+  private val cor: AppCoroutineDispatchers
 ) : MovieListingViewModel() {
 
   private val networkStatus = LiveNetworkStatus()
