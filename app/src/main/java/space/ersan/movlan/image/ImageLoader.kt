@@ -8,7 +8,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import space.ersan.movlan.BuildConfig
 import space.ersan.movlan.R
-import space.ersan.movlan.data.model.Movie
+import space.ersan.themoviedbapi.model.movie.Movie
 
 sealed class ImageLoader(
   private val requestManager: RequestManager,

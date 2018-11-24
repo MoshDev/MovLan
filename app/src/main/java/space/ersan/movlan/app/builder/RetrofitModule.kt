@@ -15,10 +15,17 @@ import space.ersan.movlan.BuildConfig
 import space.ersan.movlan.data.model.AppConfig
 import space.ersan.movlan.data.source.remote.MovieDbApi
 import space.ersan.movlan.ext.queryInterceptor
+import space.ersan.themoviedbapi.TmdbApiClient
 import java.io.File
 
 @Module
 class RetrofitModule {
+
+  @Provides
+  @AppScope
+  fun provideTmdbApiClient(): TmdbApiClient {
+    return TmdbApiClient.newDefaultInstance()
+  }
 
   @Provides
   @AppScope

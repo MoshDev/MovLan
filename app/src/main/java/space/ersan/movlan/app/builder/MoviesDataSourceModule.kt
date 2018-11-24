@@ -4,15 +4,14 @@ import dagger.Module
 import dagger.Provides
 import space.ersan.movlan.data.source.DefaultMoviesRepository
 import space.ersan.movlan.data.source.MoviesRepository
-import space.ersan.movlan.data.source.local.DefaultMoviesDbBoundaryCallbackFactory
 import space.ersan.movlan.data.source.local.LocalDataSource
 import space.ersan.movlan.data.source.local.MoviesDao
-import space.ersan.movlan.data.source.local.MoviesDbBoundaryCallbackFactory
 import space.ersan.movlan.data.source.local.MoviesLocalDataSource
 import space.ersan.movlan.data.source.remote.MovieDbApi
 import space.ersan.movlan.data.source.remote.MoviesRemoteDataSource
 import space.ersan.movlan.data.source.remote.RemoteDataSource
 import space.ersan.movlan.utils.AppCoroutineDispatchers
+import space.ersan.themoviedbapi.TmdbApiClient
 
 @Module
 class MoviesDataSourceModule {
@@ -36,17 +35,8 @@ class MoviesDataSourceModule {
   @AppScope
   @Provides
   fun moviesRepository(
-    localDataSource: LocalDataSource,
-    remoteDataSource: RemoteDataSource,
-    moviesDbBoundaryCallbackFactory: MoviesDbBoundaryCallbackFactory
+    tmdbApiClient: TmdbApiClient
   ): MoviesRepository = DefaultMoviesRepository(
-    localDataSource,
-    remoteDataSource,
-    moviesDbBoundaryCallbackFactory
+    tmdbApiClient
   )
-
-  @AppScope
-  @Provides
-  fun moviesDbBoundaryCallbackFactory(): MoviesDbBoundaryCallbackFactory =
-    DefaultMoviesDbBoundaryCallbackFactory()
 }

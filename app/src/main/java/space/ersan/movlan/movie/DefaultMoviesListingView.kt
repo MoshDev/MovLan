@@ -12,10 +12,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.snackbar.Snackbar
 import space.ersan.movlan.R
 import space.ersan.movlan.common.NativeView
-import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.image.ImageLoader
 import space.ersan.movlan.movie.list.MoviesListAdapter
 import space.ersan.movlan.utils.NetworkStatus
+import space.ersan.themoviedbapi.model.movie.Movie
 
 @SuppressLint("ViewConstructor")
 class DefaultMoviesListingView(context: Context, posterLoader: ImageLoader.Poster) :

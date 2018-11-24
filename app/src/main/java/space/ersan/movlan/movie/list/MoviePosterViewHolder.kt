@@ -5,9 +5,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import space.ersan.movlan.R
-import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.ext.toYear
 import space.ersan.movlan.image.ImageLoader
+import space.ersan.themoviedbapi.model.movie.Movie
 
 class MoviePosterViewHolder(
   private val posterLoader: ImageLoader.Poster,

@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.details.MovieDetailsActivity
@@ -29,7 +28,7 @@ class DefaultMovieSearchViewModel @Inject constructor(
   override fun getSearchQuery(): String? = searchQuery
 
   override fun searchMovies(query: String, clb: (LiveData<PagedList<Movie>>) -> Unit) {
-    scope.launch {
+    /*scope.launch {
       searchQuery = query
       lastSearchLiveData?.let {
         searchLiveData.removeSource(it)
@@ -37,7 +36,7 @@ class DefaultMovieSearchViewModel @Inject constructor(
       lastSearchLiveData = moviesRepository.searchMovies(query)
       searchLiveData.addSource(lastSearchLiveData!!) { searchLiveData.postValue(it) }
       clb(lastSearchLiveData!!)
-    }
+    }*/
   }
 
   override fun showMovieDetails(context: Context, movie: Movie) = context.startActivity(

@@ -9,10 +9,9 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
-import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.source.MoviesRepository
 import space.ersan.movlan.utils.AppCoroutineDispatchers
+import space.ersan.themoviedbapi.model.movie.Movie
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -26,11 +25,11 @@ class DefaultMovieDetailsViewModel @Inject constructor(
 
   override fun getMovieDetails(movieId: Int): LiveData<Movie> {
     if (movieDetailsLiveData.value == null) {
-      launch {
-        moviesRepository.getMovieDetails(movieId) {
-          movieDetailsLiveData.postValue(it)
-        }
-      }
+//      launch {
+//        moviesRepository.getMovieDetails(movieId) {
+//          movieDetailsLiveData.postValue(it)
+//        }
+//      }
     }
     return movieDetailsLiveData
   }

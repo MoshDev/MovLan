@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import space.ersan.movlan.R
-import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.image.ImageLoader
+import space.ersan.themoviedbapi.model.movie.Movie
 
 class MoviesListAdapter(private val posterLoader: ImageLoader.Poster) :
   PagedListAdapter<Movie, MoviePosterViewHolder>(

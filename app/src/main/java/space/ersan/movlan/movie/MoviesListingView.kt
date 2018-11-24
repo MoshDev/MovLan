@@ -2,8 +2,8 @@ package space.ersan.movlan.movie
 
 import android.content.Context
 import androidx.paging.PagedList
-import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.utils.NetworkStatus
+import space.ersan.themoviedbapi.model.movie.Movie
 
 interface MoviesListingView {
   fun setMovies(result: PagedList<Movie>)

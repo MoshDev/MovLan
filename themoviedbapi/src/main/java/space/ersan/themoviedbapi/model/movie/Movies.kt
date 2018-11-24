@@ -6,7 +6,7 @@ import java.util.Collections
 data class Movies(
   @SerializedName("page")
   val page: Int?,
-  @SerializedName("reviews")
+  @SerializedName("results")
   val movies: List<Movie>?,
   @SerializedName("total_pages")
   val totalPages: Int?,

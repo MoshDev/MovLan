@@ -1,6 +1,6 @@
 package space.ersan.movlan.details
 
-import space.ersan.movlan.data.model.Movie
+import space.ersan.themoviedbapi.model.movie.Movie
 
 interface MovieDetailsView {
   fun setMovie(movie: Movie)

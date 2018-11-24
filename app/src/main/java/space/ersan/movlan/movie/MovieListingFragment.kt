@@ -31,9 +31,7 @@ class MovieListingFragment : Fragment() {
       (requireActivity() as ComponentProvider<HomeComponent>).getComponent()
     )
 
-    viewModelDefault.getMovies {
-      it.observe({ lifecycle }, view::setMovies)
-    }
+    viewModelDefault.getMovies().observe({ lifecycle }, view::setMovies)
     viewModelDefault.getNetworkStatus().observe({ lifecycle }, view::setNetworkStatus)
     view.observeSwipeToRefresh(viewModelDefault::refreshMovies)
     view.observeMovieListClicks(viewModelDefault::showMovieDetails)

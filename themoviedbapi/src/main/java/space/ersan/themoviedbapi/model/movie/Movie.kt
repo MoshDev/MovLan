@@ -11,6 +11,7 @@ import space.ersan.themoviedbapi.model.production.ProductionCountry
 import space.ersan.themoviedbapi.model.review.Reviews
 import space.ersan.themoviedbapi.model.similar.Similar
 import space.ersan.themoviedbapi.model.video.Videos
+import java.util.Date
 
 data class Movie(
   @SerializedName("adult")
@@ -24,11 +25,11 @@ data class Movie(
   @SerializedName("credits")
   val credits: Credits?,
   @SerializedName("genres")
-  val genres: List<Genre?>?,
+  val genres: List<Genre>?,
   @SerializedName("homepage")
   val homepage: String?,
   @SerializedName("id")
-  val id: Int?,
+  val id: Int,
   @SerializedName("images")
   val images: Images?,
   @SerializedName("imdb_id")
@@ -48,7 +49,7 @@ data class Movie(
   @SerializedName("production_countries")
   val productionCountries: List<ProductionCountry?>?,
   @SerializedName("release_date")
-  val releaseDate: String?,
+  val releaseDate: Date?,
   @SerializedName("revenue")
   val revenue: Int?,
   @SerializedName("reviews")

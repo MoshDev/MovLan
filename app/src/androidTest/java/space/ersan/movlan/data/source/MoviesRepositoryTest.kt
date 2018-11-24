@@ -22,7 +22,6 @@ import space.ersan.movlan.FakeMoviesApi
 import space.ersan.movlan.MoviesFactory
 import space.ersan.movlan.app.MovlanApp
 import space.ersan.movlan.data.model.Genre
-import space.ersan.movlan.data.source.local.DefaultMoviesDbBoundaryCallbackFactory
 import space.ersan.movlan.data.source.local.MoviesDb
 import space.ersan.movlan.data.source.local.MoviesLocalDataSource
 import space.ersan.movlan.data.source.remote.MoviesRemoteDataSource
@@ -69,7 +68,7 @@ class MoviesRepositoryTest {
 
     val boundaryCallbackFactory = DefaultMoviesDbBoundaryCallbackFactory()
     moviesRepository =
-      DefaultMoviesRepository(localDataSource, remoteDataSource, boundaryCallbackFactory)
+      DefaultMoviesRepository(localDataSource, remoteDataSource, boundaryCallbackFactory, api)
 
     lifecycleOwner = LifecycleOwner {
       LifecycleRegistry(mock()).apply {

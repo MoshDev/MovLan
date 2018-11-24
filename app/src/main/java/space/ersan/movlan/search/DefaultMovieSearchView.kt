@@ -60,7 +60,7 @@ class DefaultMovieSearchView(context: Context, posterLoader: ImageLoader.Poster)
   }
 
   override fun setMovies(result: PagedList<Movie>) {
-    adapter.submitList(result)
+//    adapter.submitList(result)
   }
 
   private fun showEmptyMessage(visible: Boolean) {
@@ -69,7 +69,7 @@ class DefaultMovieSearchView(context: Context, posterLoader: ImageLoader.Poster)
 
   override fun observeMovieListClicks(clb: (Context, Movie) -> Unit) {
     adapter.clicksCallback = {
-      clb(context, it)
+      //      clb(context, it)
     }
   }
 

@@ -40,6 +40,8 @@ android {
 
 dependencies {
 
+  implementation(project(":themoviedbapi"))
+
   implementation(Depends.Kotlin.stdlib)
   implementation(Depends.Kotlin.Coroutines.core)
   implementation(Depends.Kotlin.Coroutines.android)
@@ -70,7 +72,6 @@ dependencies {
   implementation(Depends.Network.gsonconvertor)
   implementation(Depends.Network.logging)
   implementation(Depends.Network.coroutineadapter)
-  implementation("info.movito:themoviedbapi:1.8")
 
   implementation(Depends.Glide.runtime)
   kapt(Depends.Glide.compiler)
