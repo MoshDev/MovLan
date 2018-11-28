@@ -14,7 +14,7 @@ import space.ersan.movlan.R
 import space.ersan.movlan.common.NativeView
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.image.ImageLoader
-import space.ersan.movlan.movie.list.MoviesListAdapter
+import space.ersan.movlan.ui.movie.list.MoviesListAdapter
 
 @SuppressLint("ViewConstructor")
 class DefaultMovieSearchView(context: Context, posterLoader: ImageLoader.Poster) : FrameLayout(

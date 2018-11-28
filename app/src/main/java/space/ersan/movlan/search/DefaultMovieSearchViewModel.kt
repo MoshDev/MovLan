@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import space.ersan.movlan.data.model.Movie
 import space.ersan.movlan.data.source.MoviesRepository
-import space.ersan.movlan.details.MovieDetailsActivity
+import space.ersan.movlan.ui.details.MovieDetailsActivity
 import space.ersan.movlan.utils.AppCoroutineDispatchers
 import javax.inject.Inject
 

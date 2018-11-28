@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import space.ersan.movlan.app.ComponentProvider
 import space.ersan.movlan.app.Movlan
 import space.ersan.movlan.common.NativeView
-import space.ersan.movlan.home.builder.HomeComponent
+import space.ersan.movlan.ui.home.builder.HomeComponent
 import javax.inject.Inject
 
 class MovieSearchFragment : Fragment() {

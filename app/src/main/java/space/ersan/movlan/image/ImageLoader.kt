@@ -18,6 +18,7 @@ sealed class ImageLoader(
 
   private companion object {
     private val defaultRequestOptions = RequestOptions()
+      .dontTransform()
       .fallback(R.drawable.bg_image_error)
       .error(R.drawable.bg_image_error)
   }

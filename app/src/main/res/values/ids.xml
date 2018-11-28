@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <item name="fragment_feed" type="id" />
+  <item name="fragment_tv" type="id" />
+  <item name="fragment_search" type="id" />
+</resources>

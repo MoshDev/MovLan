@@ -15,7 +15,7 @@ annotation class AppScope
   modules = [
     AppModule::class, AppConfigModule::class, GsonModule::class,
     ImageLoaderModule::class, RetrofitModule::class, MoviesDataSourceModule::class,
-    AppCoroutineModule::class, DatabaseModule::class, ViewModelModule::class, UseCasesModule::class
+    AppCoroutineModule::class, DatabaseModule::class, ViewModelModule::class, UseCasesModule::class, InteractorModule::class
   ]
 )
 interface AppComponent {

@@ -18,7 +18,7 @@
       android:layout_margin="@dimen/padding_medium"
       app:cardCornerRadius="@dimen/card_corner_radius">
 
-      <space.ersan.movlan.widget.AspectRatioImageView
+      <space.ersan.movlan.ui.widget.AspectRatioImageView
         android:id="@+id/backdropImageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -34,7 +34,7 @@
       android:orientation="horizontal"
       android:padding="@dimen/padding_medium">
 
-      <space.ersan.movlan.widget.AspectRatioImageView
+      <space.ersan.movlan.ui.widget.AspectRatioImageView
         android:id="@+id/thumbnailImageView"
         android:layout_width="@dimen/details_poster_width"
         android:layout_height="0dp"

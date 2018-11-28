@@ -5,13 +5,13 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import space.ersan.movlan.common.NativeView
-import space.ersan.movlan.home.builder.HomeComponent
 import space.ersan.movlan.image.ImageLoader
 import space.ersan.movlan.search.DefaultMovieSearchView
 import space.ersan.movlan.search.DefaultMovieSearchViewModel
 import space.ersan.movlan.search.MovieSearchFragment
 import space.ersan.movlan.search.MovieSearchView
 import space.ersan.movlan.search.MovieSearchViewModel
+import space.ersan.movlan.ui.home.builder.HomeComponent
 import javax.inject.Scope
 
 @Component(dependencies = [HomeComponent::class], modules = [MovieSearchModule::class])

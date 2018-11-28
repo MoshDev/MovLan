@@ -2,17 +2,17 @@
   xmlns:tools="http://schemas.android.com/tools"
   tools:ignore="AlwaysShowAction">
   <item
-    android:id="@id/movie_listing_fragment"
+    android:id="@id/fragment_feed"
     android:icon="@drawable/ic_movie_tab"
     android:title="@string/movies"
     tools:showAsAction="always" />
   <item
-    android:id="@id/tv_listing_fragment"
+    android:id="@id/fragment_tv"
     android:icon="@drawable/ic_tv_tab"
     android:title="@string/tv"
     tools:showAsAction="always" />
   <item
-    android:id="@id/search_fragment"
+    android:id="@id/fragment_search"
     android:icon="@drawable/ic_search_tab"
     android:title="@string/search"
     tools:showAsAction="always" />
