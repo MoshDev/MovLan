@@ -45,16 +45,15 @@ class FeedNowPlayingView @JvmOverloads constructor(
   }
 
   fun onSlide(bottomSheet: BottomSheetBehavior<RecyclerView>, slideOffset: Float) {
-    if (slideOffset < 0f) {
-      updateLayoutParams {
-        height = originalHeight + (((slideOffset * -1f) * bottomSheet.peekHeight).toInt())
+    updateLayoutParams {
+      height = if (slideOffset < 0) {
+        originalHeight + (((slideOffset * -1f) * bottomSheet.peekHeight).toInt())
+      } else {
+        (originalHeight * (1f - slideOffset)).toInt()
       }
     }
-    val toTrans = slideOffset * -400f
-    translationY = Math.min(0f, toTrans)
-    scaleX = Math.max(1f, 1f + (slideOffset / 2f))
-    scaleY = Math.max(1f, 1f + (slideOffset / 2f))
-    alpha = Math.min(1f, 1f - slideOffset)
+    recyclerView.scaleX = Math.max(1f, 1f + (slideOffset / 1.5f))
+    recyclerView.scaleY = Math.max(1f, 1f + (slideOffset / 1.5f))
   }
 }
 

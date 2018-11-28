@@ -13,77 +13,12 @@
   android:foreground="?selectableItemBackground"
   app:cardCornerRadius="@dimen/card_corner_radius">
 
-  <LinearLayout
+  <space.ersan.movlan.ui.widget.AspectRatioImageView
+    android:id="@+id/thumbnailImageView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <space.ersan.movlan.ui.widget.AspectRatioImageView
-      android:id="@+id/thumbnailImageView"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:scaleType="centerCrop"
-      app:ari_ratio="@string/poster_image_ratio"
-      tools:src="@tools:sample/avatars" />
-
-    <TextView
-      android:id="@+id/titleTextView"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:ellipsize="end"
-      android:gravity="top|center_horizontal"
-      android:lines="2"
-      android:maxLines="2"
-      android:padding="@dimen/padding_small"
-      android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-      android:textSize="@dimen/small_font_size"
-      tools:text="Terminator" />
-
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:paddingStart="@dimen/padding_small"
-      android:paddingEnd="@dimen/padding_small">
-
-      <TextView
-        android:id="@+id/movieRatingTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/ic_star_grey"
-        android:gravity="center"
-        android:paddingEnd="@dimen/padding_small"
-        android:textColor="@color/light_grey"
-        android:textSize="@dimen/small_font_size"
-        tools:ignore="RtlSymmetry"
-        tools:text="2.6" />
-
-      <TextView
-        android:id="@+id/yearTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ellipsize="end"
-        android:gravity="end"
-        android:lines="1"
-        android:textColor="@color/light_grey"
-        android:textSize="@dimen/small_font_size"
-        tools:text="2017" />
-
-    </LinearLayout>
-
-    <TextView
-      android:id="@+id/genresTextView"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:ellipsize="end"
-      android:gravity="end"
-      android:lines="1"
-      android:padding="@dimen/padding_small"
-      android:textColor="@color/light_grey"
-      android:textSize="@dimen/small_font_size"
-      tools:text="Horror | Drama | Blood" />
-
-  </LinearLayout>
+    android:scaleType="centerCrop"
+    app:ari_ratio="@string/poster_image_ratio"
+    tools:src="@tools:sample/avatars" />
 
 </com.google.android.material.card.MaterialCardView>

@@ -9,4 +9,21 @@
     android:layout_height="match_parent"
     tools:listitem="@layout/recycler_view_item_1" />
 
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:layout_gravity="bottom"
+    android:background="@drawable/feed_playing_item_bottom_shadow"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <Button
+      style="?borderlessButtonStyle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:drawableStart="@android:drawable/ic_menu_info_details"
+      android:text="info"
+      android:textAllCaps="false" />
+  </LinearLayout>
+
 </merge>
