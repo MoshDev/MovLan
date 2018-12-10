@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   tools:parentTag="android.widget.FrameLayout">
 
@@ -7,23 +8,18 @@
     android:id="@+id/recyclerView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F00"
+    android:minHeight="280dp"
+    android:orientation="horizontal"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    tools:background="#5FF0"
     tools:listitem="@layout/recycler_view_item_1" />
 
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:layout_gravity="bottom"
-    android:background="@drawable/feed_playing_item_bottom_shadow"
-    android:gravity="center"
-    android:orientation="horizontal">
+  <!--<View-->
+  <!--android:layout_width="match_parent"-->
+  <!--android:layout_height="56dp"-->
+  <!--android:layout_gravity="bottom"-->
+  <!--android:background="@drawable/feed_playing_item_bottom_shadow" />-->
 
-    <Button
-      style="?borderlessButtonStyle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:drawableStart="@android:drawable/ic_menu_info_details"
-      android:text="info"
-      android:textAllCaps="false" />
-  </LinearLayout>
 
 </merge>

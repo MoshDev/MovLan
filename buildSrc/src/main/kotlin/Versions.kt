@@ -31,7 +31,6 @@ object Versions {
 
   object Network {
     const val retrofit = "2.4.0"
-    const val logging = "3.10.0"
     const val coroutinesAdapter = "0.9.2"
     const val okhttp = "3.10.0"
   }

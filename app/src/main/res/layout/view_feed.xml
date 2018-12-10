@@ -8,14 +8,14 @@
   <space.ersan.movlan.ui.feed.view.FeedNowPlayingView
     android:id="@+id/feedNowPlayingView"
     android:layout_width="match_parent"
-    android:layout_height="380dp"
+    android:layout_height="wrap_content"
     android:background="#fff700" />
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/bottomSheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000"
+    android:background="#0F0"
     app:layout_behavior="@string/bottom_sheet_behavior"
     tools:listitem="@layout/recycler_view_item_1" />
 

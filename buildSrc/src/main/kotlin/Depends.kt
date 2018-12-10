@@ -50,7 +50,7 @@ object Depends {
     val okhttp = "com.squareup.okhttp3:okhttp:${Versions.Network.okhttp}"
     val retrofit = "com.squareup.retrofit2:retrofit:${Versions.Network.retrofit}"
     val gsonconvertor = "com.squareup.retrofit2:converter-gson:${Versions.Network.retrofit}"
-    val logging = "com.squareup.okhttp3:logging-interceptor:${Versions.Network.logging}"
+    val logging = "com.squareup.okhttp3:logging-interceptor:${Versions.Network.okhttp}"
     val coroutineadapter =
       "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${Versions.Network.coroutinesAdapter}"
   }

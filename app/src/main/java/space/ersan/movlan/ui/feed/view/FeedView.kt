@@ -6,11 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.view.doOnLayout
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.snackbar.Snackbar
 import space.ersan.movlan.R
 import space.ersan.movlan.common.BaseView
 import space.ersan.movlan.common.NativeView
@@ -50,6 +45,7 @@ class FeedView(context: Context) : BaseView, NativeView {
   fun setFeedMovies(feedMovies: FeedMovies) {
     feedNowPlayingView.setNowPlayingMovies(feedMovies.nowPlaying.movies!!)
     adapter.list.addAll(feedMovies.popular)
+    adapter.list.addAll(feedMovies.upcoming)
     adapter.notifyDataSetChanged()
   }
 

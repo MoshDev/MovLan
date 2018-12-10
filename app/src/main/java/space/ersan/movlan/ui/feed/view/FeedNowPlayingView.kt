@@ -8,12 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import androidx.core.view.doOnLayout
-import androidx.core.view.updateLayoutParams
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import space.ersan.movlan.R
 import space.ersan.movlan.image.ImageLoader
 import space.ersan.themoviedbapi.model.movie.Movie
@@ -34,7 +28,7 @@ class FeedNowPlayingView @JvmOverloads constructor(
   }
 
   private val recyclerView = findViewById<RecyclerView>(R.id.recyclerView).apply {
-    layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+    //    layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
     adapter = this@FeedNowPlayingView.adapter
     PagerSnapHelper().attachToRecyclerView(this)
   }
@@ -45,15 +39,15 @@ class FeedNowPlayingView @JvmOverloads constructor(
   }
 
   fun onSlide(bottomSheet: BottomSheetBehavior<RecyclerView>, slideOffset: Float) {
-    updateLayoutParams {
+    recyclerView.updateLayoutParams {
       height = if (slideOffset < 0) {
         originalHeight + (((slideOffset * -1f) * bottomSheet.peekHeight).toInt())
       } else {
         (originalHeight * (1f - slideOffset)).toInt()
       }
     }
-    recyclerView.scaleX = Math.max(1f, 1f + (slideOffset / 1.5f))
-    recyclerView.scaleY = Math.max(1f, 1f + (slideOffset / 1.5f))
+//    recyclerView.scaleX = Math.max(1f, 1f + (slideOffset / 1.5f))
+//    recyclerView.scaleY = Math.max(1f, 1f + (slideOffset / 1.5f))
   }
 }
 
