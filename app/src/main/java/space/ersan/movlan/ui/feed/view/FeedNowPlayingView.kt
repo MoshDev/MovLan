@@ -8,6 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import androidx.core.view.doOnLayout
+import androidx.core.view.updateLayoutParams
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import space.ersan.movlan.R
 import space.ersan.movlan.image.ImageLoader
 import space.ersan.themoviedbapi.model.movie.Movie
