@@ -1,22 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <space.ersan.movlan.ui.feed.view.FeedNowPlayingView
+  <space.ersan.movlan.ui.feed.view.content.FeedNowPlayingView
     android:id="@+id/feedNowPlayingView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#fff700" />
 
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/bottomSheet"
+  <space.ersan.movlan.ui.feed.view.content.FeedListingView
+    android:id="@+id/feedListingView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0F0"
-    app:layout_behavior="@string/bottom_sheet_behavior"
-    tools:listitem="@layout/recycler_view_item_1" />
+    app:layout_behavior="@string/bottom_sheet_behavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

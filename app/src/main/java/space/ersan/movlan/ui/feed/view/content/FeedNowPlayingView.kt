@@ -1,4 +1,4 @@
-package space.ersan.movlan.ui.feed.view
+package space.ersan.movlan.ui.feed.view.content
 
 import android.app.Application
 import android.content.Context
@@ -43,13 +43,14 @@ class FeedNowPlayingView @JvmOverloads constructor(
     adapter.notifyDataSetChanged()
   }
 
-  fun onSlide(bottomSheet: BottomSheetBehavior<RecyclerView>, slideOffset: Float) {
-    recyclerView.updateLayoutParams {
+  fun onSlide(bottomSheet: BottomSheetBehavior<*>, slideOffset: Float) {
+    updateLayoutParams {
       height = if (slideOffset < 0) {
         originalHeight + (((slideOffset * -1f) * bottomSheet.peekHeight).toInt())
       } else {
         (originalHeight * (1f - slideOffset)).toInt()
       }
+      recyclerView.requestLayout()
     }
 //    recyclerView.scaleX = Math.max(1f, 1f + (slideOffset / 1.5f))
 //    recyclerView.scaleY = Math.max(1f, 1f + (slideOffset / 1.5f))

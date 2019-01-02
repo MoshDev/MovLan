@@ -8,7 +8,7 @@ object Versions {
   }
 
   object Kotlin {
-    const val version = "1.3.10"
+    const val version = "1.3.11"
     const val coroutines = "1.0.1"
   }
 
